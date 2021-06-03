@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MainPage from '../main-page/main-page.jsx';
 
-function App({offersAmount}) {
+function App({offers}) {
 
   return (
-    <MainPage offersAmount={offersAmount} />
+    <MainPage offers={offers} />
   );
 }
 
 App.propTypes = {
-  offersAmount: PropTypes.number.isRequired,
+  offers: PropTypes.number.isRequired,
 };
 
 export default App;

@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
 
-function MainPage({offersAmount}) {
-  const getOffersAmount = () => new Array(offersAmount).fill().map((item, i, id=i) => <PlaceCard key={id} />);
-
+function MainPage({offers}) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -94,7 +92,7 @@ function MainPage({offersAmount}) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {getOffersAmount()}
+                {offers.map(({id}) => <PlaceCard key={{id}} />)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -108,7 +106,7 @@ function MainPage({offersAmount}) {
 }
 
 MainPage.propTypes = {
-  offersAmount: PropTypes.number.isRequired,
+  offers: PropTypes.number.isRequired,
 };
 
 export default MainPage;

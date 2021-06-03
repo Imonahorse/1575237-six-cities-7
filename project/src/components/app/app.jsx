@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MainPage from '../main-page/main-page.jsx';
 
-function App(props) {
-  const {countOfRentalOffers} = props;
+function App({offersAmount}) {
 
   return (
-    <MainPage countOfRentalOffers={countOfRentalOffers} />
+    <MainPage offersAmount={offersAmount} />
   );
 }
 
 App.propTypes = {
-  countOfRentalOffers: PropTypes.number.isRequired,
+  offersAmount: PropTypes.number.isRequired,
 };
 
 export default App;

@@ -4,8 +4,8 @@ function PlaceCard() {
   return (
     <article className="cities__place-card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
+        <a href="/#">
+          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place"/>
         </a>
       </div>
       <div className="place-card__info">
@@ -28,7 +28,7 @@ function PlaceCard() {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Wood and stone place</a>
+          <a href="/#">Wood and stone place</a>
         </h2>
         <p className="place-card__type">Private room</p>
       </div>

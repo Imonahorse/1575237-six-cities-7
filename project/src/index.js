@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
 const Setting = {
-  COUNT_OF_RENTAL_OFFERS: 10,
+  OFFERS_AMOUNT: 10,
 };
 
 ReactDOM.render(
   <React.StrictMode>
-    <App countOfRentalOffers={Setting.COUNT_OF_RENTAL_OFFERS}/>
+    <App offersAmount={Setting.OFFERS_AMOUNT}/>
   </React.StrictMode>,
   document.getElementById('root'));

@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../../header/header.jsx';
+import Header from '../../components/header/header.jsx';
 
-function SingIn() {
+function SignIn() {
   return (
     <div className="page page--gray page--login">
       <Header/>
@@ -34,5 +34,5 @@ function SingIn() {
   );
 }
 
-export default SingIn;
+export default SignIn;
 

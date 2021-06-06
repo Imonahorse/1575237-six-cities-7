@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../header/header.jsx';
+import Header from '../../components/header/header.jsx';
 import {Link} from 'react-router-dom';
 
 function NotFound() {

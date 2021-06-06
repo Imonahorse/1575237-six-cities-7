@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../../header/header.jsx';
+import Header from '../../components/header/header.jsx';
 
-function Room() {
+function Offer() {
   return (
     <div className="page">
       <Header/>
@@ -267,4 +267,4 @@ function Room() {
   );
 }
 
-export default Room;
+export default Offer;

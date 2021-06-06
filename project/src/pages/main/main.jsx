@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from '../place-card/place-card.jsx';
-import Header from '../../header/header.jsx';
+import OfferCard from '../offer-card/offer-card.jsx';
+import Header from '../../components/header/header.jsx';
 
-function MainPage({offers}) {
+function Main({offers}) {
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -67,7 +67,7 @@ function MainPage({offers}) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map(({id}) => <PlaceCard key={{id}}/>)}
+                {offers.map(({id}) => <OfferCard key={{id}}/>)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -80,7 +80,7 @@ function MainPage({offers}) {
   );
 }
 
-MainPage.propTypes = {
+Main.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -88,4 +88,4 @@ MainPage.propTypes = {
   ).isRequired,
 };
 
-export default MainPage;
+export default Main;

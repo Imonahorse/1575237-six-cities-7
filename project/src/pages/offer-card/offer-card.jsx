@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-function PlaceCard() {
+function OfferCard() {
   return (
     <article className="cities__place-card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -37,4 +37,4 @@ function PlaceCard() {
   );
 }
 
-export default PlaceCard;
+export default OfferCard;

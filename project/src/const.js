@@ -1,6 +1,8 @@
-export const AppRoute = {
+const AppRoutes = {
   MAIN: '/',
   SING_IN: '/login',
   FAVORITES: '/favorites',
-  ROOM: '/offer/:id?',
+  OFFER: '/offer/:id',
 };
+
+export {AppRoutes};

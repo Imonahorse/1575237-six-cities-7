@@ -1,7 +1,12 @@
 import React from 'react';
 import Header from '../../components/header/header.jsx';
+import PropTypes from 'prop-types';
 
-function Offer() {
+function Offer({offers}) {
+  const offer = offers[1];
+  const {price, title, type, rating, bedroomsCount, maxAdults, features, host, description, images} = offer;
+  const {name, avatarUrl, isPro} = host
+
   return (
     <div className="page">
       <Header/>
@@ -9,24 +14,13 @@ function Offer() {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Studio"/>
-              </div>
+              {images.map(({src, alt, id}) => {
+                return(
+                  <div className="property__image-wrapper" key={id}>
+                    <img className="property__image" src={src} alt={alt}/>
+                  </div>
+                )
+              })}
             </div>
           </div>
           <div className="property__container container">
@@ -36,7 +30,7 @@ function Offer() {
               </div>
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -50,80 +44,54 @@ function Offer() {
                   <span style={{width: '80%'}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  Apartment
+                  {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {bedroomsCount} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;120</b>
+                <b className="property__price-value">&euro;{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  <li className="property__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="property__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="property__inside-item">
-                    Towels
-                  </li>
-                  <li className="property__inside-item">
-                    Heating
-                  </li>
-                  <li className="property__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="property__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="property__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="property__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="property__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="property__inside-item">
-                    Fridge
-                  </li>
+                  {features.map((feature) => {
+                    return(
+                      <li className="property__inside-item" key={feature}>
+                        {feature}
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
+                    <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
-                    Angelina
+                    {name}
                   </span>
                   <span className="property__user-status">
-                    Pro
+                    {isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th
-                    century.
+                    {description}
                   </p>
                   <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to
-                    rest
-                    in this alley flowery and colorful.
+                    {description}
                   </p>
                 </div>
               </div>
@@ -266,5 +234,41 @@ function Offer() {
     </div>
   );
 }
+
+Offer.propTypes = {
+  offers: PropTypes.arrayOf(
+    PropTypes.shape({
+      description: PropTypes.array.isRequired,
+      isPremium: PropTypes.bool.isRequired,
+      isFavorite: PropTypes.bool.isRequired,
+      title: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+      bedroomsCount: PropTypes.number.isRequired,
+      maxAdults: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      features: PropTypes.array.isRequired,
+      id: PropTypes.string.isRequired,
+      images: PropTypes.arrayOf(
+        PropTypes.shape({
+          src: PropTypes.string.isRequired,
+          alt: PropTypes.string.isRequired,
+          id: PropTypes.string.isRequired,
+        }),
+      ).isRequired,
+      previewImage: PropTypes.shape({
+        src: PropTypes.string.isRequired,
+        alt: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+      }),
+      host: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        isPro: PropTypes.bool.isRequired,
+        avatarUrl: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+      }),
+    }),
+  ).isRequired,
+};
 
 export default Offer;

@@ -1,23 +1,26 @@
-import React from 'react';
+import OffersList from '../offers-list/offers-list.jsx';
+import React from "react";
+import Sorting from '../sorting/sorting';
+import Map from '../../components/map/map.jsx';
 import PropTypes from 'prop-types';
-import Header from '../../components/header/header.jsx';
-import Cities from '../../components/cities/cities.jsx';
-import OffersPreview from '../../components/offers-preview/offers-preview.jsx'
 
-function Main({offers}) {
+function OffersPreview({offers}) {
   return (
-    <div className="page page--gray page--main">
-      <Header/>
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <Cities/>
-        <OffersPreview offers={offers}/>
-      </main>
+    <div className="cities">
+      <div className="cities__places-container container">
+        <section className="cities__places places">
+          <h2 className="visually-hidden">Places</h2>
+          <b className="places__found">312 places to stay in Amsterdam</b>
+          <Sorting/>
+          <OffersList offers={offers}/>
+        </section>
+        <Map/>
+      </div>
     </div>
-  );
+  )
 }
 
-Main.propTypes = {
+OffersPreview.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape({
       description: PropTypes.array.isRequired,
@@ -53,4 +56,5 @@ Main.propTypes = {
   ).isRequired,
 };
 
-export default Main;
+
+export default OffersPreview;

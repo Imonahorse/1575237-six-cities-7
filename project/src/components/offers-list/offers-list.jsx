@@ -1,23 +1,16 @@
+import OfferCard from '../offer-card/offer-card.jsx';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from '../../components/header/header.jsx';
-import Cities from '../../components/cities/cities.jsx';
-import OffersPreview from '../../components/offers-preview/offers-preview.jsx'
 
-function Main({offers}) {
-  return (
-    <div className="page page--gray page--main">
-      <Header/>
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <Cities/>
-        <OffersPreview offers={offers}/>
-      </main>
+function OffersList({offers}) {
+  return(
+    <div className="cities__places-list places__list tabs__content">
+      {offers.map((offer) => <OfferCard key={offer.id} offer={offer}/>)}
     </div>
-  );
+  )
 }
 
-Main.propTypes = {
+OffersList.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape({
       description: PropTypes.array.isRequired,
@@ -53,4 +46,4 @@ Main.propTypes = {
   ).isRequired,
 };
 
-export default Main;
+export default OffersList;

@@ -11,6 +11,6 @@ const CITIES = [
   'Amsterdam',
   'Hamburg',
   'Dusseldorf',
-]
+];
 
 export {AppRoutes, CITIES};

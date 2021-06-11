@@ -1,14 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from "prop-types";
+import mainProp from '../../pages/main/main-prop.js';
+import cn from 'classnames';
+import PropTypes from 'prop-types';
 
-function OfferCard({offer}) {
-  const {price, title, type, previewImage} = offer;
+function OfferCard({offer, onHoverCard}) {
+  const {price, title, type, previewImage, id, isFavorite} = offer;
   const {src, alt} = previewImage;
-
+  const bookmarkClass = cn('place-card__bookmark-button button', {'place-card__bookmark-button--active' : isFavorite});
 
   return (
-    <article className="cities__place-card place-card">
+    <article onMouseEnter={(evt)=> onHoverCard(evt)} className="cities__place-card place-card" id={id}>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to="/offer">
           <img className="place-card__image" src={src} width="260" height="200" alt={alt}/>
@@ -20,7 +22,7 @@ function OfferCard({offer}) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={bookmarkClass} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -43,37 +45,8 @@ function OfferCard({offer}) {
 }
 
 OfferCard.propTypes = {
-  offer: PropTypes.shape({
-      description: PropTypes.array.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-      title: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-      bedroomsCount: PropTypes.number.isRequired,
-      maxAdults: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-      features: PropTypes.array.isRequired,
-      id: PropTypes.string.isRequired,
-      images: PropTypes.arrayOf(
-        PropTypes.shape({
-          src: PropTypes.string.isRequired,
-          alt: PropTypes.string.isRequired,
-          id: PropTypes.string.isRequired,
-        }),
-      ).isRequired,
-      previewImage: PropTypes.shape({
-        src: PropTypes.string.isRequired,
-        alt: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-      }),
-      host: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        isPro: PropTypes.bool.isRequired,
-        avatarUrl: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-      }),
-    }).isRequired,
+  offer: mainProp,
+  onHoverCard: PropTypes.func.isRequired,
 };
 
 export default OfferCard;

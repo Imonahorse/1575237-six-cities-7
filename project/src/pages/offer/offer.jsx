@@ -1,11 +1,13 @@
 import React from 'react';
 import Header from '../../components/header/header.jsx';
+import AddComment from '../../components/add-comment/add-comment.jsx';
 import PropTypes from 'prop-types';
+import mainProp from '../../pages/main/main-prop.js';
 
 function Offer({offers}) {
   const offer = offers[1];
   const {price, title, type, rating, bedroomsCount, maxAdults, features, host, description, images} = offer;
-  const {name, avatarUrl, isPro} = host
+  const {name, avatarUrl, isPro} = host;
 
   return (
     <div className="page">
@@ -14,12 +16,12 @@ function Offer({offers}) {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {images.map(({src, alt, id}) => {
-                return(
-                  <div className="property__image-wrapper" key={id}>
+              {images.map(({src, alt}) => {
+                return (
+                  <div className="property__image-wrapper" key={alt + 1}>
                     <img className="property__image" src={src} alt={alt}/>
                   </div>
-                )
+                );
               })}
             </div>
           </div>
@@ -65,11 +67,11 @@ function Offer({offers}) {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {features.map((feature) => {
-                    return(
+                    return (
                       <li className="property__inside-item" key={feature}>
                         {feature}
                       </li>
-                    )
+                    );
                   })}
                 </ul>
               </div>
@@ -123,6 +125,7 @@ function Offer({offers}) {
                     </div>
                   </li>
                 </ul>
+                <AddComment />
               </section>
             </div>
           </div>
@@ -237,37 +240,7 @@ function Offer({offers}) {
 
 Offer.propTypes = {
   offers: PropTypes.arrayOf(
-    PropTypes.shape({
-      description: PropTypes.array.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-      title: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-      bedroomsCount: PropTypes.number.isRequired,
-      maxAdults: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-      features: PropTypes.array.isRequired,
-      id: PropTypes.string.isRequired,
-      images: PropTypes.arrayOf(
-        PropTypes.shape({
-          src: PropTypes.string.isRequired,
-          alt: PropTypes.string.isRequired,
-          id: PropTypes.string.isRequired,
-        }),
-      ).isRequired,
-      previewImage: PropTypes.shape({
-        src: PropTypes.string.isRequired,
-        alt: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-      }),
-      host: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        isPro: PropTypes.bool.isRequired,
-        avatarUrl: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-      }),
-    }),
+    mainProp,
   ).isRequired,
 };
 

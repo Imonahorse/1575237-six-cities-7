@@ -1,23 +1,39 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useRouteMatch} from 'react-router-dom';
 import offerCardProp from './offer-card-prop.js';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import {AppRoutes} from '../../const.js';
 
-function OfferCard({offer, handleActiveCard=()=>{}}) {
-  const {price, title, type, previewImage, id, isFavorite} = offer;
+const template = () => {
+};
+const mainWidth = '260px';
+const favoritesWidth = '150px';
+
+function OfferCard({offer, handleActiveCard = template}) {
+  const {price, title, type, id, isFavorite, previewImage} = offer;
   const {src, alt} = previewImage;
-
-  const bookmarkClass = cn('place-card__bookmark-button button', {'place-card__bookmark-button--active' : isFavorite});
+  const {path} = useRouteMatch();
+  const imageClass = cn('place-card__image-wrapper', {
+    'cities__image-wrapper': path === AppRoutes.MAIN,
+    'favorites__image-wrapper': path === AppRoutes.FAVORITES,
+  });
+  const articleClass = cn('place-card', {
+    'cities__place-card': path === AppRoutes.MAIN,
+    'favorites__card': path === AppRoutes.FAVORITES,
+  });
+  const infoClass = cn('place-card__info', {'favorites__card-info': path === AppRoutes.FAVORITES});
+  const bookmarkClass = cn('place-card__bookmark-button button', {'place-card__bookmark-button--active': isFavorite});
+  const imageWidth = path === AppRoutes.FAVORITES ? favoritesWidth : mainWidth;
 
   return (
-    <article onMouseEnter={()=> handleActiveCard(id)} className="cities__place-card place-card" id={id}>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article onMouseEnter={() => handleActiveCard(id)} className={articleClass} id={id}>
+      <div className={imageClass}>
         <Link to={`/offer/${price}`}>
-          <img className="place-card__image" src={src} width="260" height="200" alt={alt}/>
+          <img className="place-card__image" style={{width: imageWidth}} src={src} width="260" height="200" alt={alt}/>
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={infoClass}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>

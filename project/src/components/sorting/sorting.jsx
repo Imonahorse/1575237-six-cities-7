@@ -38,7 +38,7 @@ function Sorting() {
             >
               {item}
             </li>);
-        })},
+        })}
       </ul>
     </form>
   );

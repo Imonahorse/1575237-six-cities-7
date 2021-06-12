@@ -20,7 +20,7 @@ function App({offers}) {
           <SignIn/>
         </Route>
         <Route exact path={AppRoutes.FAVORITES}>
-          <Favorites offers={offers} />
+          <Favorites offers={offers}/>
         </Route>
         <Route exact path={AppRoutes.OFFER}>
           <Offer offers={offers}/>

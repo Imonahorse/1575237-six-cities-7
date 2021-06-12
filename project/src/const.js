@@ -2,7 +2,7 @@ const AppRoutes = {
   MAIN: '/',
   SIGN_IN: '/login',
   FAVORITES: '/favorites',
-  OFFER: '/offer/:id?',
+  OFFER: '/offer/:id',
 };
 const CITIES = [
   'Paris',

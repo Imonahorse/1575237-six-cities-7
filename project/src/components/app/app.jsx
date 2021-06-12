@@ -7,7 +7,7 @@ import SignIn from '../../pages/sign-in/sign-in.jsx';
 import Favorites from '../../pages/favorites/favorites.jsx';
 import Offer from '../../pages/offer/offer.jsx';
 import NotFound from '../../pages/not-found/not-found.jsx';
-import mainProp from '../../pages/main/main-prop.js';
+import offerCardProp from '../offer-card/offer-card-prop.js';
 
 function App({offers}) {
   return (
@@ -20,7 +20,7 @@ function App({offers}) {
           <SignIn/>
         </Route>
         <Route exact path={AppRoutes.FAVORITES}>
-          <Favorites/>
+          <Favorites offers={offers} />
         </Route>
         <Route exact path={AppRoutes.OFFER}>
           <Offer offers={offers}/>
@@ -34,9 +34,7 @@ function App({offers}) {
 }
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(
-    mainProp,
-  ).isRequired,
+  offers: PropTypes.arrayOf(offerCardProp).isRequired,
 };
 
 

@@ -1,11 +1,17 @@
 import React from 'react';
 import Header from '../../components/header/header.jsx';
-import AddComment from '../../components/add-comment/add-comment.jsx';
+import CommentForm from '../../components/comment-form/comment-form.jsx';
+import offerCardProp from '../../components/offer-card/offer-card-prop.js';
+import {useRouteMatch} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import mainProp from '../../pages/main/main-prop.js';
+import Map from '../../components/map/map.jsx';
 
 function Offer({offers}) {
-  const offer = offers[1];
+  const match = useRouteMatch();
+  const paramsId = match.params.id;
+
+  const offer = offers.find((item) => item.price.toString() === paramsId);
+
   const {price, title, type, rating, bedroomsCount, maxAdults, features, host, description, images} = offer;
   const {name, avatarUrl, isPro} = host;
 
@@ -16,13 +22,11 @@ function Offer({offers}) {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {images.map(({src, alt}) => {
-                return (
-                  <div className="property__image-wrapper" key={alt + 1}>
-                    <img className="property__image" src={src} alt={alt}/>
-                  </div>
-                );
-              })}
+              {images.map(({src, alt}) => (
+                <div className="property__image-wrapper" key={alt}>
+                  <img className="property__image" src={src} alt={alt}/>
+                </div>),
+              )}
             </div>
           </div>
           <div className="property__container container">
@@ -36,14 +40,16 @@ function Offer({offers}) {
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
+                    <use xlinkHref="#icon-bookmark">
+                    </use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{width: '80%'}}>
+                  </span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -66,13 +72,11 @@ function Offer({offers}) {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {features.map((feature) => {
-                    return (
-                      <li className="property__inside-item" key={feature}>
-                        {feature}
-                      </li>
-                    );
-                  })}
+                  {features.map((feature) => (
+                    <li className="property__inside-item" key={feature}>
+                      {feature}
+                    </li>),
+                  )}
                 </ul>
               </div>
               <div className="property__host">
@@ -112,7 +116,8 @@ function Offer({offers}) {
                     <div className="reviews__info">
                       <div className="reviews__rating rating">
                         <div className="reviews__stars rating__stars">
-                          <span style={{width: '80%'}}></span>
+                          <span style={{width: '80%'}}>
+                          </span>
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
@@ -125,11 +130,11 @@ function Offer({offers}) {
                     </div>
                   </li>
                 </ul>
-                <AddComment />
+                <CommentForm/>
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map/>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -149,14 +154,16 @@ function Offer({offers}) {
                     </div>
                     <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
                       <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"></use>
+                        <use xlinkHref="#icon-bookmark">
+                        </use>
                       </svg>
                       <span className="visually-hidden">In bookmarks</span>
                     </button>
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: '80%'}}></span>
+                      <span style={{width: '80%'}}>
+                      </span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -181,14 +188,16 @@ function Offer({offers}) {
                     </div>
                     <button className="place-card__bookmark-button button" type="button">
                       <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"></use>
+                        <use xlinkHref="#icon-bookmark">
+                        </use>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
                     </button>
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: '80%'}}></span>
+                      <span style={{width: '80%'}}>
+                      </span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -213,14 +222,16 @@ function Offer({offers}) {
                     </div>
                     <button className="place-card__bookmark-button button" type="button">
                       <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"></use>
+                        <use xlinkHref="#icon-bookmark">
+                        </use>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
                     </button>
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: '100%'}}></span>
+                      <span style={{width: '100%'}}>
+                      </span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -239,9 +250,7 @@ function Offer({offers}) {
 }
 
 Offer.propTypes = {
-  offers: PropTypes.arrayOf(
-    mainProp,
-  ).isRequired,
+  offers: PropTypes.arrayOf(offerCardProp).isRequired,
 };
 
 export default Offer;

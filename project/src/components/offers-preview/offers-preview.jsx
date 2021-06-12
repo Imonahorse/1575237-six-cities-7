@@ -2,8 +2,8 @@ import OffersList from '../offers-list/offers-list.jsx';
 import React from 'react';
 import Sorting from '../sorting/sorting';
 import Map from '../../components/map/map.jsx';
+import offerCardProp from '../offer-card/offer-card-prop.js';
 import PropTypes from 'prop-types';
-import mainProp from '../../pages/main/main-prop.js';
 
 function OffersPreview({offers}) {
   return (
@@ -15,16 +15,16 @@ function OffersPreview({offers}) {
           <Sorting/>
           <OffersList offers={offers}/>
         </section>
-        <Map/>
+        <div className="cities__right-section">
+          <Map/>
+        </div>
       </div>
     </div>
   );
 }
 
 OffersPreview.propTypes = {
-  offers: PropTypes.arrayOf(
-    mainProp,
-  ).isRequired,
+  offers: PropTypes.arrayOf(offerCardProp).isRequired,
 };
 
 

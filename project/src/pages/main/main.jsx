@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../../components/header/header.jsx';
 import Cities from '../../components/cities/cities.jsx';
 import OffersPreview from '../../components/offers-preview/offers-preview.jsx';
-import mainProp from './main-prop.js';
+import offerCardProp from '../../components/offer-card/offer-card-prop.js';
+import PropTypes from 'prop-types';
 
 function Main({offers}) {
   return (
@@ -19,9 +19,7 @@ function Main({offers}) {
 }
 
 Main.propTypes = {
-  offers: PropTypes.arrayOf(
-    mainProp,
-  ).isRequired,
+  offers: PropTypes.arrayOf(offerCardProp).isRequired,
 };
 
 export default Main;

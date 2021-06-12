@@ -16,13 +16,11 @@ export default PropTypes.shape({
     PropTypes.shape({
       src: PropTypes.string.isRequired,
       alt: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
   previewImage: PropTypes.shape({
     src: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
   }).isRequired,
   host: PropTypes.shape({
     name: PropTypes.string.isRequired,

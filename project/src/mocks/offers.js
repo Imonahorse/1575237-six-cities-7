@@ -1,8 +1,9 @@
 import {nanoid} from 'nanoid';
+import {CITIES} from '../const.js';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 const APARTMENT_URL = 'http://lorempixel.com/260/200/city/';
-const OFFERS_COUNT = 5;
+const OFFERS_COUNT = 10;
 const TITLES = [
   'St. Francis Psychiatric Hospital',
   'Sell garage',
@@ -45,51 +46,38 @@ const DESCRIPTIONS = [
   'Tellus molestie nunc non blandit massa enim nec dui nunc.',
 ];
 
-const getRandomInteger = (lower, upper) => {
-  return lower + Math.floor(Math.random() * (upper - lower + 1));
-};
-const getRandomArrayElement = (array) => {
-  return array[getRandomInteger(0, array.length - 1)];
-};
-const getRandomArray = (array) => {
-  return array.filter(() => Math.random() > 0.3);
-};
-const getRandomImage = () => {
-  return {
-    src: APARTMENT_URL + getRandomInteger(1, 10),
-    alt: getRandomArrayElement(FEATURES),
-    id: nanoid(),
-  };
-};
-const getImageArray = () => {
-  return new Array(getRandomInteger(1, 6)).fill('').map(() => getRandomImage());
-};
+const getRandomInteger = (lower, upper) => lower + Math.floor(Math.random() * (upper - lower + 1));
+const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
+const getRandomArray = (array) => array.filter(() => Math.random() > 0.3);
+const getRandomImage = () => ({
+  src: APARTMENT_URL + getRandomInteger(1, 10),
+  alt: getRandomArrayElement(FEATURES),
+});
+const getImageArray = () => new Array(getRandomInteger(1, 6)).fill('').map(() => getRandomImage());
 
-const createOffer = () => {
-  return {
-    description: getRandomArray(DESCRIPTIONS),
-    isPremium: Math.random() > 0.3,
-    isFavorite: Math.random() > 0.3,
-    title: getRandomArrayElement(TITLES),
-    rating: getRandomInteger(0, 5),
-    type: getRandomArrayElement(TYPES),
-    bedroomsCount: getRandomInteger(0, 5),
-    maxAdults: getRandomInteger(0, 10),
-    price: getRandomInteger(100, 1000),
-    features: getRandomArray(FEATURES),
-    host: {
-      name: getRandomArrayElement(NAMES),
-      isPro: Math.random() > 0.3,
-      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
-      id: nanoid(),
-    },
+const createOffer = () => ({
+  city: getRandomArrayElement(CITIES),
+  description: getRandomArray(DESCRIPTIONS),
+  isPremium: Math.random() > 0.3,
+  isFavorite: Math.random() > 0.8,
+  title: getRandomArrayElement(TITLES),
+  rating: getRandomInteger(0, 5),
+  type: getRandomArrayElement(TYPES),
+  bedroomsCount: getRandomInteger(0, 5),
+  maxAdults: getRandomInteger(0, 10),
+  price: getRandomInteger(100, 1000),
+  features: getRandomArray(FEATURES),
+  host: {
+    name: getRandomArrayElement(NAMES),
+    isPro: Math.random() > 0.3,
+    avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
     id: nanoid(),
-    images: getImageArray(),
-    previewImage: getRandomImage(),
-  };
-};
-const createOffers = () => {
-  return new Array(OFFERS_COUNT).fill('').map(() => createOffer());
-};
+  },
+  id: nanoid(),
+  images: getImageArray(),
+  previewImage: getRandomImage(),
+});
+
+const createOffers = () => new Array(OFFERS_COUNT).fill('').map(() => createOffer());
 
 export {createOffers};

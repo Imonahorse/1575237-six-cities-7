@@ -1,18 +1,19 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import mainProp from '../../pages/main/main-prop.js';
+import offerCardProp from './offer-card-prop.js';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-function OfferCard({offer, onHoverCard}) {
+function OfferCard({offer, handleActiveCard=()=>{}}) {
   const {price, title, type, previewImage, id, isFavorite} = offer;
   const {src, alt} = previewImage;
+
   const bookmarkClass = cn('place-card__bookmark-button button', {'place-card__bookmark-button--active' : isFavorite});
 
   return (
-    <article onMouseEnter={(evt)=> onHoverCard(evt)} className="cities__place-card place-card" id={id}>
+    <article onMouseEnter={()=> handleActiveCard(id)} className="cities__place-card place-card" id={id}>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="/offer">
+        <Link to={`/offer/${price}`}>
           <img className="place-card__image" src={src} width="260" height="200" alt={alt}/>
         </Link>
       </div>
@@ -24,19 +25,21 @@ function OfferCard({offer, onHoverCard}) {
           </div>
           <button className={bookmarkClass} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
+              <use xlinkHref="#icon-bookmark">
+              </use>
             </svg>
             <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: '80%'}}>
+            </span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/#">{title}</a>
+          <Link to={`/offer/${price}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -45,8 +48,8 @@ function OfferCard({offer, onHoverCard}) {
 }
 
 OfferCard.propTypes = {
-  offer: mainProp,
-  onHoverCard: PropTypes.func.isRequired,
+  offer: offerCardProp,
+  handleActiveCard: PropTypes.func,
 };
 
 export default OfferCard;

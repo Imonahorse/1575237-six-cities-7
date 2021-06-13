@@ -61,7 +61,7 @@ const createOffer = () => ({
   isPremium: Math.random() > 0.3,
   isFavorite: Math.random() > 0.8,
   title: getRandomArrayElement(TITLES),
-  rating: getRandomInteger(0, 5),
+  rating: getRandomInteger(1, 5),
   type: getRandomArrayElement(TYPES),
   bedroomsCount: getRandomInteger(0, 5),
   maxAdults: getRandomInteger(0, 10),

@@ -1,25 +1,30 @@
 import React, {useState} from 'react';
 import CommentRating from '../comment-rating/comment-rating.jsx';
 
+const MIN_LENGTH = 50;
+
 function CommentForm() {
   const [state, setState] = useState({
     rating: '',
     review: '',
   });
 
-  const isValid = !(state.rating.length && state.review.length);
+  const isValid = !(state.rating.length && state.review.length && state.review.length >= MIN_LENGTH);
 
-  const onTextChange = (evt) => {
-    const name = evt.currentTarget.name;
-    setState({...state, [name]: evt.target.value});
+  const onInputChange = (evt) => {
+    const {name, value} = evt.target;
+    setState({
+      ...state,
+      [name]: value,
+    });
   };
 
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <CommentRating onTextChange={onTextChange}/>
+      <CommentRating onInputChange={onInputChange}/>
       <textarea
-        onChange={onTextChange}
+        onChange={onInputChange}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"

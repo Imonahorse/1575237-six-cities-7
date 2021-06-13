@@ -1,29 +1,25 @@
 import React from 'react';
-import {CITIES} from '../../const.js';
 import FavoritesCity from '../favorites-city/favorites-city.jsx';
 import PropTypes from 'prop-types';
 import offerCardProp from '../offer-card/offer-card-prop.js';
 
-function FavoritesList({offers}) {
+function FavoritesList({cityOffers}) {
+  const cities = Object.keys(cityOffers);
+
   return (
-    <ul className="favorites__list">
-      {CITIES.map((city) => {
-        const favoriteOffers = offers.filter((offer) => offer.city === city && offer.isFavorite);
-
-        if (!favoriteOffers.length) {
-          return '';
-        }
-
-        return (
-          <FavoritesCity favoriteOffers={favoriteOffers} city={city} key={city}/>
-        );
-      })}
-    </ul>
+    <section className="favorites">
+      <h1 className="favorites__title">Saved listing</h1>
+      <ul className="favorites__list">
+        {cities.map((city) => (
+          <FavoritesCity cityOffers={cityOffers} city={city} key={city}/>
+        ))}
+      </ul>
+    </section>
   );
 }
 
 FavoritesList.propTypes = {
-  offers: PropTypes.arrayOf(offerCardProp).isRequired,
+  cityOffers: PropTypes.arrayOf(offerCardProp).isRequired,
 };
 
 export default FavoritesList;

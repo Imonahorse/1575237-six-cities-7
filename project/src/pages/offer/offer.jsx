@@ -2,18 +2,29 @@ import React from 'react';
 import Header from '../../components/header/header.jsx';
 import CommentForm from '../../components/comment-form/comment-form.jsx';
 import offerCardProp from '../../components/offer-card/offer-card-prop.js';
-import {useRouteMatch} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Map from '../../components/map/map.jsx';
+import Host from '../../components/host/host.jsx';
+import Mark from '../../components/mark/mark.jsx';
 
 function Offer({offers}) {
-  const match = useRouteMatch();
-  const paramsId = match.params.id;
+  const params = useParams();
+  const offer = offers.find((item) => item.price === Number(params.id));
 
-  const offer = offers.find((item) => item.price.toString() === paramsId);
-
-  const {price, title, type, rating, bedroomsCount, maxAdults, features, host, description, images} = offer;
-  const {name, avatarUrl, isPro} = host;
+  const {
+    isPremium,
+    price,
+    title,
+    type,
+    rating,
+    bedroomsCount,
+    maxAdults,
+    features,
+    host,
+    description,
+    images,
+  } = offer;
 
   return (
     <div className="page">
@@ -31,9 +42,7 @@ function Offer({offers}) {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+              {isPremium && <Mark/>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -79,28 +88,7 @@ function Offer({offers}) {
                   )}
                 </ul>
               </div>
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar"/>
-                  </div>
-                  <span className="property__user-name">
-                    {name}
-                  </span>
-                  <span className="property__user-status">
-                    {isPro ? 'Pro' : ''}
-                  </span>
-                </div>
-                <div className="property__description">
-                  <p className="property__text">
-                    {description}
-                  </p>
-                  <p className="property__text">
-                    {description}
-                  </p>
-                </div>
-              </div>
+              <Host host={host} description={description}/>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
                 <ul className="reviews__list">

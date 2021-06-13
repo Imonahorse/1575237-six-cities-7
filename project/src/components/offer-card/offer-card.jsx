@@ -7,13 +7,17 @@ import {AppRoutes} from '../../const.js';
 
 const template = () => {
 };
-const mainWidth = '260px';
-const favoritesWidth = '150px';
+const ImageWidth = {
+  mainWidth: '260px',
+  favoritesWidth: '150px',
+};
+const getRating = (rating) => `${rating * 2} + 0%`;
 
 function OfferCard({offer, handleActiveCard = template}) {
-  const {price, title, type, id, isFavorite, previewImage} = offer;
-  const {src, alt} = previewImage;
+  const {price, title, type, id, isFavorite, previewImage, rating} = offer;
+  const {alt, src} = previewImage;
   const {path} = useRouteMatch();
+
   const imageClass = cn('place-card__image-wrapper', {
     'cities__image-wrapper': path === AppRoutes.MAIN,
     'favorites__image-wrapper': path === AppRoutes.FAVORITES,
@@ -24,7 +28,8 @@ function OfferCard({offer, handleActiveCard = template}) {
   });
   const infoClass = cn('place-card__info', {'favorites__card-info': path === AppRoutes.FAVORITES});
   const bookmarkClass = cn('place-card__bookmark-button button', {'place-card__bookmark-button--active': isFavorite});
-  const imageWidth = path === AppRoutes.FAVORITES ? favoritesWidth : mainWidth;
+
+  const imageWidth = path === AppRoutes.FAVORITES ? ImageWidth.favoritesWidth : ImageWidth.mainWidth;
 
   return (
     <article onMouseEnter={() => handleActiveCard(id)} className={articleClass} id={id}>
@@ -49,7 +54,7 @@ function OfferCard({offer, handleActiveCard = template}) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}>
+            <span style={{width: getRating(rating)}}>
             </span>
             <span className="visually-hidden">Rating</span>
           </div>

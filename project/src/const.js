@@ -1,8 +1,16 @@
 const AppRoutes = {
   MAIN: '/',
-  SING_IN: '/login',
+  SIGN_IN: '/login',
   FAVORITES: '/favorites',
   OFFER: '/offer/:id',
 };
+const CITIES = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
 
-export {AppRoutes};
+export {AppRoutes, CITIES};

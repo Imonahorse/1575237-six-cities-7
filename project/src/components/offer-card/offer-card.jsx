@@ -4,6 +4,7 @@ import offerCardProp from './offer-card-prop.js';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import {AppRoutes} from '../../const.js';
+import {getRating} from '../../utils.js';
 
 const template = () => {
 };
@@ -11,9 +12,8 @@ const ImageWidth = {
   mainWidth: '260px',
   favoritesWidth: '150px',
 };
-const getRating = (rating) => `${rating * 2} + 0%`;
 
-function OfferCard({offer, handleActiveCard = template}) {
+function OfferCard({offer, handleActiveCard = (template)}) {
   const {price, title, type, id, isFavorite, previewImage, rating} = offer;
   const {alt, src} = previewImage;
   const {path} = useRouteMatch();

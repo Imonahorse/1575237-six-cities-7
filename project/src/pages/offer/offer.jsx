@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from '../../components/header/header.jsx';
-import CommentForm from '../../components/comment-form/comment-form.jsx';
 import offerCardProp from '../../components/offer-card/offer-card-prop.js';
 import {useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Map from '../../components/map/map.jsx';
 import Host from '../../components/host/host.jsx';
 import Mark from '../../components/mark/mark.jsx';
+import {getRating} from '../../utils.js';
+import Comments from '../../components/comments/comments.jsx';
 
 function Offer({offers}) {
   const params = useParams();
@@ -57,7 +58,7 @@ function Offer({offers}) {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}}>
+                  <span style={{width: getRating(rating)}}>
                   </span>
                   <span className="visually-hidden">Rating</span>
                 </div>
@@ -89,37 +90,7 @@ function Offer({offers}) {
                 </ul>
               </div>
               <Host host={host} description={description}/>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"/>
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: '80%'}}>
-                          </span>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from
-                        18th
-                        century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
-                <CommentForm/>
-              </section>
+              <Comments />
             </div>
           </div>
           <Map/>

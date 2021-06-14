@@ -10,7 +10,7 @@ const PlacesOptions = {
 
 function Sorting() {
   const [openState, setOpenState] = useState(false);
-  const [typeState, setTypeState] = useState('Popular');
+  const [activeSort, setActiveSort] = useState('Popular');
   const sortClass = cn('places__options places__options--custom', {'places__options--opened': openState});
 
   return (
@@ -20,7 +20,7 @@ function Sorting() {
     >
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex="0">
-        {typeState}
+        {activeSort}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select">
           </use>
@@ -28,10 +28,10 @@ function Sorting() {
       </span>
       <ul className={sortClass}>
         {Object.values(PlacesOptions).map((item) => {
-          const optionClass = cn('places__option', {'places__option--active': item === typeState});
+          const optionClass = cn('places__option', {'places__option--active': item === activeSort});
           return (
             <li className={optionClass} tabIndex="0" key={item} onClick={() => {
-              setTypeState(item);
+              setActiveSort(item);
             }}
             >
               {item}

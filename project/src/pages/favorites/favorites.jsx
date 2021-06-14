@@ -7,18 +7,10 @@ import PropTypes from 'prop-types';
 import offerCardProp from '../../components/offer-card/offer-card-prop.js';
 
 function Favorites({offers}) {
-  const cityOffers = offers.reduce((obj, current) => {
-    if (!obj[current.city] && current.isFavorite) {
-      obj[current.city] = [];
-    }
-    if (current.isFavorite) {
-      obj[current.city].push(current);
-    }
-    return obj;
-  }, {});
-  const citiesCount = Object.keys(cityOffers).length;
+  const favoritesOffers = offers.filter((offer) => offer.isFavorite);
+  const citiesCount = favoritesOffers.length;
 
-  const isEmpty = citiesCount ? <FavoritesList cityOffers={cityOffers}/> : <FavoritesEmpty/>;
+  const isEmpty = citiesCount ? <FavoritesList favoritesOffers={favoritesOffers}/> : <FavoritesEmpty/>;
 
   return (
     <div className="page">

@@ -3,7 +3,14 @@ import FavoritesCity from '../favorites-city/favorites-city.jsx';
 import PropTypes from 'prop-types';
 import offerCardProp from '../offer-card/offer-card-prop.js';
 
-function FavoritesList({cityOffers}) {
+function FavoritesList({favoritesOffers}) {
+  const cityOffers = favoritesOffers.reduce((acc, current) => {
+    if (!acc[current.city]) {
+      acc[current.city] = [];
+    }
+    acc[current.city].push(current);
+    return acc;
+  }, {});
   const cities = Object.keys(cityOffers);
 
   return (
@@ -19,7 +26,7 @@ function FavoritesList({cityOffers}) {
 }
 
 FavoritesList.propTypes = {
-  cityOffers: PropTypes.arrayOf(offerCardProp).isRequired,
+  favoritesOffers: PropTypes.arrayOf(offerCardProp).isRequired,
 };
 
 export default FavoritesList;

@@ -63,8 +63,8 @@ const createOffer = () => ({
   title: getRandomArrayElement(TITLES),
   rating: getRandomInteger(1, 5),
   type: getRandomArrayElement(TYPES),
-  bedroomsCount: getRandomInteger(0, 5),
-  maxAdults: getRandomInteger(0, 10),
+  bedroomsCount: getRandomInteger(1, 5),
+  maxAdults: getRandomInteger(1, 10),
   price: getRandomInteger(100, 1000),
   features: getRandomArray(FEATURES),
   host: {

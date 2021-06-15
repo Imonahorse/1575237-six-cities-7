@@ -8,16 +8,15 @@ import offerCardProp from '../../components/offer-card/offer-card-prop.js';
 
 function Favorites({offers}) {
   const favoritesOffers = offers.filter((offer) => offer.isFavorite);
-  const citiesCount = favoritesOffers.length;
 
-  const isEmpty = citiesCount ? <FavoritesList favoritesOffers={favoritesOffers}/> : <FavoritesEmpty/>;
+  const isContent = favoritesOffers.length ? <FavoritesList favoritesOffers={favoritesOffers}/> : <FavoritesEmpty/>;
 
   return (
     <div className="page">
       <Header/>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          {isEmpty}
+          {isContent}
         </div>
       </main>
       <Footer/>

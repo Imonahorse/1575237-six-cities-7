@@ -8,48 +8,53 @@ import useMap from '../../hooks/useMap.js';
 import PropTypes from 'prop-types';
 import offerCardProp from '../offer-card/offer-card-prop.js';
 
-const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+const Marker = {
+  DEFAULT: '/img/pin.svg',
+  ACTIVE: '/img/pin-active.svg',
+};
+const IconSize = {
+  X: 40,
+  Y: 40,
+};
+const AnchorSize = {
+  X: IconSize / 2,
+  Y: IconSize,
+};
+const defaultCustomIcon = leaflet.icon({
+  iconUrl: Marker.DEFAULT,
+  iconSize: [IconSize.X, IconSize.Y],
+  iconAnchor: [AnchorSize.X, AnchorSize.Y],
+});
+const activeCustomIcon = leaflet.icon({
+  iconUrl: Marker.ACTIVE,
+  iconSize: [IconSize.X, IconSize.Y],
+  iconAnchor: [AnchorSize.X, AnchorSize.Y],
+});
 
 function Map({activeCard, cityOffers, cityState}) {
   const mapRef = useRef(null);
   const {path} = useRouteMatch();
   const map = useMap(mapRef, cityState);
-
-  const defaultCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const currentCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+  const mapClass = cn('map', {
+    'cities__map': path === AppRoutes.MAIN,
+    'property__map': path === AppRoutes.OFFER,
   });
 
   useEffect(() => {
     if (map) {
       cityOffers.forEach((offer) => {
-        leaflet.marker(
+        const marker = leaflet.marker(
           {
             lat: offer.location.latitude,
             lng: offer.location.longitude,
           },
           {
-            icon: (offer.id === activeCard)
-              ? currentCustomIcon
-              : defaultCustomIcon,
-          },
-        ).addTo(map);
+            icon: (offer.id === activeCard) ? activeCustomIcon : defaultCustomIcon,
+          });
+        marker.addTo(map);
       });
     }
-  }, [map, cityOffers, activeCard, currentCustomIcon, defaultCustomIcon]);
-
-  const mapClass = cn('map', {
-    'cities__map': path === AppRoutes.MAIN,
-    'property__map': path === AppRoutes.OFFER,
-  });
+  }, [map, cityOffers, activeCard]);
 
   return (
     <section
@@ -60,7 +65,7 @@ function Map({activeCard, cityOffers, cityState}) {
   );
 }
 
-Map.propTypes ={
+Map.propTypes = {
   activeCard: PropTypes.string.isRequired,
   cityOffers: PropTypes.arrayOf(offerCardProp).isRequired,
   cityState: PropTypes.string.isRequired,

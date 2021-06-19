@@ -6,8 +6,8 @@ import offerCardProp from '../offer-card/offer-card-prop.js';
 import PropTypes from 'prop-types';
 
 function OffersPreview({cityOffers, cityState}) {
-  const [activeCard, setActiveCard] = useState('');
-  const handleActiveCard = (activeId) => setActiveCard(activeId);
+  const [activeCardId, setActiveCardId] = useState('');
+  const handleActiveCard = (activeId) => setActiveCardId(activeId);
 
 
   return (
@@ -20,7 +20,7 @@ function OffersPreview({cityOffers, cityState}) {
           <OffersList cityOffers={cityOffers} handleActiveCard={handleActiveCard}/>
         </section>
         <div className="cities__right-section">
-          <Map activeCard={activeCard} cityOffers={cityOffers} cityState={cityState}/>
+          <Map activeCardId={activeCardId} cityOffers={cityOffers} cityState={cityState}/>
         </div>
       </div>
     </div>

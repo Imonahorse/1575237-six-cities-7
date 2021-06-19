@@ -11,8 +11,15 @@ const Layer = {
 };
 
 function useMap(mapRef, cityState) {
-  const location = CITIES[cityState];
+  let location = CITIES[cityState];
   const [map, setMap] = useState(null);
+
+  useEffect(()=> {
+    if(map){
+      map.setView({lat: location.latitude, lng: location.longitude}, ZOOM);
+    }
+  }, [map, location])
+
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
@@ -26,9 +33,6 @@ function useMap(mapRef, cityState) {
         marker: true,
       });
 
-      instance
-        .setView({lat: location.latitude, lng: location.longitude}, ZOOM);
-
       leaflet
         .tileLayer(Layer.URL, {attribution: Layer.COPYRIGHT, apikey: Layer.APIKEY})
         .addTo(instance);
@@ -36,7 +40,7 @@ function useMap(mapRef, cityState) {
       setMap(instance);
     }
 
-  }, [mapRef, map, cityState, location]);
+  }, [mapRef, map, location, cityState]);
 
   return map;
 }

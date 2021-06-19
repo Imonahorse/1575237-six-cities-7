@@ -13,7 +13,7 @@ const ImageWidth = {
   favoritesWidth: '150px',
 };
 
-function OfferCard({offer, handleActiveCard = (template)}) {
+function OfferCard({offer, handleActiveCard = template}) {
   const {price, title, type, id, isFavorite, previewImage, rating} = offer;
   const {alt, src} = previewImage;
   const {path} = useRouteMatch();
@@ -32,7 +32,12 @@ function OfferCard({offer, handleActiveCard = (template)}) {
   const imageWidth = path === AppRoutes.FAVORITES ? ImageWidth.favoritesWidth : ImageWidth.mainWidth;
 
   return (
-    <article onMouseEnter={() => handleActiveCard(id)} className={articleClass} id={id}>
+    <article
+      onMouseEnter={() => handleActiveCard(id)}
+      onMouseLeave={() => handleActiveCard('')}
+      className={articleClass}
+      id={id}
+    >
       <div className={imageClass}>
         <Link to={`/offer/${price}`}>
           <img className="place-card__image" style={{width: imageWidth}} src={src} width="260" height="200" alt={alt}/>

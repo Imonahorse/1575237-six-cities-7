@@ -1,7 +1,17 @@
 import PropTypes from 'prop-types';
 
 export default PropTypes.shape({
-  city: PropTypes.string.isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    latitude: PropTypes.string.isRequired,
+    longitude: PropTypes.string.isRequired,
+  }).isRequired,
   description: PropTypes.array.isRequired,
   isPremium: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,

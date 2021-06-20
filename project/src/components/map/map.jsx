@@ -31,7 +31,7 @@ const activeCustomIcon = leaflet.icon({
   iconAnchor: [AnchorSize.X, AnchorSize.Y],
 });
 
-function Map({activeCardId, cityOffers, cityState}) {
+function Map({activeCardId=' ', cityOffers, cityState}) {
   const mapRef = useRef(null);
   const {path} = useRouteMatch();
   const map = useMap(mapRef, cityState);
@@ -41,7 +41,7 @@ function Map({activeCardId, cityOffers, cityState}) {
   });
 
   useEffect(() => {
-    const markers = L.layerGroup();
+    const markers = leaflet.layerGroup();
 
     if (map) {
       cityOffers.forEach((offer) => {
@@ -61,7 +61,7 @@ function Map({activeCardId, cityOffers, cityState}) {
 
     return (() => {
       markers.clearLayers();
-    })
+    });
   }, [map, cityOffers, activeCardId]);
 
   return (
@@ -74,7 +74,7 @@ function Map({activeCardId, cityOffers, cityState}) {
 }
 
 Map.propTypes = {
-  activeCardId: PropTypes.string.isRequired,
+  activeCardId: PropTypes.string,
   cityOffers: PropTypes.arrayOf(offerCardProp).isRequired,
   cityState: PropTypes.string.isRequired,
 };

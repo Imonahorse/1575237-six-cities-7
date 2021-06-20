@@ -3,7 +3,7 @@ import {CITIES} from '../const.js';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 const APARTMENT_URL = 'http://lorempixel.com/260/200/city/';
-const OFFERS_COUNT = 10;
+const OFFERS_COUNT = 5;
 const TITLES = [
   'St. Francis Psychiatric Hospital',
   'Sell garage',

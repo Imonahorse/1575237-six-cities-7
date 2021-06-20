@@ -6,7 +6,7 @@ function OfferGallery({images}) {
     <div className="property__gallery-container container">
       <div className="property__gallery">
         {images.map(({src, alt}) => (
-          <div className="property__image-wrapper" key={alt}>
+          <div className="property__image-wrapper" key={alt+src}>
             <img className="property__image" src={src} alt={alt}/>
           </div>),
         )}

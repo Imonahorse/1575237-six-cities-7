@@ -18,6 +18,7 @@ function Offer({offers}) {
     );
   }
 
+  const neighboringOffers = offers.filter((item) => (item.city.name === offer.city.name) && (item !== offer));
   const {images} = offer;
 
   return (
@@ -27,9 +28,9 @@ function Offer({offers}) {
         <section className="property">
           <OfferGallery images={images}/>
           <OfferPage offer={offer}/>
-          <Map/>
+          <Map cityOffers={neighboringOffers} cityState={offer.city.name}/>
         </section>
-        <OfferNeighbourhood/>
+        {neighboringOffers.length && <OfferNeighbourhood neighboringOffers={neighboringOffers}/>}
       </main>
     </div>
   );

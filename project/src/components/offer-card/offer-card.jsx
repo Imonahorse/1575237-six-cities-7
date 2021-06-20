@@ -25,6 +25,7 @@ function OfferCard({offer, handleActiveCard = template}) {
   const articleClass = cn('place-card', {
     'cities__place-card': path === AppRoutes.MAIN,
     'favorites__card': path === AppRoutes.FAVORITES,
+    'near-places__card': path === AppRoutes.OFFER,
   });
   const infoClass = cn('place-card__info', {'favorites__card-info': path === AppRoutes.FAVORITES});
   const bookmarkClass = cn('place-card__bookmark-button button', {'place-card__bookmark-button--active': isFavorite});

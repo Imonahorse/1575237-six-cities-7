@@ -17,6 +17,7 @@ function OfferPage({offer}) {
     features,
     host,
     description,
+    comments,
   } = offer;
 
   return (
@@ -62,14 +63,14 @@ function OfferPage({offer}) {
           <h2 className="property__inside-title">What&apos;s inside</h2>
           <ul className="property__inside-list">
             {features.map((feature) => (
-              <li className="property__inside-item" key={feature}>
+              <li className="property__inside-item" key={feature + price}>
                 {feature}
               </li>),
             )}
           </ul>
         </div>
         <Host host={host} description={description}/>
-        <Comments/>
+        <Comments comments={comments}/>
       </div>
     </div>
   );

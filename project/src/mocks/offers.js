@@ -2,8 +2,9 @@ import {nanoid} from 'nanoid';
 import {CITIES} from '../const.js';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
+const COMMENT_AVATAR_URL = 'https://i.pravatar.cc/54';
 const APARTMENT_URL = 'http://lorempixel.com/260/200/city/';
-const OFFERS_COUNT = 10;
+const OFFERS_COUNT = 5;
 const TITLES = [
   'St. Francis Psychiatric Hospital',
   'Sell garage',
@@ -66,6 +67,19 @@ const getRandomLocation = (city) => ({
   latitude: getRandomLat(CITIES[city].latitude),
   longitude: getRandomLng(CITIES[city].longitude),
 });
+const createComment = () => ({
+  comment: 'Я идиот убейте меня кто-нибудь',
+  date: new Date().toISOString(),
+  id: nanoid(),
+  rating: getRandomInteger(1, 5),
+  user: {
+    avatarUrl: `${COMMENT_AVATAR_URL}?img=${getRandomInteger(1,10)}`,
+    id: nanoid(),
+    isPro: Math.random() > 0.5,
+    name: getRandomArrayElement(NAMES),
+  },
+});
+const createComments = () => new Array(getRandomInteger(1,5)).fill(null).map(()=> createComment());
 
 const createOffer = () => {
   const city = getRandomArrayElement(Object.keys(CITIES));
@@ -100,6 +114,7 @@ const createOffer = () => {
     id: nanoid(),
     images: getImageArray(),
     previewImage: getRandomImage(),
+    comments: createComments(),
   });
 };
 

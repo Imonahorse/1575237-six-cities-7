@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Map from '../../components/map/map.jsx';
 import OfferGallery from '../../components/offer-gallery/offer-gallery.jsx';
 import OfferPage from '../../components/offer-page/offer-page.jsx';
-import OfferNeighbourhood from '../../components/offer-neighbourhood/offer-neighbourhood.jsx';
+import NearPlacesOffers from '../../components/nearPlacesOffers/nearPlacesOffers.jsx';
 
 function Offer({offers}) {
   const params = useParams();
@@ -18,6 +18,7 @@ function Offer({offers}) {
     );
   }
 
+  const nearPlacesOffers = offers.filter((item) => (item.city.name === offer.city.name) && (item !== offer));
   const {images} = offer;
 
   return (
@@ -27,9 +28,9 @@ function Offer({offers}) {
         <section className="property">
           <OfferGallery images={images}/>
           <OfferPage offer={offer}/>
-          <Map/>
+          <Map cityOffers={nearPlacesOffers} cityState={offer.city.name}/>
         </section>
-        <OfferNeighbourhood/>
+        {nearPlacesOffers.length && <NearPlacesOffers neighboringOffers={nearPlacesOffers}/>}
       </main>
     </div>
   );

@@ -4,6 +4,7 @@ import Cities from '../../components/cities/cities.jsx';
 import OffersPreview from '../../components/offers-preview/offers-preview.jsx';
 import offerCardProp from '../../components/offer-card/offer-card-prop.js';
 import PropTypes from 'prop-types';
+import MainEmpty from '../../components/main-empty/main-empty.jsx';
 
 const defaultState = 'Amsterdam';
 
@@ -18,7 +19,7 @@ function Main({offers}) {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <Cities handleActiveCity={handleActiveCity} cityState={cityState}/>
-        <OffersPreview cityOffers={cityOffers} cityState={cityState}/>
+        {cityOffers.length ? <OffersPreview cityOffers={cityOffers} cityState={cityState}/> : <MainEmpty cityState={cityState}/>}
       </main>
     </div>
   );

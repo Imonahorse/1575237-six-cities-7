@@ -3,7 +3,7 @@ import CommentRating from '../comment-rating/comment-rating.jsx';
 
 const MIN_LENGTH = 50;
 
-function CommentForm() {
+function CommentsForm() {
   const [state, setState] = useState({
     rating: '',
     review: '',
@@ -46,4 +46,4 @@ function CommentForm() {
   );
 }
 
-export default CommentForm;
+export default CommentsForm;

@@ -39,4 +39,18 @@ export default PropTypes.shape({
     avatarUrl: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }).isRequired,
+  comments: PropTypes.arrayOf(
+    PropTypes.shape({
+      comment: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      user: PropTypes.shape({
+        avatarUrl: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        isPro: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  ).isRequired,
 }).isRequired;

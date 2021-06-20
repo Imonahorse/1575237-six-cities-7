@@ -14,8 +14,8 @@ function useMap(mapRef, cityState) {
   const location = CITIES[cityState];
   const [map, setMap] = useState(null);
 
-  useEffect(()=> {
-    if(map){
+  useEffect(() => {
+    if (map) {
       map.setView({lat: location.latitude, lng: location.longitude}, ZOOM);
     }
   }, [map, location]);

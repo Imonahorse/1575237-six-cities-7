@@ -19,7 +19,7 @@ function Main({offers}) {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <Cities handleActiveCity={handleActiveCity} cityState={cityState}/>
-        {cityOffers.length ? <OffersPreview cityOffers={cityOffers} cityState={cityState}/> : <MainEmpty />}
+        {cityOffers.length ? <OffersPreview cityOffers={cityOffers} cityState={cityState}/> : <MainEmpty cityState={cityState}/>}
       </main>
     </div>
   );

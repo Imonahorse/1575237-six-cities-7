@@ -2,8 +2,11 @@ import React from 'react';
 import {CITIES} from '../../const.js';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {actionCreator} from '../../store/actions.js';
 
-function Cities({handleActiveCity, cityState}) {
+function Cities(props) {
+  const {cityChange, cityState} = props;
   return (
     <div className="tabs">
       <section className="locations container">
@@ -15,7 +18,9 @@ function Cities({handleActiveCity, cityState}) {
               <li
                 className="locations__item"
                 key={city}
-                onClick={() => handleActiveCity(city)}
+                onClick={() => {
+                  cityChange(city);
+                }}
               >
                 <a className={cityClass} href="/#">
                   <span>{city}</span>
@@ -28,9 +33,20 @@ function Cities({handleActiveCity, cityState}) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  cityState: state.city,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  cityChange(city) {
+    dispatch(actionCreator.cityChange(city));
+  },
+});
+
 Cities.propTypes = {
-  handleActiveCity: PropTypes.func.isRequired,
   cityState: PropTypes.string.isRequired,
+  cityChange: PropTypes.func.isRequired,
 };
 
-export default Cities;
+export {Cities};
+export default connect(mapStateToProps, mapDispatchToProps)(Cities);

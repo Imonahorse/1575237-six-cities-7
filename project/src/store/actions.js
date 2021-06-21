@@ -1,16 +1,18 @@
 const ActionsType ={
-  CITY_CHANGE: 'City change',
-  GET_OFFERS: 'Get Offers',
-}
+  CITY_CHANGE: 'main/cityChange',
+  GET_OFFERS: 'main/getOffers',
+};
 
 const actionCreator = {
-  cityChange: () => ({
-    type: ActionsType.CITY_CHANGE
+  cityChange: (city) => ({
+    type: ActionsType.CITY_CHANGE,
+    payload: city,
   }),
-  getOffers: ()=> ({
-    type: ActionsType.GET_OFFERS
+  getOffers: (offers)=> ({
+    type: ActionsType.GET_OFFERS,
+    payload: offers,
   }),
-}
+};
 
 
 export {ActionsType, actionCreator};

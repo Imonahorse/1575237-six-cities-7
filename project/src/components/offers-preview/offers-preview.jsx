@@ -9,7 +9,6 @@ function OffersPreview({cityOffers, cityState}) {
   const [activeCardId, setActiveCardId] = useState('');
   const handleActiveCard = (activeId) => setActiveCardId(activeId);
 
-
   return (
     <div className="cities">
       <div className="cities__places-container container">

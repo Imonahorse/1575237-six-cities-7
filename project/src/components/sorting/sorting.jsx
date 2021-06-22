@@ -1,25 +1,12 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
-import {actionCreator} from "../../store/actions";
+import {actionCreator} from '../../store/actions.js';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {PlacesOptions} from '../../sort.js';
 
-const PlacesOptions = {
-  POPULAR: 'Popular',
-  PRICE_LOW_TO_HIGH: 'Price: low to high',
-  PRICE_HIGH_TO_LOW: 'Price: high to low',
-  TOP_RATED: 'Top rated first',
-};
-
-const SortingTypes = {
-  'Popular': (a, b) => a - b,
-  'Price: low to high': (a, b) => a.price - b.price,
-  'Price: high to low': (a, b) => b.price - a.price,
-  'Top rated first': (a, b) => b.rating - a.rating,
-}
-
-function Sorting({cityOffers, handleFilteredOffers, defaultSort, sortChange}) {
+function Sorting({activeSort, changeSort}) {
   const [openState, setOpenState] = useState(false);
-  const [activeSort, setActiveSort] = useState(defaultSort);
   const sortClass = cn('places__options places__options--custom', {'places__options--opened': openState});
 
   return (
@@ -40,9 +27,7 @@ function Sorting({cityOffers, handleFilteredOffers, defaultSort, sortChange}) {
           const optionClass = cn('places__option', {'places__option--active': item === activeSort});
           return (
             <li className={optionClass} tabIndex="0" key={item} onClick={() => {
-              setActiveSort(item);
-              sortChange(item);
-              handleFilteredOffers(cityOffers.slice().sort(SortingTypes[item]));
+              changeSort(item);
             }}
             >
               {item}
@@ -53,15 +38,20 @@ function Sorting({cityOffers, handleFilteredOffers, defaultSort, sortChange}) {
   );
 }
 
+Sorting.propTypes = {
+  activeSort: PropTypes.string.isRequired,
+  changeSort: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
-  defaultSort: state.sort,
-})
+  activeSort: state.sort,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  sortChange(sort) {
-    dispatch(actionCreator.sortChange(sort))
-  }
-})
+  changeSort(sort) {
+    dispatch(actionCreator.changeSort(sort));
+  },
+});
 
 export {Sorting};
 export default connect(mapStateToProps, mapDispatchToProps)(Sorting);

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {actionCreator} from '../../store/actions.js';
 import {connect} from 'react-redux';
 
-function Cities({currentCity, cityChange}) {
+function Cities({currentCity, changeCity}) {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -17,7 +17,7 @@ function Cities({currentCity, cityChange}) {
               <li
                 className="locations__item"
                 key={city}
-                onClick={() => cityChange(city)}
+                onClick={() => changeCity(city)}
               >
                 <a className={cityClass} href="/#">
                   <span>{city}</span>
@@ -32,7 +32,7 @@ function Cities({currentCity, cityChange}) {
 
 Cities.propTypes = {
   currentCity: PropTypes.string.isRequired,
-  cityChange: PropTypes.func.isRequired,
+  changeCity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -40,8 +40,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  cityChange(city) {
-    dispatch(actionCreator.cityChange(city));
+  changeCity(city) {
+    dispatch(actionCreator.changeCity(city));
   },
 });
 

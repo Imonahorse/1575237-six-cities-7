@@ -5,9 +5,14 @@ import OffersPreview from '../../components/offers-preview/offers-preview.jsx';
 import offerCardProp from '../../components/offer-card/offer-card-prop.js';
 import PropTypes from 'prop-types';
 import MainEmpty from '../../components/main-empty/main-empty.jsx';
+import {connect} from 'react-redux';
+import {SortingTypes} from '../../sort.js';
 
-function Main({offers, currentCity}) {
-  const cityOffers = offers.filter((offer) => offer.city.name === currentCity);
+function Main({offers, currentCity, activeSort}) {
+  const cityOffers = offers
+    .filter((offer) => offer.city.name === currentCity)
+    .slice()
+    .sort(SortingTypes[activeSort]);
 
   return (
     <div className="page page--gray page--main">
@@ -28,6 +33,12 @@ function Main({offers, currentCity}) {
 Main.propTypes = {
   offers: PropTypes.arrayOf(offerCardProp).isRequired,
   currentCity: PropTypes.string.isRequired,
+  activeSort: PropTypes.string.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  activeSort: state.sort,
+});
+
+export {Main};
+export default connect(mapStateToProps)(Main);

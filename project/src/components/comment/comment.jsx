@@ -1,5 +1,5 @@
 import React from 'react';
-import {getRating} from '../../utils.js';
+import {calcRating} from '../../utils.js';
 import commentProp from './comment-prop.js';
 import cn from 'classnames';
 
@@ -22,7 +22,7 @@ function Comment({comment}) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: getRating(rating)}}>
+            <span style={{width: calcRating(rating)}}>
             </span>
             <span className="visually-hidden">Rating</span>
           </div>

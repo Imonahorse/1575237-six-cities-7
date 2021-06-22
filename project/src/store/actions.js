@@ -1,20 +1,21 @@
 const ActionsType ={
-  CITY_CHANGE: 'main/cityChange',
+  CHANGE_CITY: 'main/cityChange',
   GET_OFFERS: 'main/getOffers',
-  SORT_CHANGE: 'sort/sortChange',
+  CHANGE_SORT: 'sort/sortChange',
+  GET_CURRENT_OFFERS: 'sort/getCurrentOffers',
 };
 
 const actionCreator = {
-  cityChange: (city) => ({
-    type: ActionsType.CITY_CHANGE,
+  changeCity: (city) => ({
+    type: ActionsType.CHANGE_CITY,
     payload: city,
   }),
   getOffers: (offers)=> ({
     type: ActionsType.GET_OFFERS,
     payload: offers,
   }),
-  sortChange: (sort)=> ({
-    type: ActionsType.SORT_CHANGE,
+  changeSort: (sort)=> ({
+    type: ActionsType.CHANGE_SORT,
     payload: sort,
   }),
 };

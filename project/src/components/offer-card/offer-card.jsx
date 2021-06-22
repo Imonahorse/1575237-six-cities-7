@@ -40,7 +40,7 @@ function OfferCard({offer, handleActiveCard = template}) {
       id={id}
     >
       <div className={imageClass}>
-        <Link to={`/offer/${price}`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" style={{width: imageWidth}} src={src} width="260" height="200" alt={alt}/>
         </Link>
       </div>

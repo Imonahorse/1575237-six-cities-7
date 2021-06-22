@@ -8,13 +8,14 @@ import Favorites from '../../pages/favorites/favorites.jsx';
 import Offer from '../../pages/offer/offer.jsx';
 import NotFound from '../../pages/not-found/not-found.jsx';
 import offerCardProp from '../offer-card/offer-card-prop.js';
+import {connect} from 'react-redux';
 
-function App({offers}) {
+function App({offers, currentCity}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoutes.MAIN}>
-          <Main offers={offers}/>
+          <Main offers={offers} currentCity={currentCity}/>
         </Route>
         <Route exact path={AppRoutes.SIGN_IN}>
           <SignIn/>
@@ -35,7 +36,14 @@ function App({offers}) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(offerCardProp).isRequired,
+  currentCity: PropTypes.string.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  currentCity: state.city,
+  offers: state.offers,
+});
 
-export default App;
+export {App};
+export default connect(mapStateToProps)(App);
+

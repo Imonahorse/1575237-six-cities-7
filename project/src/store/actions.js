@@ -1,6 +1,7 @@
 const ActionsType ={
   CITY_CHANGE: 'main/cityChange',
   GET_OFFERS: 'main/getOffers',
+  SORT_CHANGE: 'sort/sortChange',
 };
 
 const actionCreator = {
@@ -11,6 +12,10 @@ const actionCreator = {
   getOffers: (offers)=> ({
     type: ActionsType.GET_OFFERS,
     payload: offers,
+  }),
+  sortChange: (sort)=> ({
+    type: ActionsType.SORT_CHANGE,
+    payload: sort,
   }),
 };
 

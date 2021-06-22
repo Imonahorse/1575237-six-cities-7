@@ -10,7 +10,7 @@ import NearPlacesOffers from '../../components/nearPlacesOffers/nearPlacesOffers
 
 function Offer({offers}) {
   const params = useParams();
-  const offer = offers.find((item) => item.price === Number(params.id));
+  const offer = offers.find((item) => item.id === params.id);
 
   if (!offer) {
     return (

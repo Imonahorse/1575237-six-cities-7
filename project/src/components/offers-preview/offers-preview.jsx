@@ -7,16 +7,19 @@ import PropTypes from 'prop-types';
 
 function OffersPreview({cityOffers, cityState}) {
   const [activeCardId, setActiveCardId] = useState('');
+  const [filteredOffers, setFilteredOffers] = useState(cityOffers);
   const handleActiveCard = (activeId) => setActiveCardId(activeId);
+  const offerCount = cityOffers.length === 1 ? `${cityOffers.length} place` : `${cityOffers.length} places`;
+  const handleFilteredOffers = (offers) => setFilteredOffers(offers);
 
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{cityOffers.length} places to stay in {cityState}</b>
-          <Sorting/>
-          <OffersList cityOffers={cityOffers} handleActiveCard={handleActiveCard}/>
+          <b className="places__found">{offerCount} to stay in {cityState}</b>
+          <Sorting cityOffers={cityOffers} handleFilteredOffers={handleFilteredOffers}/>
+          <OffersList cityOffers={filteredOffers} handleActiveCard={handleActiveCard}/>
         </section>
         <div className="cities__right-section">
           <Map activeCardId={activeCardId} cityOffers={cityOffers} cityState={cityState}/>

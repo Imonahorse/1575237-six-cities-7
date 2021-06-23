@@ -1,13 +1,17 @@
 import {ActionsType} from './actions.js';
+import {createOffers} from '../mocks/offers.js';
+
+const offers = createOffers();
 
 const initialState ={
-  city: 'Amsterdam',
-  offers: [],
+  city: 'Paris',
+  offers: offers,
+  sort: 'Popular',
 };
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case ActionsType.CITY_CHANGE:
+    case ActionsType.CHANGE_CITY:
       return {
         ...state,
         city: action.payload,
@@ -16,6 +20,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
+      };
+    case ActionsType.CHANGE_SORT:
+      return {
+        ...state,
+        sort: action.payload,
       };
     default:
       return state;

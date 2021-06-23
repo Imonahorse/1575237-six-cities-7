@@ -1,5 +1,5 @@
 import Mark from '../mark/mark.jsx';
-import {getRating} from '../../utils.js';
+import {calcRating} from '../../utils.js';
 import Host from '../host/host.jsx';
 import Comments from '../comments/comments.jsx';
 import React from 'react';
@@ -38,7 +38,7 @@ function OfferPage({offer}) {
         </div>
         <div className="property__rating rating">
           <div className="property__stars rating__stars">
-            <span style={{width: getRating(rating)}}>
+            <span style={{width: calcRating(rating)}}>
             </span>
             <span className="visually-hidden">Rating</span>
           </div>

@@ -1,16 +1,12 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
+import {actionCreator} from '../../store/actions.js';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {PlacesOptions} from '../../sort.js';
 
-const PlacesOptions = {
-  POPULAR: 'Popular',
-  PRICE_LOW_TO_HIGH: 'Price: low to high',
-  PRICE_HIGH_TO_LOW: 'Price: high to low',
-  TOP_RATED: 'Top rated first',
-};
-
-function Sorting() {
+function Sorting({activeSort, changeSort}) {
   const [openState, setOpenState] = useState(false);
-  const [activeSort, setActiveSort] = useState('Popular');
   const sortClass = cn('places__options places__options--custom', {'places__options--opened': openState});
 
   return (
@@ -31,7 +27,7 @@ function Sorting() {
           const optionClass = cn('places__option', {'places__option--active': item === activeSort});
           return (
             <li className={optionClass} tabIndex="0" key={item} onClick={() => {
-              setActiveSort(item);
+              changeSort(item);
             }}
             >
               {item}
@@ -42,4 +38,20 @@ function Sorting() {
   );
 }
 
-export default Sorting;
+Sorting.propTypes = {
+  activeSort: PropTypes.string.isRequired,
+  changeSort: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  activeSort: state.sort,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeSort(sort) {
+    dispatch(actionCreator.changeSort(sort));
+  },
+});
+
+export {Sorting};
+export default connect(mapStateToProps, mapDispatchToProps)(Sorting);

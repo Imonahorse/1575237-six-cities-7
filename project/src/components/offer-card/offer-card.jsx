@@ -4,7 +4,7 @@ import offerCardProp from './offer-card-prop.js';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import {AppRoutes} from '../../const.js';
-import {getRating} from '../../utils.js';
+import {calcRating} from '../../utils.js';
 
 const template = () => {
 };
@@ -40,7 +40,7 @@ function OfferCard({offer, handleActiveCard = template}) {
       id={id}
     >
       <div className={imageClass}>
-        <Link to={`/offer/${price}`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" style={{width: imageWidth}} src={src} width="260" height="200" alt={alt}/>
         </Link>
       </div>
@@ -60,7 +60,7 @@ function OfferCard({offer, handleActiveCard = template}) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: getRating(rating)}}>
+            <span style={{width: calcRating(rating)}}>
             </span>
             <span className="visually-hidden">Rating</span>
           </div>

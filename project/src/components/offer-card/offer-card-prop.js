@@ -9,10 +9,10 @@ export default PropTypes.shape({
     }).isRequired,
   }).isRequired,
   location: PropTypes.shape({
-    latitude: PropTypes.string.isRequired,
-    longitude: PropTypes.string.isRequired,
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
   }).isRequired,
-  description: PropTypes.array.isRequired,
+  description: PropTypes.string.isRequired,
   isPremium: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
@@ -22,22 +22,16 @@ export default PropTypes.shape({
   maxAdults: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
   features: PropTypes.array.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   images: PropTypes.arrayOf(
-    PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      alt: PropTypes.string.isRequired,
-    }).isRequired,
+    PropTypes.string.isRequired,
   ).isRequired,
-  previewImage: PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
-  }).isRequired,
+  previewImage: PropTypes.string.isRequired,
   host: PropTypes.shape({
     name: PropTypes.string.isRequired,
     isPro: PropTypes.bool.isRequired,
     avatarUrl: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
   comments: PropTypes.arrayOf(
     PropTypes.shape({

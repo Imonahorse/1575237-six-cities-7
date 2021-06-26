@@ -1,8 +1,10 @@
 const ActionsType ={
   CHANGE_CITY: 'main/cityChange',
-  GET_OFFERS: 'main/getOffers',
   CHANGE_SORT: 'sort/sortChange',
   GET_CURRENT_OFFERS: 'sort/getCurrentOffers',
+  LOAD_OFFERS: 'data/loadOffers',
+  LOGOUT: 'logout',
+  REQUIRED_AUTHORIZATION: 'requiredAuthorization',
 };
 
 const actionCreator = {
@@ -10,13 +12,20 @@ const actionCreator = {
     type: ActionsType.CHANGE_CITY,
     payload: city,
   }),
-  getOffers: (offers)=> ({
-    type: ActionsType.GET_OFFERS,
-    payload: offers,
-  }),
   changeSort: (sort)=> ({
     type: ActionsType.CHANGE_SORT,
     payload: sort,
+  }),
+  loadOffers: (offers)=> ({
+    type: ActionsType.LOAD_OFFERS,
+    payload: offers,
+  }),
+  logout: ()=> ({
+    type: ActionsType.LOGOUT,
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionsType.REQUIRED_AUTHORIZATION,
+    payload: status,
   }),
 };
 

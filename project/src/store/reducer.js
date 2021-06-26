@@ -1,30 +1,66 @@
 import {ActionsType} from './actions.js';
-import {createOffers} from '../mocks/offers.js';
+import {AuthorizationStatus} from '../const.js';
 
-const offers = createOffers();
-
-const initialState ={
+const initialState = {
   city: 'Paris',
-  offers: offers,
+  offers: [],
   sort: 'Popular',
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  offerStatus: {
+    isSuccess: false,
+    isError: false,
+    isLoading: false,
+  },
 };
 
 const reducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case ActionsType.CHANGE_CITY:
       return {
         ...state,
         city: action.payload,
       };
-    case ActionsType.GET_OFFERS:
-      return {
-        ...state,
-        offers: action.payload,
-      };
     case ActionsType.CHANGE_SORT:
       return {
         ...state,
         sort: action.payload,
+      };
+    case ActionsType.LOAD_OFFERS_SUCCESS:
+      return {
+        ...state,
+        offers: action.payload,
+        offerStatus: {
+          ...state.offerStatus,
+          isSuccess: true,
+          isLoading: false,
+        },
+      };
+    case ActionsType.LOAD_OFFERS_REQUEST:
+      return {
+        ...state,
+        offerStatus: {
+          ...state.offerStatus,
+          isLoading: true,
+        },
+      };
+    case ActionsType.LOAD_OFFERS_ERROR:
+      return {
+        ...state,
+        offerStatus: {
+          ...state.offerStatus,
+          isError: true,
+          isLoading: false,
+        },
+      };
+    case ActionsType.LOGOUT:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
+    case ActionsType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
       };
     default:
       return state;

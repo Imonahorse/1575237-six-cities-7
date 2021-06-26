@@ -30,5 +30,15 @@ const CITIES = {
     longitude: 6.783333,
   },
 };
+const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+const APIRoutes = {
+  OFFERS: '/hotels',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
 
-export {AppRoutes, CITIES};
+export {AppRoutes, CITIES, AuthorizationStatus, APIRoutes};

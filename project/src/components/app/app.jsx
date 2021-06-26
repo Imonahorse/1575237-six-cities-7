@@ -9,8 +9,16 @@ import Offer from '../../pages/offer/offer.jsx';
 import NotFound from '../../pages/not-found/not-found.jsx';
 import offerCardProp from '../offer-card/offer-card-prop.js';
 import {connect} from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen.jsx';
 
-function App({offers, currentCity}) {
+function App({offers, currentCity, offerStatus}) {
+
+  if (offerStatus.isLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -37,11 +45,13 @@ function App({offers, currentCity}) {
 App.propTypes = {
   offers: PropTypes.arrayOf(offerCardProp).isRequired,
   currentCity: PropTypes.string.isRequired,
+  offerStatus: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.city,
+  offerStatus: state.offerStatus,
   offers: state.offers,
+  currentCity: state.city,
 });
 
 export {App};

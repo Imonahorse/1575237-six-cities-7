@@ -15,7 +15,6 @@ const ImageWidth = {
 
 function OfferCard({offer, handleActiveCard = template}) {
   const {price, title, type, id, isFavorite, previewImage, rating} = offer;
-  const {alt, src} = previewImage;
   const {path} = useRouteMatch();
 
   const imageClass = cn('place-card__image-wrapper', {
@@ -41,7 +40,7 @@ function OfferCard({offer, handleActiveCard = template}) {
     >
       <div className={imageClass}>
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" style={{width: imageWidth}} src={src} width="260" height="200" alt={alt}/>
+          <img className="place-card__image" style={{width: imageWidth}} src={previewImage} width="260" height="200" alt="preview"/>
         </Link>
       </div>
       <div className={infoClass}>

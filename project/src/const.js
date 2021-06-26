@@ -35,10 +35,10 @@ const AuthorizationStatus = {
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',
 };
-const APIRoute = {
+const APIRoutes = {
   OFFERS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
 };
 
-export {AppRoutes, CITIES, AuthorizationStatus, APIRoute};
+export {AppRoutes, CITIES, AuthorizationStatus, APIRoutes};

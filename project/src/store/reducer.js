@@ -1,13 +1,16 @@
 import {ActionsType} from './actions.js';
 import {AuthorizationStatus} from '../const.js';
-import {adaptToClient} from '../utils.js';
 
 const initialState = {
   city: 'Paris',
   offers: [],
   sort: 'Popular',
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  isDataLoaded: false,
+  offerStatus: {
+    isSuccess: false,
+    isError: false,
+    isLoading: false,
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,15 +25,37 @@ const reducer = (state = initialState, action) => {
         ...state,
         sort: action.payload,
       };
-    case ActionsType.LOAD_OFFERS:
+    case ActionsType.LOAD_OFFERS_SUCCESS:
       return {
         ...state,
-        offers: action.payload.map((offer)=> adaptToClient(offer)),
-        isDataLoaded: true,
+        offers: action.payload,
+        offerStatus: {
+          ...state.offerStatus,
+          isSuccess: true,
+          isLoading: false,
+        },
+      };
+    case ActionsType.LOAD_OFFERS_REQUEST:
+      return {
+        ...state,
+        offerStatus: {
+          ...state.offerStatus,
+          isLoading: true,
+        },
+      };
+    case ActionsType.LOAD_OFFERS_ERROR:
+      return {
+        ...state,
+        offerStatus: {
+          ...state.offerStatus,
+          isError: true,
+          isLoading: false,
+        },
       };
     case ActionsType.LOGOUT:
       return {
-        authorizationStatus: AuthorizationStatus.NO_AUTH,
+        ...state,
+        authorizationStatus: action.payload,
       };
     case ActionsType.REQUIRED_AUTHORIZATION:
       return {

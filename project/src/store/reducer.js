@@ -4,6 +4,7 @@ import {AuthorizationStatus} from '../const.js';
 const initialState = {
   city: 'Paris',
   offers: [],
+  comments: [],
   sort: 'Popular',
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   offerStatus: {
@@ -11,6 +12,12 @@ const initialState = {
     isError: false,
     isLoading: false,
   },
+  commentsState: {
+    isSuccess: false,
+    isError: false,
+    isLoading: false,
+  },
+  login: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +26,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         city: action.payload,
+      };
+    case ActionsType.GET_LOGIN:
+      return {
+        ...state,
+        login: action.payload,
       };
     case ActionsType.CHANGE_SORT:
       return {
@@ -29,6 +41,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
+        offerStatus: {
+          ...state.offerStatus,
+          isSuccess: true,
+          isLoading: false,
+        },
+      };
+    case ActionsType.LOAD_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        comments: action.payload,
         offerStatus: {
           ...state.offerStatus,
           isSuccess: true,

@@ -19,9 +19,9 @@ function LoadingScreen() {
   const loading = true;
 
   return (
-      <div className="sweet-loading" style={style}>
-        <PulseLoader color="#4481c3" loading={loading} css={override} size={65}/>
-      </div>
+    <div className="sweet-loading" style={style}>
+      <PulseLoader color="#4481c3" loading={loading} css={override} size={65}/>
+    </div>
   );
 }
 

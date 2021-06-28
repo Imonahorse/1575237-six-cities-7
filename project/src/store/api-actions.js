@@ -1,39 +1,54 @@
 import {actionCreator} from './actions.js';
-import {AuthorizationStatus, APIRoutes} from '../const.js';
+import {AuthorizationStatus, APIRoutes, AppRoutes} from '../const.js';
 import {adaptToClient} from '../utils.js';
 
-const fetchOffersList = () => async(dispatch, _, api) => {
+const fetchOffersList = () => async (dispatch, _, api) => {
   dispatch(actionCreator.loadOffersRequest());
   try {
     const {data} = await api.get(APIRoutes.OFFERS);
     const adaptedData = data.map((offer) => adaptToClient(offer));
-    return dispatch(actionCreator.loadOffersSuccess(adaptedData));
+    dispatch(actionCreator.loadOffersSuccess(adaptedData));
   } catch {
-    return dispatch(actionCreator.loadOffersError());
+    dispatch(actionCreator.loadOffersError());
   }
 };
 
-const checkAuth = () => (dispatch, _, api) => (
-  api.get(APIRoutes.LOGIN)
-    .then(() => dispatch(actionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
-);
+const checkAuth = () => async (dispatch, _, api) => {
+  try {
+    const {data} = await api.get(APIRoutes.LOGIN);
+    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+    dispatch(actionCreator.getLogin(data.email));
+  } catch {
+    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+  }
+};
 
-const login = ({login: email, password}) => (dispatch, _, api) => (
-  api.post(APIRoutes.LOGIN, {email, password})
-    .then(({data}) => localStorage.setItem('token', data.token))
-    .then(() => dispatch(actionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-);
+const login = ({login: email, password}) => async (dispatch, _, api) => {
+  try {
+    const {data} = await api.post(APIRoutes.LOGIN, {email, password});
+    localStorage.setItem('token', data.token);
+    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+    dispatch(actionCreator.redirectToRoute(AppRoutes.MAIN));
+  } catch {
+    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+  }
+};
 
-const logout = () => (dispatch, _, api) => (
-  api.delete(APIRoutes.LOGOUT)
-    .then(() => localStorage.removeItem('token'))
-    .then(() => dispatch(actionCreator.logout(AuthorizationStatus.NO_AUTH)))
-);
+const logout = () => async (dispatch, _, api) => {
+  await api.delete(APIRoutes.LOGOUT);
+  localStorage.removeItem('token');
+  dispatch(actionCreator.logout(AuthorizationStatus.NO_AUTH));
+};
+
+const getComments = (id=1) => async (dispatch, _, api) => {
+  const comments = await api.get(`/comments/${id}`);
+  dispatch(actionCreator.loadCommentsSuccess(comments));
+};
 
 export {
   fetchOffersList,
   checkAuth,
   login,
-  logout
+  logout,
+  getComments
 };

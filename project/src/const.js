@@ -40,5 +40,16 @@ const APIRoutes = {
   LOGIN: '/login',
   LOGOUT: '/logout',
 };
+const LoadingSize ={
+  DEFAULT: 65,
+  USER_NAV: 10,
+  LOGIN_BUTTON: 10,
+};
 
-export {AppRoutes, CITIES, AuthorizationStatus, APIRoutes};
+export {
+  AppRoutes,
+  CITIES,
+  AuthorizationStatus,
+  APIRoutes,
+  LoadingSize
+};

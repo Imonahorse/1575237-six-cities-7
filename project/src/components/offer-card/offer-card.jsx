@@ -34,7 +34,7 @@ function OfferCard({offer, handleActiveCard = template}) {
   return (
     <article
       onMouseEnter={() => handleActiveCard(id)}
-      onMouseLeave={() => handleActiveCard('')}
+      onMouseLeave={() => handleActiveCard(0)}
       className={articleClass}
       id={id}
     >

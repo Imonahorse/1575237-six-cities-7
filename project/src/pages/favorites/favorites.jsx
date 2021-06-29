@@ -6,8 +6,7 @@ import Footer from '../../components/footer/footer.jsx';
 import PropTypes from 'prop-types';
 import offerCardProp from '../../components/offer-card/offer-card-prop.js';
 
-function Favorites(props) {
-  const {offers} = props;
+function Favorites({offers}) {
   const favoritesOffers = offers.filter((offer) => offer.isFavorite);
 
   const isContent = favoritesOffers.length ? <FavoritesList favoritesOffers={favoritesOffers}/> : <FavoritesEmpty/>;

@@ -1,17 +1,21 @@
 const ActionsType = {
   CHANGE_CITY: 'main/cityChange',
   CHANGE_SORT: 'sort/sortChange',
-  GET_CURRENT_OFFERS: 'data/getCurrentOffers',
+  REQUIRED_AUTHORIZATION: 'requiredAuthorization',
+  REDIRECT_TO_ROUTE: 'login/redirectToRoute',
   LOAD_OFFERS_SUCCESS: 'data/loadOffersSuccess',
   LOAD_OFFERS_ERROR: 'data/loadOffersError',
   LOAD_OFFERS_REQUEST: 'data/loadOffersRequest',
   LOAD_COMMENTS_SUCCESS: 'data/loadCommentsSuccess',
   LOAD_COMMENTS_ERROR: 'data/loadCommentsError',
   LOAD_COMMENTS_REQUEST: 'data/loadCommentsRequest',
-  LOGOUT: 'data/logout',
-  REQUIRED_AUTHORIZATION: 'requiredAuthorization',
-  REDIRECT_TO_ROUTE: 'login/redirectToRoute',
-  GET_LOGIN: 'login/getLogin',
+  LOGOUT_SUCCESS: 'data/logoutSuccess',
+  LOGOUT_ERROR: 'data/logoutError',
+  LOGOUT_REQUEST: 'data/logoutRequest',
+  GET_LOGIN_SUCCESS: 'login/getLoginSuccess',
+  GET_LOGIN_ERROR: 'login/getLoginError',
+  GET_LOGIN_REQUEST: 'login/getLoginRequest',
+
 };
 
 const actionCreator = {
@@ -19,13 +23,27 @@ const actionCreator = {
     type: ActionsType.CHANGE_CITY,
     payload: city,
   }),
-  getLogin: (login) => ({
-    type: ActionsType.GET_LOGIN,
-    payload: login,
-  }),
   changeSort: (sort) => ({
     type: ActionsType.CHANGE_SORT,
     payload: sort,
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionsType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionsType.REDIRECT_TO_ROUTE,
+    payload: url,
+  }),
+  getLoginSuccess: (login) => ({
+    type: ActionsType.GET_LOGIN_SUCCESS,
+    payload: login,
+  }),
+  getLoginError: () => ({
+    type: ActionsType.GET_LOGIN_ERROR,
+  }),
+  getLoginRequest: () => ({
+    type: ActionsType.GET_LOGIN_REQUEST,
   }),
   loadOffersSuccess: (offers) => ({
     type: ActionsType.LOAD_OFFERS_SUCCESS,
@@ -41,17 +59,15 @@ const actionCreator = {
     type: ActionsType.LOAD_COMMENTS_SUCCESS,
     payload: offers,
   }),
-  logout: (status) => ({
-    type: ActionsType.LOGOUT,
+  logoutSuccess: (status) => ({
+    type: ActionsType.LOGOUT_SUCCESS,
     payload: status,
   }),
-  requireAuthorization: (status) => ({
-    type: ActionsType.REQUIRED_AUTHORIZATION,
-    payload: status,
+  logoutError: () => ({
+    type: ActionsType.LOGOUT_ERROR,
   }),
-  redirectToRoute: (url) => ({
-    type: ActionsType.REDIRECT_TO_ROUTE,
-    payload: url,
+  logoutRequest: () => ({
+    type: ActionsType.LOGOUT_REQUEST,
   }),
 };
 

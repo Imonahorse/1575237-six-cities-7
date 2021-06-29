@@ -6,7 +6,7 @@ import offerCardProp from '../offer-card/offer-card-prop.js';
 import PropTypes from 'prop-types';
 
 function OffersPreview({cityOffers, cityState}) {
-  const [activeCardId, setActiveCardId] = useState('');
+  const [activeCardId, setActiveCardId] = useState(0);
   const offerCount = cityOffers.length === 1 ? `${cityOffers.length} place` : `${cityOffers.length} places`;
   const handleActiveCard = (activeId) => setActiveCardId(activeId);
 

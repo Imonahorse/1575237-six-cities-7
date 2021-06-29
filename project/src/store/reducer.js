@@ -12,12 +12,22 @@ const initialState = {
     isError: false,
     isLoading: false,
   },
-  commentsState: {
+  commentsStatus: {
     isSuccess: false,
     isError: false,
     isLoading: false,
   },
-  login: '',
+  loginStatus: {
+    isSuccess: false,
+    isError: false,
+    isLoading: false,
+  },
+  logoutStatus: {
+    isSuccess: false,
+    isError: false,
+    isLoading: false,
+  },
+  user: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,10 +37,74 @@ const reducer = (state = initialState, action) => {
         ...state,
         city: action.payload,
       };
-    case ActionsType.GET_LOGIN:
+    case ActionsType.REQUIRED_AUTHORIZATION:
       return {
         ...state,
-        login: action.payload,
+        authorizationStatus: action.payload,
+      };
+    case ActionsType.GET_LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        loginStatus: {
+          ...state.loginStatus,
+          isSuccess: true,
+          isLoading: false,
+          isError: false,
+        },
+        logoutStatus: {
+          ...state.logoutStatus,
+          isSuccess: false,
+        },
+      };
+    case ActionsType.LOGOUT_SUCCESS:
+      return{
+        ...state,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+        logoutStatus: {
+          ...state.logoutStatus,
+          isSuccess: true,
+          isLoading: false,
+          isError: false,
+        },
+        loginStatus: {
+          ...state.loginStatus,
+          isSuccess: false,
+        },
+      };
+    case ActionsType.LOGOUT_ERROR:
+      return{
+        ...state,
+        logoutStatus: {
+          isSuccess: false,
+          isError: true,
+          isLoading: false,
+        },
+      };
+    case ActionsType.LOGOUT_REQUEST:
+      return{
+        ...state,
+        logoutStatus: {
+          ...state.logoutStatus,
+          isLoading: true,
+        },
+      };
+    case ActionsType.GET_LOGIN_REQUEST:
+      return {
+        ...state,
+        loginStatus: {
+          ...state.loginStatus,
+          isLoading: true,
+        },
+      };
+    case ActionsType.GET_LOGIN_ERROR:
+      return {
+        ...state,
+        loginStatus: {
+          ...state.loginStatus,
+          isError: true,
+          isLoading: false,
+        },
       };
     case ActionsType.CHANGE_SORT:
       return {
@@ -41,16 +115,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
-        offerStatus: {
-          ...state.offerStatus,
-          isSuccess: true,
-          isLoading: false,
-        },
-      };
-    case ActionsType.LOAD_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        comments: action.payload,
         offerStatus: {
           ...state.offerStatus,
           isSuccess: true,
@@ -74,15 +138,15 @@ const reducer = (state = initialState, action) => {
           isLoading: false,
         },
       };
-    case ActionsType.LOGOUT:
+    case ActionsType.LOAD_COMMENTS_SUCCESS:
       return {
         ...state,
-        authorizationStatus: action.payload,
-      };
-    case ActionsType.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.payload,
+        comments: action.payload,
+        offerStatus: {
+          ...state.commentsStatus,
+          isSuccess: true,
+          isLoading: false,
+        },
       };
     default:
       return state;

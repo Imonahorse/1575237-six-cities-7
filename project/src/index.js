@@ -13,7 +13,7 @@ import {checkAuth, fetchOffersList} from './store/api-actions.js';
 import redirect from './store/middlewares/redirect.js';
 
 const api = createApi(() => actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
-const store = createStore(reducer, composeWithDevTools(
+export const store = createStore(reducer, composeWithDevTools(
   applyMiddleware(thunk.withExtraArgument(api)),
   applyMiddleware(redirect),
 ));

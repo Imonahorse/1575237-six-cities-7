@@ -5,7 +5,7 @@ import cn from 'classnames';
 import styles from './loading.module.css';
 import {LoadingSize} from '../../const.js';
 
-function Loading({size = LoadingSize.DEFAULT, styleClass = false}) {
+function Loading({size = LoadingSize.LARGE, styleClass = false}) {
   return (
     <div
       className={cn('sweet-loading',

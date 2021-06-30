@@ -46,7 +46,6 @@ const logout = () => async (dispatch, _, api) => {
   } catch {
     dispatch(actionCreator.logoutError());
   }
-
 };
 
 const getComments = (id) => async (dispatch, _, api) => {

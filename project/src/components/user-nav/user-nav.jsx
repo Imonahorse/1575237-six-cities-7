@@ -23,19 +23,23 @@ function UserNav({onLogoutClick, login, authorizationStatus, logoutStatus}) {
           >
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
-            <span className="header__user-name user__name">{isAuth ? login : 'Sign in'}</span>
+            {
+              isAuth
+                ? <span className="header__user-name user__name">{login}</span>
+                : <span className="header__login">Sign in</span>
+            }
           </Link>
         </li>
         {
           isAuth &&
           <li className="header__nav-item">
-            <Link onClick={onLogoutClick} className="header__nav-link" to="">
+            <a onClick={onLogoutClick} className="header__nav-link" href="/#">
               {
                 logoutStatus.isLoading
-                  ? <Loading size={LoadingSize.USER_NAV} styleClass={styles.loading}/>
+                  ? <Loading size={LoadingSize.SMALL} styleClass={styles.loading}/>
                   : <span className="header__signout">Sign out</span>
               }
-            </Link>
+            </a>
           </li>
         }
       </ul>

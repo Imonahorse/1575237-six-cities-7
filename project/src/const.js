@@ -3,7 +3,9 @@ const AppRoutes = {
   SIGN_IN: '/login',
   FAVORITES: '/favorites',
   OFFER: '/offer/:id',
+  NOT_FOUND: '/404',
 };
+
 const CITIES = {
   'Paris': {
     latitude: 48.864716,
@@ -30,20 +32,23 @@ const CITIES = {
     longitude: 6.783333,
   },
 };
+
 const AuthorizationStatus = {
   AUTH: 'AUTH',
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',
 };
+
 const APIRoutes = {
   OFFERS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  COMMENTS: '/comments/:hotel_id',
 };
+
 const LoadingSize ={
-  DEFAULT: 65,
-  USER_NAV: 10,
-  LOGIN_BUTTON: 10,
+  LARGE: 65,
+  SMALL: 10,
 };
 
 export {

@@ -12,20 +12,21 @@ const inputs = {
   email: 'E-mail',
   password: 'Password',
 };
+
 const initialState = {
   email: {
     value: '',
     error: '(ಥ﹏ಥ)',
     touched: false,
     isValid: false,
-    rule: /^([\w-]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    rule: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   },
   password: {
     value: '',
     error: '(〒﹏〒)',
     touched: false,
     isValid: false,
-    rule: /^[A-Za-z0-9]{6,20}$/,
+    rule: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
   },
 };
 
@@ -56,6 +57,8 @@ function LoginForm({getLogin, loginStatus}) {
       login: inputsState.email.value,
       password: inputsState.password.value,
     });
+
+    setInputsState('');
   };
 
   return (
@@ -85,7 +88,7 @@ function LoginForm({getLogin, loginStatus}) {
         >
           {
             loginStatus.isLoading
-              ? <Loading size={LoadingSize.LOGIN_BUTTON} styleClass={styles.loading}/>
+              ? <Loading size={LoadingSize.SMALL} styleClass={styles.loading}/>
               : 'Sign In'
           }
         </button>

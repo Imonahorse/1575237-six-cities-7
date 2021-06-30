@@ -2,19 +2,19 @@ import React, {useEffect, useState} from 'react';
 import ErrorMessage from '../components/error-message/error-message.jsx';
 
 function useError(errorStatus) {
-  const [state, setState] = useState(null);
+  const [isVisibleState, setIsVisibleState] = useState(false);
 
   useEffect(()=>{
     if(errorStatus.isError && !errorStatus.isLoading) {
-      setState(<ErrorMessage/>);
+      setIsVisibleState(true);
 
       setTimeout(() => {
-        setState(null);
+        setIsVisibleState(false);
       }, 4000);
     }
   }, [errorStatus]);
 
-  return state;
+  return !isVisibleState ? <ErrorMessage/> : null;
 }
 
 export default useError;

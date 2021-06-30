@@ -7,6 +7,7 @@ import Map from '../../components/map/map.jsx';
 import OfferGallery from '../../components/offer-gallery/offer-gallery.jsx';
 import OfferPage from '../../components/offer-page/offer-page.jsx';
 import NearPlacesOffers from '../../components/nearPlacesOffers/nearPlacesOffers.jsx';
+import {AppRoutes} from '../../const.js';
 
 function Offer({offers}) {
   const params = useParams();
@@ -14,7 +15,7 @@ function Offer({offers}) {
 
   if (!offer) {
     return (
-      <Redirect to={'/404'}/>
+      <Redirect to={AppRoutes.NOT_FOUND}/>
     );
   }
 

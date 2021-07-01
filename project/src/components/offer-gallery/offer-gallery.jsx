@@ -5,9 +5,9 @@ function OfferGallery({images}) {
   return (
     <div className="property__gallery-container container">
       <div className="property__gallery">
-        {images.map(({src, alt}) => (
-          <div className="property__image-wrapper" key={alt + src}>
-            <img className="property__image" src={src} alt={alt}/>
+        {images.map((image) => (
+          <div className="property__image-wrapper" key={image}>
+            <img className="property__image" src={image} alt="apartment"/>
           </div>),
         )}
       </div>
@@ -16,11 +16,7 @@ function OfferGallery({images}) {
 }
 
 OfferGallery.propTypes = {
-  images: PropTypes.arrayOf(
-    PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      alt: PropTypes.string.isRequired,
-    })),
+  images: PropTypes.arrayOf(PropTypes.string.isRequired),
 };
 
 export default OfferGallery;

@@ -31,7 +31,7 @@ const activeCustomIcon = leaflet.icon({
   iconAnchor: [AnchorSize.X, AnchorSize.Y],
 });
 
-function Map({activeCardId = '', cityOffers, cityState}) {
+function Map({activeCardId, cityOffers, cityState}) {
   const mapRef = useRef(null);
   const {path} = useRouteMatch();
   const map = useMap(mapRef, cityState);
@@ -74,7 +74,7 @@ function Map({activeCardId = '', cityOffers, cityState}) {
 }
 
 Map.propTypes = {
-  activeCardId: PropTypes.string,
+  activeCardId: PropTypes.number,
   cityOffers: PropTypes.arrayOf(offerCardProp).isRequired,
   cityState: PropTypes.string.isRequired,
 };

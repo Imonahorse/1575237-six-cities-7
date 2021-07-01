@@ -1,39 +1,63 @@
 import {actionCreator} from './actions.js';
-import {AuthorizationStatus, APIRoutes} from '../const.js';
+import {AuthorizationStatus, APIRoutes, AppRoutes} from '../const.js';
 import {adaptToClient} from '../utils.js';
 
-const fetchOffersList = () => async(dispatch, _, api) => {
+const fetchOffersList = () => async (dispatch, _, api) => {
   dispatch(actionCreator.loadOffersRequest());
   try {
     const {data} = await api.get(APIRoutes.OFFERS);
     const adaptedData = data.map((offer) => adaptToClient(offer));
-    return dispatch(actionCreator.loadOffersSuccess(adaptedData));
+    dispatch(actionCreator.loadOffersSuccess(adaptedData));
   } catch {
-    return dispatch(actionCreator.loadOffersError());
+    dispatch(actionCreator.loadOffersError());
   }
 };
 
-const checkAuth = () => (dispatch, _, api) => (
-  api.get(APIRoutes.LOGIN)
-    .then(() => dispatch(actionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
-);
+const checkAuth = () => async (dispatch, _, api) => {
+  try {
+    const {data} = await api.get(APIRoutes.LOGIN);
+    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+    dispatch(actionCreator.getLoginSuccess(data));
+  } catch {
+    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+  }
+};
 
-const login = ({login: email, password}) => (dispatch, _, api) => (
-  api.post(APIRoutes.LOGIN, {email, password})
-    .then(({data}) => localStorage.setItem('token', data.token))
-    .then(() => dispatch(actionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-);
+const login = ({login: email, password}) => async (dispatch, _, api) => {
+  dispatch(actionCreator.getLoginRequest());
+  try {
+    const {data} = await api.post(APIRoutes.LOGIN, {email, password});
+    localStorage.setItem('token', data.token);
+    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+    dispatch(actionCreator.getLoginSuccess(data));
+    dispatch(actionCreator.redirectToRoute(AppRoutes.MAIN));
+  } catch {
+    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+    dispatch(actionCreator.getLoginError());
+  }
+};
 
-const logout = () => (dispatch, _, api) => (
-  api.delete(APIRoutes.LOGOUT)
-    .then(() => localStorage.removeItem('token'))
-    .then(() => dispatch(actionCreator.logout(AuthorizationStatus.NO_AUTH)))
-);
+const logout = () => async (dispatch, _, api) => {
+  dispatch(actionCreator.logoutRequest());
+  try {
+    await api.delete(APIRoutes.LOGOUT);
+    localStorage.removeItem('token');
+    dispatch(actionCreator.logoutSuccess(AuthorizationStatus.NO_AUTH));
+  } catch {
+    dispatch(actionCreator.logoutError());
+  }
+};
+
+const getOffer = (id) => async (dispatch, _, api) => {
+  dispatch(actionCreator.offerRequest());
+  const {data} = await api.get(`/hotels/${id}`);
+  dispatch(actionCreator.loadOfferSuccess(data));
+};
 
 export {
   fetchOffersList,
   checkAuth,
   login,
-  logout
+  logout,
+  getOffer
 };

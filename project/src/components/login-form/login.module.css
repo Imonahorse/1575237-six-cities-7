@@ -1,0 +1,17 @@
+.loading {
+  position: relative;
+}
+
+.loginInput {
+  position: relative;
+}
+
+.errorMessage {
+  position: absolute;
+  top: 10%;
+  right: -35%;
+  margin: 0;
+  font-size: 30px;
+  color: #4481c3;
+}
+

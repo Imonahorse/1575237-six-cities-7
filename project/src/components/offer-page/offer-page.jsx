@@ -1,7 +1,6 @@
 import Mark from '../mark/mark.jsx';
 import {calcRating} from '../../utils.js';
 import Host from '../host/host.jsx';
-import Comments from '../comments/comments.jsx';
 import React from 'react';
 import offerCardProp from '../offer-card/offer-card-prop.js';
 
@@ -17,7 +16,6 @@ function OfferPage({offer}) {
     features,
     host,
     description,
-    comments,
   } = offer;
 
   return (
@@ -70,7 +68,7 @@ function OfferPage({offer}) {
           </ul>
         </div>
         <Host host={host} description={description}/>
-        <Comments comments={comments}/>
+        {/*<Comments comments={comments}/>*/}
       </div>
     </div>
   );

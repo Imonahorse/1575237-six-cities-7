@@ -7,7 +7,7 @@ const initialState = {
   comments: [],
   sort: 'Popular',
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  offerStatus: {
+  offersStatus: {
     isSuccess: false,
     isError: false,
     isLoading: false,
@@ -28,10 +28,34 @@ const initialState = {
     isLoading: false,
   },
   user: '',
+  offer: {},
+  offerStatus: {
+    isSuccess: false,
+    isError: false,
+    isLoading: false,
+  },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionsType.OFFER_REQUEST:
+      return {
+        ...state,
+        offerStatus: {
+          ...state.offerStatus,
+          isLoading: true,
+        }
+      }
+    case ActionsType.LOAD_OFFER_SUCCESS:
+      return {
+        ...state,
+        offerStatus: {
+          ...state.offerStatus,
+          isLoading: false,
+          isSuccess: true,
+        },
+        offer: action.payload,
+      };
     case ActionsType.CHANGE_CITY:
       return {
         ...state,
@@ -58,7 +82,7 @@ const reducer = (state = initialState, action) => {
         },
       };
     case ActionsType.LOGOUT_SUCCESS:
-      return{
+      return {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         logoutStatus: {
@@ -73,7 +97,7 @@ const reducer = (state = initialState, action) => {
         },
       };
     case ActionsType.LOGOUT_ERROR:
-      return{
+      return {
         ...state,
         logoutStatus: {
           isSuccess: false,
@@ -82,7 +106,7 @@ const reducer = (state = initialState, action) => {
         },
       };
     case ActionsType.LOGOUT_REQUEST:
-      return{
+      return {
         ...state,
         logoutStatus: {
           ...state.logoutStatus,
@@ -115,8 +139,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
-        offerStatus: {
-          ...state.offerStatus,
+        offersStatus: {
+          ...state.offersStatus,
           isSuccess: true,
           isLoading: false,
         },
@@ -124,16 +148,16 @@ const reducer = (state = initialState, action) => {
     case ActionsType.LOAD_OFFERS_REQUEST:
       return {
         ...state,
-        offerStatus: {
-          ...state.offerStatus,
+        offersStatus: {
+          ...state.offersStatus,
           isLoading: true,
         },
       };
     case ActionsType.LOAD_OFFERS_ERROR:
       return {
         ...state,
-        offerStatus: {
-          ...state.offerStatus,
+        offersStatus: {
+          ...state.offersStatus,
           isError: true,
           isLoading: false,
         },
@@ -142,7 +166,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         comments: action.payload,
-        offerStatus: {
+        offersStatus: {
           ...state.commentsStatus,
           isSuccess: true,
           isLoading: false,

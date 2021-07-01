@@ -48,9 +48,10 @@ const logout = () => async (dispatch, _, api) => {
   }
 };
 
-const getComments = (id) => async (dispatch, _, api) => {
-  const {data} = await api.get(`/comments/${id}`);
-  dispatch(actionCreator.loadCommentsSuccess(data));
+const getOffer = (id) => async (dispatch, _, api) => {
+  dispatch(actionCreator.offerRequest());
+  const {data} = await api.get(`/hotels/${id}`);
+  dispatch(actionCreator.loadOfferSuccess(data));
 };
 
 export {
@@ -58,5 +59,5 @@ export {
   checkAuth,
   login,
   logout,
-  getComments
+  getOffer
 };

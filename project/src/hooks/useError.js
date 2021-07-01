@@ -8,13 +8,15 @@ function useError(errorStatus) {
     if(errorStatus.isError && !errorStatus.isLoading) {
       setIsVisibleState(true);
 
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setIsVisibleState(false);
       }, 4000);
+
+      return(()=>clearTimeout(timer))
     }
   }, [errorStatus]);
 
-  return !isVisibleState ? <ErrorMessage/> : null;
+  return isVisibleState ? <ErrorMessage/> : null;
 }
 
 export default useError;

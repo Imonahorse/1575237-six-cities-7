@@ -15,10 +15,15 @@ const ActionsType = {
   GET_LOGIN_SUCCESS: 'login/getLoginSuccess',
   GET_LOGIN_ERROR: 'login/getLoginError',
   GET_LOGIN_REQUEST: 'login/getLoginRequest',
-
+  LOAD_OFFER_SUCCESS: 'offer/loadOfferSuccess',
+  OFFER_REQUEST: 'offer/offerRequest',
 };
 
 const actionCreator = {
+  loadOfferSuccess: (city) => ({
+    type: ActionsType.LOAD_OFFER_SUCCESS,
+    payload: city,
+  }),
   changeCity: (city) => ({
     type: ActionsType.CHANGE_CITY,
     payload: city,
@@ -69,6 +74,9 @@ const actionCreator = {
   logoutRequest: () => ({
     type: ActionsType.LOGOUT_REQUEST,
   }),
+  offerRequest: () => ({
+    type: ActionsType.OFFER_REQUEST,
+  })
 };
 
 

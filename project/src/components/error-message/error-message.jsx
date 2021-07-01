@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './error-message.css';
+import styles from './error-message.module.css';
 
 function ErrorMessage() {
   return (

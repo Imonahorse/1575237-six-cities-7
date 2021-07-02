@@ -18,8 +18,6 @@ function Offer({offers, load, offerTest, offerState}) {
     return <Loading/>
   }
 
-  console.log(offerTest)
-
   const params = useParams();
   // const offer = offers.find((item) => item.id === Number(params.id));
 

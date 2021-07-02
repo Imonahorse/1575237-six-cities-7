@@ -20,9 +20,9 @@ const ActionsType = {
 };
 
 const actionCreator = {
-  loadOfferSuccess: (city) => ({
+  loadOfferSuccess: (offer) => ({
     type: ActionsType.LOAD_OFFER_SUCCESS,
-    payload: city,
+    payload: offer,
   }),
   changeCity: (city) => ({
     type: ActionsType.CHANGE_CITY,

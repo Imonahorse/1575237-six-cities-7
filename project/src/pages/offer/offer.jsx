@@ -12,20 +12,20 @@ import {getOffer} from "../../store/api-actions";
 import {connect} from 'react-redux';
 import Loading from "../../components/loading/loading";
 
-function Offer({offers, load, offerTest, offerState}) {
-  console.log(offerState)
-  if (offerState.isLoading) {
+function Offer({load, offerTest, offerStatus}) {
+  const params = useParams();
+
+  useEffect(() => {
+    load(params.id);
+  }, [params.id])
+
+
+  if (offerStatus.isLoading) {
     return <Loading/>
   }
 
-  console.log(offerTest)
 
-  const params = useParams();
-  // const offer = offers.find((item) => item.id === Number(params.id));
 
-  useEffect(() => {
-    load(Number(params.id));
-  }, [])
 
   if (!offerTest) {
     return (
@@ -33,14 +33,12 @@ function Offer({offers, load, offerTest, offerState}) {
     );
   }
 
-  const {images} = offerTest;
-
   return (
     <div className="page">
       <Header/>
       <main className="page__main page__main--property">
         <section className="property">
-          <OfferGallery images={images}/>
+          {/*<OfferGallery images={images}/>*/}
           <OfferPage offer={offerTest}/>
           {/*<Map cityOffers={nearPlacesOffers} cityState={offer.city.name}/>*/}
         </section>
@@ -52,7 +50,7 @@ function Offer({offers, load, offerTest, offerState}) {
 
 const mapStateToProps = (state) => ({
   offerTest: state.offer,
-  offerState: state.offerStatus,
+  offerStatus: state.offerStatus,
 })
 
 const mapDispatchToProps = (dispatch) => ({

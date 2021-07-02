@@ -13,8 +13,8 @@ import Loading from '../loading/loading.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
 import browserHistory from '../../services/browser-history.js';
 
-function App({offers, currentCity, offerStatus}) {
-  if (offerStatus.isLoading) {
+function App({offers, currentCity, offersStatus}) {
+  if (offersStatus.isLoading) {
     return (
       <Loading/>
     );
@@ -49,13 +49,13 @@ function App({offers, currentCity, offerStatus}) {
 App.propTypes = {
   offers: PropTypes.arrayOf(offerCardProp).isRequired,
   currentCity: PropTypes.string.isRequired,
-  offerStatus: PropTypes.shape({
+  offersStatus: PropTypes.shape({
     isLoading: PropTypes.bool.isRequired,
   }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offerStatus: state.offerStatus,
+  offersStatus: state.offersStatus,
   offers: state.offers,
   currentCity: state.city,
 });

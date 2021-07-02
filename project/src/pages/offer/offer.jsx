@@ -24,9 +24,6 @@ function Offer({load, offerTest, offerStatus}) {
     return <Loading/>
   }
 
-
-
-
   if (!offerTest) {
     return (
       <Redirect to={AppRoutes.NOT_FOUND}/>

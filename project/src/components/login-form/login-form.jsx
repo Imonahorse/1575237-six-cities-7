@@ -57,8 +57,6 @@ function LoginForm({getLogin, loginStatus}) {
       login: inputsState.email.value,
       password: inputsState.password.value,
     });
-
-    setInputsState('');
   };
 
   return (

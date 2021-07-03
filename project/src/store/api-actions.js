@@ -49,9 +49,45 @@ const logout = () => async (dispatch, _, api) => {
 };
 
 const getOffer = (id) => async (dispatch, _, api) => {
-  dispatch(actionCreator.offerRequest());
-  const {data} = await api.get(`/hotels/${id}`);
-  dispatch(actionCreator.loadOfferSuccess(data));
+  try {
+    dispatch(actionCreator.loadOfferRequest());
+    const {data} = await api.get(`/hotels/${id}`);
+    const adaptedData = adaptToClient(data);
+    dispatch(actionCreator.loadOfferSuccess(adaptedData));
+  } catch {
+    dispatch(actionCreator.loadOfferError());
+  }
+};
+
+const getNearPlacesOffers = (id) => async (dispatch, _, api) => {
+  try {
+    dispatch(actionCreator.nearPlacesOffersRequest());
+    const {data} = await api.get(`/hotels/${id}/nearby`);
+    const adaptedData = data.map((offer) => adaptToClient(offer));
+    dispatch(actionCreator.nearPlacesOffersSuccess(adaptedData));
+  } catch {
+    dispatch(actionCreator.nearPlacesOffersError());
+  }
+};
+
+const getComments = (id) => async (dispatch, _, api) => {
+  try {
+    dispatch(actionCreator.getCommentsRequest());
+    const {data} = await api.get(`/comments/${id}`);
+    dispatch(actionCreator.getCommentsSuccess(data));
+  } catch {
+    dispatch(actionCreator.getCommentsError());
+  }
+};
+
+const setComment = (pageId, body) => async (dispatch, _, api) => {
+  dispatch(actionCreator.setCommentRequest());
+  try {
+    await api.post(`/comments/${pageId}`, body);
+    dispatch(actionCreator.setCommentSuccess());
+  } catch {
+    dispatch(actionCreator.setCommentError());
+  }
 };
 
 export {
@@ -59,5 +95,8 @@ export {
   checkAuth,
   login,
   logout,
-  getOffer
+  getOffer,
+  getNearPlacesOffers,
+  getComments,
+  setComment
 };

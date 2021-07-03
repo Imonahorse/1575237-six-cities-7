@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import CommentRating from '../comment-rating/comment-rating.jsx';
+import {connect} from 'react-redux';
+import {setComment} from '../../store/api-actions.js';
+import {useParams} from 'react-router-dom';
+import Loading from '../loading/loading.jsx';
+import styles from './comments-form.module.css';
+import PropTypes from 'prop-types';
 
 const MIN_LENGTH = 50;
 
-function CommentsForm() {
+function CommentsForm({sendComment, commentStatus}) {
   const [state, setState] = useState({
-    rating: '',
     review: '',
+    rating: '',
   });
 
   const isValid = !(state.rating.length && state.review.length && state.review.length >= MIN_LENGTH);
@@ -19,10 +25,21 @@ function CommentsForm() {
     });
   };
 
+  const {id} = useParams();
+
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+
+    const data = {comment: state.review, rating: state.rating};
+    sendComment(id, data);
+    setState({review: '', rating: ''});
+  };
+
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={onSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <CommentRating onInputChange={onInputChange}/>
+      <CommentRating onInputChange={onInputChange} state={state.rating}/>
       <textarea
         onChange={onInputChange}
         className="reviews__textarea form__textarea"
@@ -40,10 +57,36 @@ function CommentsForm() {
           and describe your stay with at least
           <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={isValid}>Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={isValid}
+        >
+          {commentStatus.isLoading ? <Loading size={11} styleClass={styles.loading}/> : 'Submit'}
+        </button>
       </div>
     </form>
   );
 }
 
-export default CommentsForm;
+CommentsForm.propTypes = {
+  sendComment: PropTypes.func.isRequired,
+  commentStatus: PropTypes.shape({
+    isLoading: PropTypes.string.isRequired,
+    isSuccess: PropTypes.string.isRequired,
+    isError: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  commentStatus: state.commentStatus,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  sendComment(id, data) {
+    dispatch(setComment(id, data));
+  },
+});
+
+export {CommentsForm};
+export default connect(mapStateToProps, mapDispatchToProps)(CommentsForm);

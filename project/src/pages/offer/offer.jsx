@@ -1,39 +1,31 @@
 import React, {useEffect} from 'react';
 import Header from '../../components/header/header.jsx';
 import offerCardProp from '../../components/offer-card/offer-card-prop.js';
-import {useParams, Redirect} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Map from '../../components/map/map.jsx';
 import OfferGallery from '../../components/offer-gallery/offer-gallery.jsx';
 import OfferPage from '../../components/offer-page/offer-page.jsx';
-import NearPlacesOffers from '../../components/nearPlacesOffers/nearPlacesOffers.jsx';
-import {AppRoutes} from '../../const.js';
-import {getOffer} from "../../store/api-actions";
+import NearPlacesOffers from '../../components/near-places-offers/near-places-offers.jsx';
+import {getOffer, getNearPlacesOffers, getComments} from '../../store/api-actions.js';
 import {connect} from 'react-redux';
-import Loading from "../../components/loading/loading";
+import Loading from '../../components/loading/loading.jsx';
+import commentProp from '../../components/comment/comment-prop.js';
 
-function Offer({offers, load, offerTest, offerState}) {
-  console.log(offerState)
-  if (offerState.isLoading) {
-    return <Loading/>
-  }
-
-  console.log(offerTest)
-
-  const params = useParams();
-  // const offer = offers.find((item) => item.id === Number(params.id));
+function Offer({comments, loadOffer, offer, offerStatus, loadNearPlacesOffers, nearPlacesOffers, loadComments}) {
+  const {id} = useParams();
 
   useEffect(() => {
-    load(Number(params.id));
-  }, [])
+    loadOffer(id);
+    loadNearPlacesOffers(id);
+    loadComments(id);
+  }, [id]);
 
-  if (!offerTest) {
-    return (
-      <Redirect to={AppRoutes.NOT_FOUND}/>
-    );
+  if (offerStatus.isLoading) {
+    return <Loading/>;
   }
 
-  const {images} = offerTest;
+  const {images} = offer;
 
   return (
     <div className="page">
@@ -41,28 +33,51 @@ function Offer({offers, load, offerTest, offerState}) {
       <main className="page__main page__main--property">
         <section className="property">
           <OfferGallery images={images}/>
-          <OfferPage offer={offerTest}/>
-          {/*<Map cityOffers={nearPlacesOffers} cityState={offer.city.name}/>*/}
+          <OfferPage offer={offer} comments={comments}/>
+          <Map cityOffers={nearPlacesOffers} cityState={offer.city.name}/>
         </section>
-        {/*{nearPlacesOffers.length && <NearPlacesOffers neighboringOffers={nearPlacesOffers}/>}*/}
+        {nearPlacesOffers.length && <NearPlacesOffers neighboringOffers={nearPlacesOffers}/>}
       </main>
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  offerTest: state.offer,
-  offerState: state.offerStatus,
-})
+  offer: state.offer,
+  offerStatus: state.offerStatus,
+  nearPlacesOffers: state.nearPlacesOffers,
+  comments: state.comments,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  load(id) {
-    dispatch(getOffer(id))
-  }
-})
+  loadNearPlacesOffers(id) {
+    dispatch(getNearPlacesOffers(id));
+  },
+  loadOffer(id) {
+    dispatch(getOffer(id));
+  },
+  loadComments(id) {
+    dispatch(getComments(id));
+  },
+});
 
 Offer.propTypes = {
-  offers: PropTypes.arrayOf(offerCardProp).isRequired,
+  comments: PropTypes.arrayOf(commentProp),
+  loadOffer: PropTypes.func.isRequired,
+  offer: offerCardProp,
+  nearPlacesOffers: PropTypes.arrayOf(offerCardProp).isRequired,
+  loadComments: PropTypes.func.isRequired,
+  loadNearPlacesOffers: PropTypes.func.isRequired,
+  offerStatus: PropTypes.shape({
+    isLoading: PropTypes.string.isRequired,
+    isSuccess: PropTypes.string.isRequired,
+    isError: PropTypes.string.isRequired,
+  }).isRequired,
+  commentStatus: PropTypes.shape({
+    isLoading: PropTypes.string.isRequired,
+    isSuccess: PropTypes.string.isRequired,
+    isError: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export {Offer};

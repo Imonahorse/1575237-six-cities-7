@@ -2,6 +2,8 @@ import {actionCreator} from './actions.js';
 import {AuthorizationStatus, APIRoutes, AppRoutes} from '../const.js';
 import {adaptToClient} from '../utils.js';
 
+const NOT_FOUNR_ERROR = 'Request failed with status code 404';
+
 const fetchOffersList = () => async (dispatch, _, api) => {
   dispatch(actionCreator.loadOffersRequest());
   try {
@@ -49,9 +51,48 @@ const logout = () => async (dispatch, _, api) => {
 };
 
 const getOffer = (id) => async (dispatch, _, api) => {
-  dispatch(actionCreator.offerRequest());
-  const {data} = await api.get(`/hotels/${id}`);
-  dispatch(actionCreator.loadOfferSuccess(data));
+  try {
+    dispatch(actionCreator.loadOfferRequest());
+    const {data} = await api.get(`/hotels/${id}`);
+    const adaptedData = adaptToClient(data);
+    dispatch(actionCreator.loadOfferSuccess(adaptedData));
+  } catch(err) {
+    if(err.message === NOT_FOUNR_ERROR) {
+      dispatch(actionCreator.redirectToRoute(AppRoutes.NOT_FOUND));
+    }
+    // dispatch(actionCreator.loadOfferError());
+  }
+};
+
+const getNearPlacesOffers = (id) => async (dispatch, _, api) => {
+  try {
+    dispatch(actionCreator.nearPlacesOffersRequest());
+    const {data} = await api.get(`/hotels/${id}/nearby`);
+    const adaptedData = data.map((offer) => adaptToClient(offer));
+    dispatch(actionCreator.nearPlacesOffersSuccess(adaptedData));
+  } catch {
+    dispatch(actionCreator.nearPlacesOffersError());
+  }
+};
+
+const getComments = (id) => async (dispatch, _, api) => {
+  try {
+    dispatch(actionCreator.getCommentsRequest());
+    const {data} = await api.get(`/comments/${id}`);
+    dispatch(actionCreator.getCommentsSuccess(data));
+  } catch {
+    dispatch(actionCreator.getCommentsError());
+  }
+};
+
+const setComment = (pageId, body) => async (dispatch, _, api) => {
+  dispatch(actionCreator.setCommentRequest());
+  try {
+    const {data} = await api.post(`/comments/${pageId}`, body);
+    dispatch(actionCreator.setCommentSuccess(data));
+  } catch {
+    dispatch(actionCreator.setCommentError());
+  }
 };
 
 export {
@@ -59,5 +100,8 @@ export {
   checkAuth,
   login,
   logout,
-  getOffer
+  getOffer,
+  getNearPlacesOffers,
+  getComments,
+  setComment
 };

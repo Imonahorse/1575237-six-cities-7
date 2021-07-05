@@ -3,8 +3,10 @@ import {calcRating} from '../../utils.js';
 import Host from '../host/host.jsx';
 import React from 'react';
 import offerCardProp from '../offer-card/offer-card-prop.js';
+import Comments from '../comments/comments.jsx';
+import commentProp from '../comment/comment-prop.js';
 
-function OfferPage({offer}) {
+function OfferPage({offer, comments}) {
   const {
     isPremium,
     price,
@@ -68,7 +70,7 @@ function OfferPage({offer}) {
           </ul>
         </div>
         <Host host={host} description={description}/>
-        {/*<Comments comments={comments}/>*/}
+        <Comments comments={comments}/>
       </div>
     </div>
   );
@@ -76,6 +78,7 @@ function OfferPage({offer}) {
 
 OfferPage.propTypes = {
   offer: offerCardProp,
+  comments: commentProp,
 };
 
 export default OfferPage;

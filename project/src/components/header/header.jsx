@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import SignOutButton from '../user-nav/user-nav.jsx';
+import UserNav from '../user-nav/user-nav.jsx';
 import {AppRoutes} from '../../const.js';
 
 function Header() {
@@ -13,7 +13,7 @@ function Header() {
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>
-          <SignOutButton/>
+          <UserNav/>
         </div>
       </div>
     </header>

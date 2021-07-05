@@ -12,7 +12,7 @@ function useError(errorStatus) {
         setIsVisibleState(false);
       }, 4000);
 
-      return(()=>clearTimeout(timer))
+      return(()=>clearTimeout(timer));
     }
   }, [errorStatus]);
 

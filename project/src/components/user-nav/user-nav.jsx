@@ -8,7 +8,7 @@ import useError from '../../hooks/useError.js';
 import Loading from '../loading/loading.jsx';
 import styles from './user-nav.module.css';
 
-function UserNav({onLogoutClick, login, authorizationStatus, logoutStatus}) {
+function UserNav({onLogoutClick, login, authorizationStatus, logoutStatus, user}) {
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   const errorMessage = useError(logoutStatus);
 
@@ -22,6 +22,11 @@ function UserNav({onLogoutClick, login, authorizationStatus, logoutStatus}) {
             to={isAuth ? AppRoutes.FAVORITES : AppRoutes.SIGN_IN}
           >
             <div className="header__avatar-wrapper user__avatar-wrapper">
+              {
+                isAuth &&
+                <img src={user.avatar_url} alt="avatar">
+                </img>
+              }
             </div>
             {
               isAuth
@@ -62,6 +67,7 @@ const mapStateToProps = (state) => ({
   login: state.user.email,
   authorizationStatus: state.authorizationStatus,
   logoutStatus: state.logoutStatus,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -9,7 +9,7 @@ const RatingCount = {
   1: 'terribly',
 };
 
-function CommentRating({onInputChange, state}) {
+function CommentRating({onInputChange, isActive}) {
   return (
     <div className="reviews__rating-form form__rating">
       {Object.entries(RatingCount).reverse().map(([value, title]) => (
@@ -22,7 +22,7 @@ function CommentRating({onInputChange, state}) {
             id={value <= 1 ? `${value}-star` : `${value}-stars`}
             type="radio"
             required
-            checked={state === value}
+            checked={isActive === value}
           />
           <label
             htmlFor={value <= 1 ? `${value}-star` : `${value}-stars`}
@@ -42,7 +42,7 @@ function CommentRating({onInputChange, state}) {
 
 CommentRating.propTypes = {
   onInputChange: PropTypes.func.isRequired,
-  state: PropTypes.string.isRequired,
+  isActive: PropTypes.string.isRequired,
 };
 
 export default CommentRating;

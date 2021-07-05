@@ -1,48 +1,34 @@
 import React, {useEffect} from 'react';
 import Header from '../../components/header/header.jsx';
 import offerCardProp from '../../components/offer-card/offer-card-prop.js';
-import {useParams, Redirect} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Map from '../../components/map/map.jsx';
 import OfferGallery from '../../components/offer-gallery/offer-gallery.jsx';
 import OfferPage from '../../components/offer-page/offer-page.jsx';
-import NearPlacesOffers from '../../components/nearPlacesOffers/nearPlacesOffers.jsx';
-import {AppRoutes} from '../../const.js';
+import NearPlacesOffers from '../../components/near-places-offers/near-places-offers.jsx';
 import {getOffer, getNearPlacesOffers, getComments} from '../../store/api-actions.js';
 import {connect} from 'react-redux';
 import Loading from '../../components/loading/loading.jsx';
-import useError from '../../hooks/useError.js';
 import commentProp from '../../components/comment/comment-prop.js';
 
-function Offer({comments, loadOffer, offer, offerStatus, loadNearPlacesOffers, nearPlacesOffers, loadComments, commentStatus}) {
+function Offer({comments, loadOffer, offer, offerStatus, loadNearPlacesOffers, nearPlacesOffers, loadComments}) {
   const {id} = useParams();
-  const errorMessage = useError(commentStatus);
 
   useEffect(() => {
     loadOffer(id);
     loadNearPlacesOffers(id);
     loadComments(id);
-  }, []);
-
-  useEffect(() => {
-    loadComments(id);
-  }, [commentStatus.isSuccess]);
+  }, [id]);
 
   if (offerStatus.isLoading) {
     return <Loading/>;
-  }
-
-  if (!offer) {
-    return (
-      <Redirect to={AppRoutes.NOT_FOUND}/>
-    )
   }
 
   const {images} = offer;
 
   return (
     <div className="page">
-      {errorMessage}
       <Header/>
       <main className="page__main page__main--property">
         <section className="property">
@@ -61,7 +47,6 @@ const mapStateToProps = (state) => ({
   offerStatus: state.offerStatus,
   nearPlacesOffers: state.nearPlacesOffers,
   comments: state.comments,
-  commentStatus: state.commentStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({

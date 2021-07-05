@@ -2,6 +2,7 @@ const ActionsType = {
   CHANGE_CITY: 'main/cityChange',
   CHANGE_SORT: 'sort/sortChange',
   REQUIRED_AUTHORIZATION: 'requiredAuthorization',
+  REDIRECT_TO_NOT_FOUND: 'offer/redirectToNotFoundPage',
   REDIRECT_TO_ROUTE: 'login/redirectToRoute',
   LOAD_OFFERS_SUCCESS: 'data/loadOffersSuccess',
   LOAD_OFFERS_ERROR: 'data/loadOffersError',
@@ -18,7 +19,7 @@ const ActionsType = {
   LOAD_OFFER_SUCCESS: 'offer/loadOfferSuccess',
   LOAD_OFFER_REQUEST: 'offer/offerRequest',
   LOAD_OFFER_ERROR: 'offer/offerError',
-  NEAR_PLACES_OFFERS_REQUEST: 'data/offerRequest',
+  NEAR_PLACES_OFFERS_REQUEST: 'data/offerNearPlacesRequest',
   NEAR_PLACES_OFFERS_SUCCESS: 'data/offerNearPlacesSuccess',
   NEAR_PLACES_OFFERS_ERROR: 'data/offerNearPlacesSuccess',
   GET_COMMENTS_REQUEST: 'data/getCommentsRequest',
@@ -30,8 +31,13 @@ const ActionsType = {
 };
 
 const actionCreator = {
-  setCommentSuccess: ()=> ({
+  redirectToNotFoundPage: (url) => ({
+    type: ActionsType.REDIRECT_TO_NOT_FOUND,
+    payload: url,
+  }),
+  setCommentSuccess: (answer)=> ({
     type: ActionsType.SET_COMMENT_SUCCESS,
+    payload: answer,
   }),
   setCommentRequest: ()=> ({
     type: ActionsType.SET_COMMENT_REQUEST,

@@ -52,6 +52,7 @@ const reducer = (state = initialState, action) => {
     case ActionsType.SET_COMMENT_SUCCESS:
       return {
         ...state,
+        comments: action.payload,
         commentStatus: {
           ...state.commentStatus,
           isSuccess: true,
@@ -121,7 +122,7 @@ const reducer = (state = initialState, action) => {
           isSuccess: false,
           isError: true,
         },
-        comments: action.payload,
+        comments: [],
       };
     case ActionsType.NEAR_PLACES_OFFERS_REQUEST:
       return {
@@ -178,11 +179,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         offerStatus: {
           ...state.offerStatus,
-          isLoading: false,
+          isLoading: true,
           isSuccess: false,
           isError: true,
         },
-        offer: action.payload,
+        offer: {},
       };
     case ActionsType.GET_LOGIN_SUCCESS:
       return {

@@ -2,6 +2,8 @@ import {actionCreator} from './actions.js';
 import {AuthorizationStatus, APIRoutes, AppRoutes} from '../const.js';
 import {adaptToClient} from '../utils.js';
 
+const NOT_FOUNR_ERROR = 'Request failed with status code 404';
+
 const fetchOffersList = () => async (dispatch, _, api) => {
   dispatch(actionCreator.loadOffersRequest());
   try {
@@ -54,8 +56,11 @@ const getOffer = (id) => async (dispatch, _, api) => {
     const {data} = await api.get(`/hotels/${id}`);
     const adaptedData = adaptToClient(data);
     dispatch(actionCreator.loadOfferSuccess(adaptedData));
-  } catch {
-    dispatch(actionCreator.loadOfferError());
+  } catch(err) {
+    if(err.message === NOT_FOUNR_ERROR) {
+      dispatch(actionCreator.redirectToRoute(AppRoutes.NOT_FOUND));
+    }
+    // dispatch(actionCreator.loadOfferError());
   }
 };
 
@@ -83,8 +88,8 @@ const getComments = (id) => async (dispatch, _, api) => {
 const setComment = (pageId, body) => async (dispatch, _, api) => {
   dispatch(actionCreator.setCommentRequest());
   try {
-    await api.post(`/comments/${pageId}`, body);
-    dispatch(actionCreator.setCommentSuccess());
+    const {data} = await api.post(`/comments/${pageId}`, body);
+    dispatch(actionCreator.setCommentSuccess(data));
   } catch {
     dispatch(actionCreator.setCommentError());
   }

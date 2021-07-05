@@ -6,6 +6,7 @@ import {useParams} from 'react-router-dom';
 import Loading from '../loading/loading.jsx';
 import styles from './comments-form.module.css';
 import PropTypes from 'prop-types';
+import useError from '../../hooks/useError.js';
 
 const MIN_LENGTH = 50;
 
@@ -26,6 +27,7 @@ function CommentsForm({sendComment, commentStatus}) {
   };
 
   const {id} = useParams();
+  const errorMessage = useError(commentStatus);
 
   const onSubmit = (evt) => {
     evt.preventDefault();
@@ -35,11 +37,11 @@ function CommentsForm({sendComment, commentStatus}) {
     setState({review: '', rating: ''});
   };
 
-
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={onSubmit}>
+      {errorMessage}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <CommentRating onInputChange={onInputChange} state={state.rating}/>
+      <CommentRating onInputChange={onInputChange} isActive={state.rating}/>
       <textarea
         onChange={onInputChange}
         className="reviews__textarea form__textarea"

@@ -8,10 +8,11 @@
 
 .errorMessage {
   position: absolute;
-  top: 10%;
-  right: -35%;
+  top: 0%;
+  right: -103%;
+  width: 330px;
   margin: 0;
-  font-size: 30px;
-  color: #4481c3;
+  font-size: 25px;
+  color: red;
 }
 

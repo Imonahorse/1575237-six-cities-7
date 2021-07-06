@@ -5,6 +5,7 @@ import commentProp from '../comment/comment-prop.js';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../const.js';
+import {getAuthorizationStatus} from '../../store/reducer/user-data/selectors.js';
 
 function Comments({comments, authStatus}) {
   return (
@@ -22,7 +23,7 @@ Comments.propTypes = {
 };
 
 const mapStateToProps=(state)=> ({
-  authStatus: state.authorizationStatus,
+  authStatus: getAuthorizationStatus(state),
 });
 
 export {Comments};

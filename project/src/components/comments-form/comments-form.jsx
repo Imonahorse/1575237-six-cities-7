@@ -7,6 +7,7 @@ import Loading from '../loading/loading.jsx';
 import styles from './comments-form.module.css';
 import PropTypes from 'prop-types';
 import useError from '../../hooks/useError.js';
+import {getCommentStatus} from '../../store/reducer/app-data/selectors.js';
 
 const MIN_LENGTH = 50;
 
@@ -81,7 +82,7 @@ CommentsForm.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  commentStatus: state.commentStatus,
+  commentStatus: getCommentStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

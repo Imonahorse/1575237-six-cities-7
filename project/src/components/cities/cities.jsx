@@ -2,10 +2,11 @@ import React from 'react';
 import {CITIES} from '../../const.js';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import {actionCreator} from '../../store/actions.js';
+import {changeCity} from '../../store/actions.js';
 import {connect} from 'react-redux';
+import {getCity} from '../../store/reducer/app-process/selectors.js';
 
-function Cities({currentCity, changeCity}) {
+function Cities({currentCity, exchangeCity}) {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -17,7 +18,7 @@ function Cities({currentCity, changeCity}) {
               <li
                 className="locations__item"
                 key={city}
-                onClick={() => changeCity(city)}
+                onClick={() => exchangeCity(city)}
               >
                 <a className={cityClass} href="/#">
                   <span>{city}</span>
@@ -32,16 +33,16 @@ function Cities({currentCity, changeCity}) {
 
 Cities.propTypes = {
   currentCity: PropTypes.string.isRequired,
-  changeCity: PropTypes.func.isRequired,
+  exchangeCity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.city,
+  currentCity: getCity(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCity(city) {
-    dispatch(actionCreator.changeCity(city));
+  exchangeCity(city) {
+    dispatch(changeCity(city));
   },
 });
 

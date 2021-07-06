@@ -5,15 +5,15 @@ import {createStore, applyMiddleware} from '@reduxjs/toolkit';
 import createApi from './services/api.js';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
-import reducer from './store/reducer.js';
+import {rootReducer} from './store/reducer/root-reducer.js';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import {actionCreator} from './store/actions.js';
+import {requireAuthorization} from './store/actions.js';
 import {AuthorizationStatus} from './const.js';
 import {checkAuth, fetchOffersList} from './store/api-actions.js';
 import redirect from './store/middlewares/redirect.js';
 
-const api = createApi(() => actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
-export const store = createStore(reducer, composeWithDevTools(
+const api = createApi(() => requireAuthorization(AuthorizationStatus.NO_AUTH));
+export const store = createStore(rootReducer, composeWithDevTools(
   applyMiddleware(thunk.withExtraArgument(api)),
   applyMiddleware(redirect),
 ));

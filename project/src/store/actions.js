@@ -1,4 +1,4 @@
-const ActionsType = {
+export const ActionsType = {
   CHANGE_CITY: 'main/cityChange',
   CHANGE_SORT: 'sort/sortChange',
   REQUIRED_AUTHORIZATION: 'requiredAuthorization',
@@ -30,98 +30,118 @@ const ActionsType = {
   SET_COMMENT_ERROR: 'data/setCommentError',
 };
 
-const actionCreator = {
-  redirectToNotFoundPage: (url) => ({
-    type: ActionsType.REDIRECT_TO_NOT_FOUND,
-    payload: url,
-  }),
-  setCommentSuccess: (answer)=> ({
-    type: ActionsType.SET_COMMENT_SUCCESS,
-    payload: answer,
-  }),
-  setCommentRequest: ()=> ({
-    type: ActionsType.SET_COMMENT_REQUEST,
-  }),
-  setCommentError: ()=> ({
-    type: ActionsType.SET_COMMENT_ERROR,
-  }),
-  changeCity: (city) => ({
-    type: ActionsType.CHANGE_CITY,
-    payload: city,
-  }),
-  changeSort: (sort) => ({
-    type: ActionsType.CHANGE_SORT,
-    payload: sort,
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionsType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionsType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  getCommentsRequest: () => ({
-    type: ActionsType.GET_COMMENTS_REQUEST,
-  }),
-  getCommentsSuccess: (comments) => ({
-    type: ActionsType.GET_COMMENTS_SUCCESS,
-    payload: comments,
-  }),
-  getCommentsError: () => ({
-    type: ActionsType.GET_COMMENTS_ERROR,
-  }),
-  nearPlacesOffersRequest: () => ({
-    type: ActionsType.NEAR_PLACES_OFFERS_REQUEST,
-  }),
-  nearPlacesOffersSuccess: (offers) => ({
-    type: ActionsType.NEAR_PLACES_OFFERS_SUCCESS,
-    payload: offers,
-  }),
-  nearPlacesOffersError: () => ({
-    type: ActionsType.NEAR_PLACES_OFFERS_ERROR,
-  }),
-  loadOfferSuccess: (offer) => ({
-    type: ActionsType.LOAD_OFFER_SUCCESS,
-    payload: offer,
-  }),
-  loadOfferRequest: () => ({
-    type: ActionsType.LOAD_OFFER_REQUEST,
-  }),
-  loadOfferError: () => ({
-    type: ActionsType.LOAD_OFFER_ERROR,
-  }),
-  getLoginSuccess: (login) => ({
-    type: ActionsType.GET_LOGIN_SUCCESS,
-    payload: login,
-  }),
-  getLoginError: () => ({
-    type: ActionsType.GET_LOGIN_ERROR,
-  }),
-  getLoginRequest: () => ({
-    type: ActionsType.GET_LOGIN_REQUEST,
-  }),
-  loadOffersSuccess: (offers) => ({
-    type: ActionsType.LOAD_OFFERS_SUCCESS,
-    payload: offers,
-  }),
-  loadOffersError: () => ({
-    type: ActionsType.LOAD_OFFERS_ERROR,
-  }),
-  loadOffersRequest: () => ({
-    type: ActionsType.LOAD_OFFERS_REQUEST,
-  }),
-  logoutSuccess: (status) => ({
-    type: ActionsType.LOGOUT_SUCCESS,
-    payload: status,
-  }),
-  logoutError: () => ({
-    type: ActionsType.LOGOUT_ERROR,
-  }),
-  logoutRequest: () => ({
-    type: ActionsType.LOGOUT_REQUEST,
-  }),
-};
+export const redirectToNotFoundPage = (url) => ({
+  type: ActionsType.REDIRECT_TO_NOT_FOUND,
+  payload: url,
+});
 
+export const setCommentSuccess = (answer) => ({
+  type: ActionsType.SET_COMMENT_SUCCESS,
+  payload: answer,
+});
 
-export {ActionsType, actionCreator};
+export const setCommentRequest = () => ({
+  type: ActionsType.SET_COMMENT_REQUEST,
+});
+
+export const setCommentError = () => ({
+  type: ActionsType.SET_COMMENT_ERROR,
+});
+
+export const changeCity = (city) => ({
+  type: ActionsType.CHANGE_CITY,
+  payload: city,
+});
+
+export const changeSort = (sort) => ({
+  type: ActionsType.CHANGE_SORT,
+  payload: sort,
+});
+
+export const requireAuthorization = (status) => ({
+  type: ActionsType.REQUIRED_AUTHORIZATION,
+  payload: status,
+});
+
+export const redirectToRoute = (url) => ({
+  type: ActionsType.REDIRECT_TO_ROUTE,
+  payload: url,
+});
+
+export const getCommentsRequest = () => ({
+  type: ActionsType.GET_COMMENTS_REQUEST,
+});
+
+export const getCommentsSuccess = (comments) => ({
+  type: ActionsType.GET_COMMENTS_SUCCESS,
+  payload: comments,
+});
+
+export const getCommentsError = () => ({
+  type: ActionsType.GET_COMMENTS_ERROR,
+});
+
+export const nearPlacesOffersRequest = () => ({
+  type: ActionsType.NEAR_PLACES_OFFERS_REQUEST,
+});
+
+export const nearPlacesOffersSuccess = (offers) => ({
+  type: ActionsType.NEAR_PLACES_OFFERS_SUCCESS,
+  payload: offers,
+});
+
+export const nearPlacesOffersError = () => ({
+  type: ActionsType.NEAR_PLACES_OFFERS_ERROR,
+});
+
+export const loadOfferSuccess = (offer) => ({
+  type: ActionsType.LOAD_OFFER_SUCCESS,
+  payload: offer,
+});
+
+export const loadOfferRequest = () => ({
+  type: ActionsType.LOAD_OFFER_REQUEST,
+});
+
+export const loadOfferError = () => ({
+  type: ActionsType.LOAD_OFFER_ERROR,
+});
+
+export const getLoginSuccess = (login) => ({
+  type: ActionsType.GET_LOGIN_SUCCESS,
+  payload: login,
+});
+
+export const getLoginError = () => ({
+  type: ActionsType.GET_LOGIN_ERROR,
+});
+
+export const getLoginRequest = () => ({
+  type: ActionsType.GET_LOGIN_REQUEST,
+});
+
+export const loadOffersSuccess = (offers) => ({
+  type: ActionsType.LOAD_OFFERS_SUCCESS,
+  payload: offers,
+});
+
+export const loadOffersError = () => ({
+  type: ActionsType.LOAD_OFFERS_ERROR,
+});
+
+export const loadOffersRequest = () => ({
+  type: ActionsType.LOAD_OFFERS_REQUEST,
+});
+
+export const logoutSuccess = (status) => ({
+  type: ActionsType.LOGOUT_SUCCESS,
+  payload: status,
+});
+
+export const logoutError = () => ({
+  type: ActionsType.LOGOUT_ERROR,
+});
+
+export const logoutRequest = () => ({
+  type: ActionsType.LOGOUT_REQUEST,
+});

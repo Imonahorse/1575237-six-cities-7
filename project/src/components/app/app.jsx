@@ -12,6 +12,9 @@ import {connect} from 'react-redux';
 import Loading from '../loading/loading.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
 import browserHistory from '../../services/browser-history.js';
+import {getOffersStatus, getOffers} from '../../store/reducer/app-data/selectors.js';
+import {getCity} from '../../store/reducer/app-process/selectors.js';
+
 
 function App({offers, currentCity, offersStatus}) {
   if (offersStatus.isLoading) {
@@ -55,9 +58,9 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offersStatus: state.offersStatus,
-  offers: state.offers,
-  currentCity: state.city,
+  offersStatus: getOffersStatus(state),
+  offers: getOffers(state),
+  currentCity: getCity(state),
 });
 
 export {App};

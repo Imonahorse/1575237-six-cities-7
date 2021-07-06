@@ -7,6 +7,7 @@ import Loading from '../loading/loading.jsx';
 import useError from '../../hooks/useError.js';
 import cn from 'classnames';
 import {LoadingSize} from '../../const.js';
+import {getLoginStatus} from '../../store/reducer/user-data/selectors.js';
 
 const inputs = {
   email: 'E-mail',
@@ -105,7 +106,7 @@ LoginForm.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  loginStatus: state.loginStatus,
+  loginStatus: getLoginStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

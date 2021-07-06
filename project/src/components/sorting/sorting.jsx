@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
-import {actionCreator} from '../../store/actions.js';
+import {changeSort} from '../../store/actions.js';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {PlacesOptions} from '../../sort.js';
+import {getSort} from '../../store/reducer/app-process/selectors.js';
 
-function Sorting({activeSort, changeSort}) {
+function Sorting({activeSort, exchangeSort}) {
   const [openState, setOpenState] = useState(false);
   const sortClass = cn('places__options places__options--custom', {'places__options--opened': openState});
 
@@ -27,7 +28,7 @@ function Sorting({activeSort, changeSort}) {
           const optionClass = cn('places__option', {'places__option--active': item === activeSort});
           return (
             <li className={optionClass} tabIndex="0" key={item} onClick={() => {
-              changeSort(item);
+              exchangeSort(item);
             }}
             >
               {item}
@@ -40,16 +41,16 @@ function Sorting({activeSort, changeSort}) {
 
 Sorting.propTypes = {
   activeSort: PropTypes.string.isRequired,
-  changeSort: PropTypes.func.isRequired,
+  exchangeSort: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  activeSort: state.sort,
+  activeSort: getSort(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeSort(sort) {
-    dispatch(actionCreator.changeSort(sort));
+  exchangeSort(sort) {
+    dispatch(changeSort(sort));
   },
 });
 

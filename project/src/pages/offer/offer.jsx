@@ -7,10 +7,11 @@ import Map from '../../components/map/map.jsx';
 import OfferGallery from '../../components/offer-gallery/offer-gallery.jsx';
 import OfferPage from '../../components/offer-page/offer-page.jsx';
 import NearPlacesOffers from '../../components/near-places-offers/near-places-offers.jsx';
-import {getOffer, getNearPlacesOffers, getComments} from '../../store/api-actions.js';
 import {connect} from 'react-redux';
 import Loading from '../../components/loading/loading.jsx';
 import commentProp from '../../components/comment/comment-prop.js';
+import {getOfferStatus, getOffer, getNearPlacesOffers, getComments} from '../../store/reducer/app-data/selectors.js';
+import {fetchComments, fetchOffer, fetchNearPlacesOffers} from '../../store/api-actions.js';
 
 function Offer({comments, loadOffer, offer, offerStatus, loadNearPlacesOffers, nearPlacesOffers, loadComments}) {
   const {id} = useParams();
@@ -43,21 +44,21 @@ function Offer({comments, loadOffer, offer, offerStatus, loadNearPlacesOffers, n
 }
 
 const mapStateToProps = (state) => ({
-  offer: state.offer,
-  offerStatus: state.offerStatus,
-  nearPlacesOffers: state.nearPlacesOffers,
-  comments: state.comments,
+  offer: getOffer(state),
+  offerStatus: getOfferStatus(state),
+  nearPlacesOffers: getNearPlacesOffers(state),
+  comments: getComments(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadNearPlacesOffers(id) {
-    dispatch(getNearPlacesOffers(id));
+    dispatch(fetchNearPlacesOffers(id));
   },
   loadOffer(id) {
-    dispatch(getOffer(id));
+    dispatch(fetchOffer(id));
   },
   loadComments(id) {
-    dispatch(getComments(id));
+    dispatch(fetchComments(id));
   },
 });
 

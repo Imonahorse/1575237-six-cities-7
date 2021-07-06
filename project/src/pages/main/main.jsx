@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import MainEmpty from '../../components/main-empty/main-empty.jsx';
 import {connect} from 'react-redux';
 import {SortingTypes} from '../../sort.js';
+import {getSort} from '../../store/reducer/app-process/selectors.js';
 
 function Main({offers, currentCity, activeSort}) {
   const cityOffers = offers
@@ -37,7 +38,7 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeSort: state.sort,
+  activeSort: getSort(state),
 });
 
 export {Main};

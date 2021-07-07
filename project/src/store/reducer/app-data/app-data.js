@@ -1,4 +1,21 @@
-import {ActionsType} from '../../actions.js';
+import {
+  loadOfferSuccess,
+  setCommentSuccess,
+  setCommentRequest,
+  setCommentError,
+  getCommentsRequest,
+  getCommentsSuccess,
+  getCommentsError,
+  nearPlacesOffersRequest,
+  nearPlacesOffersSuccess,
+  nearPlacesOffersError,
+  loadOfferRequest,
+  loadOfferError,
+  loadOffersSuccess,
+  loadOffersRequest,
+  loadOffersError
+} from '../../actions.js';
+import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
   offers: [],
@@ -32,189 +49,97 @@ const initialState = {
   },
 };
 
-const appData = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionsType.SET_COMMENT_SUCCESS:
-      return {
-        ...state,
-        comments: action.payload,
-        commentStatus: {
-          ...state.commentStatus,
-          isSuccess: true,
-          isLoading: false,
-          isError: false,
-        },
-      };
-    case ActionsType.SET_COMMENT_REQUEST:
-      return {
-        ...state,
-        commentStatus: {
-          ...state.commentStatus,
-          isSuccess: false,
-          isLoading: true,
-          isError: false,
-        },
-      };
-    case ActionsType.SET_COMMENT_ERROR:
-      return {
-        ...state,
-        commentStatus: {
-          ...state.commentStatus,
-          isSuccess: false,
-          isLoading: false,
-          isError: true,
-        },
-      };
-    case ActionsType.GET_COMMENTS_REQUEST:
-      return {
-        ...state,
-        commentsStatus: {
-          ...state.commentsStatus,
-          isLoading: true,
-        },
-      };
-    case ActionsType.GET_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        commentsStatus: {
-          ...state.commentsStatus,
-          isLoading: false,
-          isSuccess: true,
-          isError: false,
-        },
-        comments: action.payload,
-      };
-    case ActionsType.GET_COMMENTS_ERROR:
-      return {
-        ...state,
-        commentsStatus: {
-          ...state.commentsStatus,
-          isLoading: false,
-          isSuccess: false,
-          isError: true,
-        },
-        comments: [],
-      };
-    case ActionsType.NEAR_PLACES_OFFERS_REQUEST:
-      return {
-        ...state,
-        nearPlacesOffersStatus: {
-          ...state.nearPlacesOffersStatus,
-          isLoading: true,
-        },
-      };
-    case ActionsType.NEAR_PLACES_OFFERS_SUCCESS:
-      return {
-        ...state,
-        nearPlacesOffersStatus: {
-          ...state.nearPlacesOffersStatus,
-          isLoading: false,
-          isSuccess: true,
-        },
-        nearPlacesOffers: action.payload,
-      };
-    case ActionsType.NEAR_PLACES_OFFERS_ERROR:
-      return {
-        ...state,
-        nearPlacesOffersStatus: {
-          ...state.nearPlacesOffersStatus,
-          isLoading: false,
-          isSuccess: false,
-          isError: true,
-        },
-        nearPlacesOffers: [],
-      };
-    case ActionsType.LOAD_OFFER_SUCCESS:
-      return {
-        ...state,
-        offerStatus: {
-          ...state.offerStatus,
-          isLoading: false,
-          isSuccess: true,
-          isError: false,
-        },
-        offer: action.payload,
-      };
-    case ActionsType.LOAD_OFFER_REQUEST:
-      return {
-        ...state,
-        offerStatus: {
-          ...state.offerStatus,
-          isLoading: true,
-          isError: false,
-          isSuccess: false,
-        },
-      };
-    case ActionsType.LOAD_OFFER_ERROR:
-      return {
-        ...state,
-        offerStatus: {
-          ...state.offerStatus,
-          isLoading: true,
-          isSuccess: false,
-          isError: true,
-        },
-        offer: {},
-      };
-    case ActionsType.LOAD_OFFERS_SUCCESS:
-      return {
-        ...state,
-        offers: action.payload,
-        offersStatus: {
-          ...state.offersStatus,
-          isSuccess: true,
-          isLoading: false,
-        },
-      };
-    case ActionsType.LOAD_OFFERS_REQUEST:
-      return {
-        ...state,
-        offersStatus: {
-          ...state.offersStatus,
-          isLoading: true,
-        },
-      };
-    case ActionsType.LOAD_OFFERS_ERROR:
-      return {
-        ...state,
-        offersStatus: {
-          ...state.offersStatus,
-          isError: true,
-          isLoading: false,
-        },
-      };
-    case ActionsType.LOAD_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        comments: action.payload,
-        offersStatus: {
-          ...state.commentsStatus,
-          isSuccess: true,
-          isLoading: false,
-        },
-      };
-    case ActionsType.LOAD_COMMENTS_REQUEST:
-      return {
-        ...state,
-        offersStatus: {
-          ...state.offersStatus,
-          isLoading: true,
-        },
-      };
-    case ActionsType.LOAD_COMMENTS_ERROR:
-      return {
-        ...state,
-        offersStatus: {
-          ...state.offersStatus,
-          isLoading: false,
-          isSuccess: false,
-          isError: true,
-        },
-        comments: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+const appData = createReducer(initialState, (builder) => {
+  builder
+    .addCase(setCommentSuccess, (state, action) => {
+      state.comments = action.payload;
+      state.commentStatus.isSuccess = true;
+      state.commentStatus.isLoading = false;
+      state.commentStatus.isError = false;
+    })
+
+    .addCase(setCommentRequest, (state) => {
+      state.commentStatus.isSuccess = false;
+      state.commentStatus.isLoading = true;
+      state.commentStatus.isError = false;
+    })
+
+    .addCase(setCommentError, (state) => {
+      state.commentStatus.isSuccess = false;
+      state.commentStatus.isLoading = false;
+      state.commentStatus.isError = true;
+    })
+
+    .addCase(getCommentsRequest, (state) => {
+      state.commentsStatus.isLoading = true;
+    })
+
+    .addCase(getCommentsSuccess, (state, action) => {
+      state.commentsStatus.isLoading = false;
+      state.commentsStatus.isSuccess = true;
+      state.commentsStatus.isError = false;
+      state.comments = action.payload;
+    })
+
+    .addCase(getCommentsError, (state) => {
+      state.commentsStatus.isError = true;
+      state.comments = [];
+    })
+
+    .addCase(nearPlacesOffersSuccess, (state, action) => {
+      state.nearPlacesOffers = action.payload;
+      state.nearPlacesOffersStatus.isLoading = false;
+      state.nearPlacesOffersStatus.isSuccess = true;
+    })
+
+    .addCase(nearPlacesOffersRequest, (state) => {
+      state.nearPlacesOffersStatus.isLoading = true;
+    })
+
+    .addCase(nearPlacesOffersError, (state) => {
+      state.nearPlacesOffersStatus.isLoading = false;
+      state.nearPlacesOffersStatus.isSuccess = false;
+      state.nearPlacesOffersStatus.isError = true;
+      state.nearPlacesOffers = [];
+    })
+
+    .addCase(loadOfferSuccess, (state, action) => {
+      state.offerStatus.isLoading= false;
+      state.offerStatus.isSuccess= true;
+      state.offerStatus.isError= false;
+      state.offer = action.payload;
+    })
+
+    .addCase(loadOfferRequest, (state) => {
+      state.offerStatus.isLoading= true;
+      state.offerStatus.isSuccess= true;
+      state.offerStatus.isError= false;
+    })
+
+    .addCase(loadOfferError, (state) => {
+      state.offerStatus.isLoading= false;
+      state.offerStatus.isSuccess= false;
+      state.offerStatus.isError= true;
+      state.offer = {};
+    })
+
+    .addCase(loadOffersSuccess, (state, action) => {
+      state.offers = action.payload;
+      state.offersStatus.isSuccess= true;
+      state.offersStatus.isError= false;
+      state.offersStatus.isLoading= false;
+    })
+
+    .addCase(loadOffersRequest, (state) => {
+      state.offersStatus.isLoading= true;
+    })
+
+    .addCase(loadOffersError, (state, action) => {
+      state.offers = action.payload;
+      state.offersStatus.isError= true;
+      state.offersStatus.isLoading= false;
+      state.offersStatus.isSuccess= false;
+    });
+});
 
 export default appData;

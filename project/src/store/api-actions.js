@@ -2,7 +2,7 @@ import {
   loadOffersRequest,
   loadOffersSuccess,
   loadOffersError,
-  requireAuthorization,
+  requiredAuthorization,
   getLoginRequest,
   getLoginSuccess,
   getLoginError,
@@ -42,10 +42,10 @@ const fetchOffersList = () => async (dispatch, _, api) => {
 const checkAuth = () => async (dispatch, _, api) => {
   try {
     const {data} = await api.get(APIRoutes.LOGIN);
-    dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+    dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
     dispatch(getLoginSuccess(data));
   } catch {
-    dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+    dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH));
   }
 };
 
@@ -54,11 +54,11 @@ const login = ({login: email, password}) => async (dispatch, _, api) => {
   try {
     const {data} = await api.post(APIRoutes.LOGIN, {email, password});
     localStorage.setItem('token', data.token);
-    dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+    dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
     dispatch(getLoginSuccess(data));
     dispatch(redirectToRoute(AppRoutes.MAIN));
   } catch {
-    dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+    dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH));
     dispatch(getLoginError());
   }
 };

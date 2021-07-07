@@ -1,12 +1,17 @@
 import React from 'react';
 import {CITIES} from '../../const.js';
 import cn from 'classnames';
-import PropTypes from 'prop-types';
 import {changeCity} from '../../store/actions.js';
-import {connect} from 'react-redux';
 import {getCity} from '../../store/reducer/app-process/selectors.js';
+import {useSelector, useDispatch} from 'react-redux';
 
-function Cities({currentCity, exchangeCity}) {
+function Cities() {
+  const currentCity = useSelector(getCity);
+  const dispatch = useDispatch();
+  const exchangeCity = (city) => {
+    dispatch(changeCity(city));
+  };
+
   return (
     <div className="tabs">
       <section className="locations container">
@@ -31,20 +36,4 @@ function Cities({currentCity, exchangeCity}) {
   );
 }
 
-Cities.propTypes = {
-  currentCity: PropTypes.string.isRequired,
-  exchangeCity: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentCity: getCity(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  exchangeCity(city) {
-    dispatch(changeCity(city));
-  },
-});
-
-export {Cities};
-export default connect(mapStateToProps, mapDispatchToProps)(Cities);
+export default Cities;

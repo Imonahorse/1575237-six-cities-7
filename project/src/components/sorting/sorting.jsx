@@ -1,14 +1,18 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
 import {changeSort} from '../../store/actions.js';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import {PlacesOptions} from '../../sort.js';
 import {getSort} from '../../store/reducer/app-process/selectors.js';
+import {useSelector, useDispatch} from 'react-redux';
 
-function Sorting({activeSort, exchangeSort}) {
+function Sorting() {
   const [openState, setOpenState] = useState(false);
   const sortClass = cn('places__options places__options--custom', {'places__options--opened': openState});
+  const activeSort = useSelector(getSort);
+  const dispatch = useDispatch();
+  const exchangeSort = (sort) => {
+    dispatch(changeSort(sort));
+  };
 
   return (
     <form className="places__sorting" action="#" method="get" onClick={() => {
@@ -39,20 +43,5 @@ function Sorting({activeSort, exchangeSort}) {
   );
 }
 
-Sorting.propTypes = {
-  activeSort: PropTypes.string.isRequired,
-  exchangeSort: PropTypes.func.isRequired,
-};
 
-const mapStateToProps = (state) => ({
-  activeSort: getSort(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  exchangeSort(sort) {
-    dispatch(changeSort(sort));
-  },
-});
-
-export {Sorting};
-export default connect(mapStateToProps, mapDispatchToProps)(Sorting);
+export default Sorting;

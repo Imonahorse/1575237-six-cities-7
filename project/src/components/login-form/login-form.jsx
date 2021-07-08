@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {login} from '../../store/api-actions.js';
-import {connect} from 'react-redux';
 import styles from './login.module.css';
 import Loading from '../loading/loading.jsx';
 import useError from '../../hooks/useError.js';
 import cn from 'classnames';
 import {LoadingSize} from '../../const.js';
+import {getLoginStatus} from '../../store/reducer/user-data/selectors.js';
+import {useSelector, useDispatch} from 'react-redux';
 
 const inputs = {
   email: 'E-mail',
@@ -30,10 +30,15 @@ const initialState = {
   },
 };
 
-function LoginForm({getLogin, loginStatus}) {
+function LoginForm() {
   const [inputsState, setInputsState] = useState(initialState);
+  const loginStatus = useSelector(getLoginStatus);
+  const dispatch = useDispatch();
   const errorMessage = useError(loginStatus);
+  const getLogin = (authData) => {
+    dispatch(login(authData));
 
+  };
   const handleChange = (evt) => {
     evt.preventDefault();
     const {name, value} = evt.target;
@@ -95,24 +100,4 @@ function LoginForm({getLogin, loginStatus}) {
   );
 }
 
-LoginForm.propTypes = {
-  getLogin: PropTypes.func.isRequired,
-  loginStatus: PropTypes.shape({
-    isSuccess: PropTypes.bool.isRequired,
-    isError: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-  }).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  loginStatus: state.loginStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getLogin(authData) {
-    dispatch(login(authData));
-  },
-});
-
-export {LoginForm};
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;

@@ -1,14 +1,20 @@
-import {connect} from 'react-redux';
 import React from 'react';
-import PropTypes from 'prop-types';
 import {logout} from '../../store/api-actions.js';
 import {AppRoutes, AuthorizationStatus, LoadingSize} from '../../const.js';
 import {Link} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
 import useError from '../../hooks/useError.js';
 import Loading from '../loading/loading.jsx';
 import styles from './user-nav.module.css';
+import {getUser, getLogoutStatus, getAuthorizationStatus} from '../../store/reducer/user-data/selectors.js';
 
-function UserNav({onLogoutClick, login, authorizationStatus, logoutStatus, user}) {
+function UserNav() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const logoutStatus = useSelector(getLogoutStatus);
+  const user = useSelector(getUser);
+  const dispatch = useDispatch();
+  const onLogoutClick = () => dispatch(logout());
+
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   const errorMessage = useError(logoutStatus);
 
@@ -30,7 +36,7 @@ function UserNav({onLogoutClick, login, authorizationStatus, logoutStatus, user}
             </div>
             {
               isAuth
-                ? <span className="header__user-name user__name">{login}</span>
+                ? <span className="header__user-name user__name">{user.email}</span>
                 : <span className="header__login">Sign in</span>
             }
           </Link>
@@ -52,29 +58,4 @@ function UserNav({onLogoutClick, login, authorizationStatus, logoutStatus, user}
   );
 }
 
-UserNav.propTypes = {
-  onLogoutClick: PropTypes.func.isRequired,
-  login: PropTypes.string,
-  authorizationStatus: PropTypes.string.isRequired,
-  logoutStatus: PropTypes.shape({
-    isSuccess: PropTypes.bool.isRequired,
-    isError: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-  }).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  login: state.user.email,
-  authorizationStatus: state.authorizationStatus,
-  logoutStatus: state.logoutStatus,
-  user: state.user,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLogoutClick() {
-    dispatch(logout());
-  },
-});
-
-export {UserNav};
-export default connect(mapStateToProps, mapDispatchToProps)(UserNav);
+export default UserNav;

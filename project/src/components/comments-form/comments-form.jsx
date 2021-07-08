@@ -1,23 +1,28 @@
 import React, {useState} from 'react';
 import CommentRating from '../comment-rating/comment-rating.jsx';
-import {connect} from 'react-redux';
 import {setComment} from '../../store/api-actions.js';
 import {useParams} from 'react-router-dom';
 import Loading from '../loading/loading.jsx';
 import styles from './comments-form.module.css';
-import PropTypes from 'prop-types';
 import useError from '../../hooks/useError.js';
+import {getCommentStatus} from '../../store/reducer/app-data/selectors.js';
+import {useSelector, useDispatch} from 'react-redux';
 
 const MIN_LENGTH = 50;
 
-function CommentsForm({sendComment, commentStatus}) {
+function CommentsForm() {
   const [state, setState] = useState({
     review: '',
     rating: '',
   });
 
+  const commentStatus = useSelector(getCommentStatus);
+  const dispatch = useDispatch();
   const isValid = !(state.rating.length && state.review.length && state.review.length >= MIN_LENGTH);
 
+  const sendComment = (commentId, data) => {
+    dispatch(setComment(commentId, data));
+  };
   const onInputChange = (evt) => {
     const {name, value} = evt.target;
     setState({
@@ -71,24 +76,4 @@ function CommentsForm({sendComment, commentStatus}) {
   );
 }
 
-CommentsForm.propTypes = {
-  sendComment: PropTypes.func.isRequired,
-  commentStatus: PropTypes.shape({
-    isLoading: PropTypes.string.isRequired,
-    isSuccess: PropTypes.string.isRequired,
-    isError: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  commentStatus: state.commentStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  sendComment(id, data) {
-    dispatch(setComment(id, data));
-  },
-});
-
-export {CommentsForm};
-export default connect(mapStateToProps, mapDispatchToProps)(CommentsForm);
+export default CommentsForm;

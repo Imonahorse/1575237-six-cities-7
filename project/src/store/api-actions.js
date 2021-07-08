@@ -1,97 +1,121 @@
-import {actionCreator} from './actions.js';
+import {
+  loadOffersRequest,
+  loadOffersSuccess,
+  loadOffersError,
+  requiredAuthorization,
+  getLoginRequest,
+  getLoginSuccess,
+  getLoginError,
+  redirectToRoute,
+  logoutRequest,
+  logoutSuccess,
+  logoutError,
+  loadOfferRequest,
+  loadOfferSuccess,
+  loadOfferError,
+  nearPlacesOffersRequest,
+  nearPlacesOffersSuccess,
+  nearPlacesOffersError,
+  getCommentsRequest,
+  getCommentsSuccess,
+  getCommentsError,
+  setCommentRequest,
+  setCommentSuccess,
+  setCommentError
+} from './actions.js';
 import {AuthorizationStatus, APIRoutes, AppRoutes} from '../const.js';
 import {adaptToClient} from '../utils.js';
 
-const NOT_FOUNR_ERROR = 'Request failed with status code 404';
+const NOT_FOUND_ERROR = 'Request failed with status code 404';
 
 const fetchOffersList = () => async (dispatch, _, api) => {
-  dispatch(actionCreator.loadOffersRequest());
+  dispatch(loadOffersRequest());
   try {
     const {data} = await api.get(APIRoutes.OFFERS);
     const adaptedData = data.map((offer) => adaptToClient(offer));
-    dispatch(actionCreator.loadOffersSuccess(adaptedData));
+    dispatch(loadOffersSuccess(adaptedData));
   } catch {
-    dispatch(actionCreator.loadOffersError());
+    dispatch(loadOffersError());
   }
 };
 
 const checkAuth = () => async (dispatch, _, api) => {
   try {
     const {data} = await api.get(APIRoutes.LOGIN);
-    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-    dispatch(actionCreator.getLoginSuccess(data));
+    dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
+    dispatch(getLoginSuccess(data));
   } catch {
-    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+    dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH));
   }
 };
 
 const login = ({login: email, password}) => async (dispatch, _, api) => {
-  dispatch(actionCreator.getLoginRequest());
+  dispatch(getLoginRequest());
   try {
     const {data} = await api.post(APIRoutes.LOGIN, {email, password});
     localStorage.setItem('token', data.token);
-    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-    dispatch(actionCreator.getLoginSuccess(data));
-    dispatch(actionCreator.redirectToRoute(AppRoutes.MAIN));
+    dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
+    dispatch(getLoginSuccess(data));
+    dispatch(redirectToRoute(AppRoutes.MAIN));
   } catch {
-    dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
-    dispatch(actionCreator.getLoginError());
+    dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH));
+    dispatch(getLoginError());
   }
 };
 
 const logout = () => async (dispatch, _, api) => {
-  dispatch(actionCreator.logoutRequest());
+  dispatch(logoutRequest());
   try {
     await api.delete(APIRoutes.LOGOUT);
     localStorage.removeItem('token');
-    dispatch(actionCreator.logoutSuccess(AuthorizationStatus.NO_AUTH));
+    dispatch(logoutSuccess(AuthorizationStatus.NO_AUTH));
   } catch {
-    dispatch(actionCreator.logoutError());
+    dispatch(logoutError());
   }
 };
 
-const getOffer = (id) => async (dispatch, _, api) => {
+const fetchOffer = (id) => async (dispatch, _, api) => {
+  dispatch(loadOfferRequest());
   try {
-    dispatch(actionCreator.loadOfferRequest());
     const {data} = await api.get(`/hotels/${id}`);
     const adaptedData = adaptToClient(data);
-    dispatch(actionCreator.loadOfferSuccess(adaptedData));
+    dispatch(loadOfferSuccess(adaptedData));
   } catch(err) {
-    if(err.message === NOT_FOUNR_ERROR) {
-      dispatch(actionCreator.redirectToRoute(AppRoutes.NOT_FOUND));
+    if(err.message === NOT_FOUND_ERROR) {
+      dispatch(redirectToRoute(AppRoutes.NOT_FOUND));
     }
-    // dispatch(actionCreator.loadOfferError());
+    dispatch(loadOfferError());
   }
 };
 
-const getNearPlacesOffers = (id) => async (dispatch, _, api) => {
+const fetchNearPlacesOffers = (id) => async (dispatch, _, api) => {
+  dispatch(nearPlacesOffersRequest());
   try {
-    dispatch(actionCreator.nearPlacesOffersRequest());
     const {data} = await api.get(`/hotels/${id}/nearby`);
     const adaptedData = data.map((offer) => adaptToClient(offer));
-    dispatch(actionCreator.nearPlacesOffersSuccess(adaptedData));
+    dispatch(nearPlacesOffersSuccess(adaptedData));
   } catch {
-    dispatch(actionCreator.nearPlacesOffersError());
+    dispatch(nearPlacesOffersError());
   }
 };
 
-const getComments = (id) => async (dispatch, _, api) => {
+const fetchComments = (id) => async (dispatch, _, api) => {
+  dispatch(getCommentsRequest());
   try {
-    dispatch(actionCreator.getCommentsRequest());
     const {data} = await api.get(`/comments/${id}`);
-    dispatch(actionCreator.getCommentsSuccess(data));
+    dispatch(getCommentsSuccess(data));
   } catch {
-    dispatch(actionCreator.getCommentsError());
+    dispatch(getCommentsError());
   }
 };
 
 const setComment = (pageId, body) => async (dispatch, _, api) => {
-  dispatch(actionCreator.setCommentRequest());
+  dispatch(setCommentRequest());
   try {
     const {data} = await api.post(`/comments/${pageId}`, body);
-    dispatch(actionCreator.setCommentSuccess(data));
+    dispatch(setCommentSuccess(data));
   } catch {
-    dispatch(actionCreator.setCommentError());
+    dispatch(setCommentError());
   }
 };
 
@@ -100,8 +124,8 @@ export {
   checkAuth,
   login,
   logout,
-  getOffer,
-  getNearPlacesOffers,
-  getComments,
+  fetchOffer,
+  fetchNearPlacesOffers,
+  fetchComments,
   setComment
 };

@@ -30,9 +30,31 @@ export const ActionsType = {
   SET_COMMENT_REQUEST: 'data/setCommentRequest',
   SET_COMMENT_SUCCESS: 'data/setCommentSuccess',
   SET_COMMENT_ERROR: 'data/setCommentError',
+  FETCH_FAVORITE_REQUEST: 'data/fetchFavoriteRequest',
+  FETCH_FAVORITE_SUCCESS: 'data/fetchFavoriteSuccess',
+  FETCH_FAVORITE_ERROR: 'data/fetchFavoriteError',
+  SET_FAVORITE_REQUEST: 'data/setFavoriteRequest',
+  SET_FAVORITE_SUCCESS: 'data/setFavoriteSuccess',
+  SET_FAVORITE_ERROR: 'data/setFavoriteError',
 };
 
-export const setCommentSuccess = createAction(ActionsType.SET_COMMENT_SUCCESS, (answer) =>({
+export const setFavoriteRequest = createAction(ActionsType.SET_FAVORITE_REQUEST);
+
+export const setFavoriteSuccess = createAction(ActionsType.SET_FAVORITE_SUCCESS, (answer) => ({
+  payload: answer,
+}));
+
+export const setFavoriteError = createAction(ActionsType.SET_FAVORITE_ERROR);
+
+export const fetchFavoriteRequest = createAction(ActionsType.FETCH_FAVORITE_REQUEST);
+
+export const fetchFavoriteSuccess = createAction(ActionsType.FETCH_FAVORITE_SUCCESS, (favorite) => ({
+  payload: favorite,
+}));
+
+export const fetchFavoriteError = createAction(ActionsType.FETCH_FAVORITE_ERROR);
+
+export const setCommentSuccess = createAction(ActionsType.SET_COMMENT_SUCCESS, (answer) => ({
   payload: answer,
 }));
 
@@ -40,25 +62,25 @@ export const setCommentRequest = createAction(ActionsType.SET_COMMENT_REQUEST);
 
 export const setCommentError = createAction(ActionsType.SET_COMMENT_ERROR);
 
-export const changeCity = createAction(ActionsType.CHANGE_CITY, (city) =>({
+export const changeCity = createAction(ActionsType.CHANGE_CITY, (city) => ({
   payload: city,
 }));
 
-export const changeSort = createAction(ActionsType.CHANGE_SORT, (sort)=>({
+export const changeSort = createAction(ActionsType.CHANGE_SORT, (sort) => ({
   payload: sort,
 }));
 
-export const requiredAuthorization = createAction(ActionsType.REQUIRED_AUTHORIZATION, (status)=>({
+export const requiredAuthorization = createAction(ActionsType.REQUIRED_AUTHORIZATION, (status) => ({
   payload: status,
 }));
 
-export const redirectToRoute = createAction(ActionsType.REDIRECT_TO_ROUTE, (url) =>({
+export const redirectToRoute = createAction(ActionsType.REDIRECT_TO_ROUTE, (url) => ({
   payload: url,
 }));
 
 export const getCommentsRequest = createAction(ActionsType.GET_COMMENTS_REQUEST);
 
-export const getCommentsSuccess = createAction(ActionsType.GET_COMMENTS_SUCCESS, (comments)=>({
+export const getCommentsSuccess = createAction(ActionsType.GET_COMMENTS_SUCCESS, (comments) => ({
   payload: comments,
 }));
 
@@ -66,13 +88,13 @@ export const getCommentsError = createAction(ActionsType.GET_COMMENTS_ERROR);
 
 export const nearPlacesOffersRequest = createAction(ActionsType.NEAR_PLACES_OFFERS_REQUEST);
 
-export const nearPlacesOffersSuccess = createAction(ActionsType.NEAR_PLACES_OFFERS_SUCCESS, (offers)=>({
+export const nearPlacesOffersSuccess = createAction(ActionsType.NEAR_PLACES_OFFERS_SUCCESS, (offers) => ({
   payload: offers,
 }));
 
 export const nearPlacesOffersError = createAction(ActionsType.NEAR_PLACES_OFFERS_ERROR);
 
-export const loadOfferSuccess = createAction(ActionsType.LOAD_OFFER_SUCCESS, (offer)=>({
+export const loadOfferSuccess = createAction(ActionsType.LOAD_OFFER_SUCCESS, (offer) => ({
   payload: offer,
 }));
 
@@ -80,7 +102,7 @@ export const loadOfferRequest = createAction(ActionsType.LOAD_OFFER_REQUEST);
 
 export const loadOfferError = createAction(ActionsType.LOAD_OFFER_ERROR);
 
-export const getLoginSuccess = createAction(ActionsType.GET_LOGIN_SUCCESS, (login)=>({
+export const getLoginSuccess = createAction(ActionsType.GET_LOGIN_SUCCESS, (login) => ({
   payload: login,
 }));
 
@@ -88,7 +110,7 @@ export const getLoginError = createAction(ActionsType.GET_LOGIN_ERROR);
 
 export const getLoginRequest = createAction(ActionsType.GET_LOGIN_REQUEST);
 
-export const loadOffersSuccess = createAction(ActionsType.LOAD_OFFERS_SUCCESS, (offers)=>({
+export const loadOffersSuccess = createAction(ActionsType.LOAD_OFFERS_SUCCESS, (offers) => ({
   payload: offers,
 }));
 
@@ -96,7 +118,7 @@ export const loadOffersError = createAction(ActionsType.LOAD_OFFERS_ERROR);
 
 export const loadOffersRequest = createAction(ActionsType.LOAD_OFFERS_REQUEST);
 
-export const logoutSuccess = createAction(ActionsType.LOGOUT_SUCCESS, (status) =>({
+export const logoutSuccess = createAction(ActionsType.LOGOUT_SUCCESS, (status) => ({
   payload: status,
 }));
 

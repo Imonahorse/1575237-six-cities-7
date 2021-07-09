@@ -5,10 +5,10 @@ import offerCardProp from '../offer-card/offer-card-prop.js';
 
 function FavoritesList({favoritesOffers}) {
   const cityOffers = favoritesOffers.reduce((acc, current) => {
-    if (!acc[current.city]) {
-      acc[current.city] = [];
+    if (!acc[current.city.name]) {
+      acc[current.city.name] = [];
     }
-    acc[current.city].push(current);
+    acc[current.city.name].push(current);
     return acc;
   }, {});
   const cities = Object.keys(cityOffers);

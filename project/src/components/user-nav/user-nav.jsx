@@ -1,17 +1,17 @@
 import React from 'react';
-import {logout} from '../../store/api-actions.js';
+import {logout} from '../../store/actions/api-actions.js';
 import {AppRoutes, AuthorizationStatus, LoadingSize} from '../../const.js';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import useError from '../../hooks/useError.js';
 import Loading from '../loading/loading.jsx';
 import styles from './user-nav.module.css';
-import {getUser, getLogoutStatus, getAuthorizationStatus} from '../../store/reducer/user-data/selectors.js';
+import {selectUser, selectLogoutStatus, selectAuthorizationStatus} from '../../store/reducer/user-data/selectors.js';
 
 function UserNav() {
-  const authorizationStatus = useSelector(getAuthorizationStatus);
-  const logoutStatus = useSelector(getLogoutStatus);
-  const user = useSelector(getUser);
+  const authorizationStatus = useSelector(selectAuthorizationStatus);
+  const logoutStatus = useSelector(selectLogoutStatus);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const onLogoutClick = () => dispatch(logout());
 

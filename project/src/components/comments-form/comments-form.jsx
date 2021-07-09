@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import CommentRating from '../comment-rating/comment-rating.jsx';
-import {setComment} from '../../store/api-actions.js';
+import {setComment} from '../../store/actions/api-actions.js';
 import {useParams} from 'react-router-dom';
 import Loading from '../loading/loading.jsx';
 import styles from './comments-form.module.css';
 import useError from '../../hooks/useError.js';
-import {getCommentStatus} from '../../store/reducer/app-data/selectors.js';
+import {selectCommentStatus} from '../../store/reducer/app-data/selectors.js';
 import {useSelector, useDispatch} from 'react-redux';
 
 const MIN_LENGTH = 50;
@@ -16,7 +16,7 @@ function CommentsForm() {
     rating: '',
   });
 
-  const commentStatus = useSelector(getCommentStatus);
+  const commentStatus = useSelector(selectCommentStatus);
   const dispatch = useDispatch();
   const isValid = !(state.rating.length && state.review.length && state.review.length >= MIN_LENGTH);
 

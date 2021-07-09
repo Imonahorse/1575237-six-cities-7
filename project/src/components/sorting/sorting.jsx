@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
-import {changeSort} from '../../store/actions.js';
+import {changeSort} from '../../store/actions/actions.js';
 import {PlacesOptions} from '../../sort.js';
-import {getSort} from '../../store/reducer/app-process/selectors.js';
+import {selectActiveSort} from '../../store/reducer/app-process/selectors.js';
 import {useSelector, useDispatch} from 'react-redux';
 
 function Sorting() {
   const [openState, setOpenState] = useState(false);
   const sortClass = cn('places__options places__options--custom', {'places__options--opened': openState});
-  const activeSort = useSelector(getSort);
+  const activeSort = useSelector(selectActiveSort);
   const dispatch = useDispatch();
   const exchangeSort = (sort) => {
     dispatch(changeSort(sort));

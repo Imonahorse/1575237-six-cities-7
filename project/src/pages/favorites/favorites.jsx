@@ -1,13 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Header from '../../components/header/header.jsx';
 import FavoritesList from '../../components/favorites-list/favorites-list.jsx';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.jsx';
 import Footer from '../../components/footer/footer.jsx';
-import PropTypes from 'prop-types';
-import offerCardProp from '../../components/offer-card/offer-card-prop.js';
+import {useSelector, useDispatch} from 'react-redux';
+import {selectFavorite, selectFavoriteStatus} from '../../store/reducer/user-data/selectors.js';
+import Loading from '../../components/loading/loading.jsx';
+import {fetchFavorite} from '../../store/actions/api-actions.js';
+import {setFavoriteStatus} from '../../store/reducer/app-data/selectors.js';
 
-function Favorites({offers}) {
-  const favoritesOffers = offers.filter((offer) => offer.isFavorite);
+function Favorites() {
+  const favoritesOffers = useSelector(selectFavorite);
+  const favoriteStatus = useSelector(selectFavoriteStatus);
+  const sendFavoriteStatus = useSelector(setFavoriteStatus);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavorite());
+  }, [sendFavoriteStatus]);
+
+  if (favoriteStatus.isLoading) {
+    return (
+      <Loading/>
+    );
+  }
 
   const isContent = favoritesOffers.length ? <FavoritesList favoritesOffers={favoritesOffers}/> : <FavoritesEmpty/>;
 
@@ -23,9 +39,5 @@ function Favorites({offers}) {
     </div>
   );
 }
-
-Favorites.propTypes = {
-  offers: PropTypes.arrayOf(offerCardProp).isRequired,
-};
 
 export default Favorites;

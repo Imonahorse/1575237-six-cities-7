@@ -13,9 +13,13 @@ import {
   loadOfferError,
   loadOffersSuccess,
   loadOffersRequest,
-  loadOffersError
-} from '../../actions.js';
+  loadOffersError,
+  setFavoriteSuccess,
+  setFavoriteRequest,
+  setFavoriteError
+} from '../../actions/actions.js';
 import {createReducer} from '@reduxjs/toolkit';
+import {addNewId} from '../../../utils.js';
 
 const initialState = {
   offers: [],
@@ -47,10 +51,35 @@ const initialState = {
     isError: false,
     isLoading: false,
   },
+  setFavoriteStatus: {
+    isSuccess: false,
+    isError: false,
+    isLoading: true,
+  },
 };
 
 const appData = createReducer(initialState, (builder) => {
   builder
+    .addCase(setFavoriteSuccess, (state, action) => {
+      state.offer = action.payload;
+      state.offers = addNewId(state.offer, state.offers);
+      state.setFavoriteStatus.isSuccess = true;
+      state.setFavoriteStatus.isLoading = false;
+      state.setFavoriteStatus.isError = false;
+    })
+
+    .addCase(setFavoriteRequest, (state) => {
+      state.setFavoriteStatus.isSuccess = false;
+      state.setFavoriteStatus.isLoading = true;
+      state.setFavoriteStatus.isError = false;
+    })
+
+    .addCase(setFavoriteError, (state) => {
+      state.setFavoriteStatus.isSuccess = false;
+      state.setFavoriteStatus.isLoading = false;
+      state.setFavoriteStatus.isError = true;
+    })
+
     .addCase(setCommentSuccess, (state, action) => {
       state.comments = action.payload;
       state.commentStatus.isSuccess = true;
@@ -83,7 +112,6 @@ const appData = createReducer(initialState, (builder) => {
 
     .addCase(getCommentsError, (state) => {
       state.commentsStatus.isError = true;
-      state.comments = [];
     })
 
     .addCase(nearPlacesOffersSuccess, (state, action) => {
@@ -100,45 +128,43 @@ const appData = createReducer(initialState, (builder) => {
       state.nearPlacesOffersStatus.isLoading = false;
       state.nearPlacesOffersStatus.isSuccess = false;
       state.nearPlacesOffersStatus.isError = true;
-      state.nearPlacesOffers = [];
     })
 
     .addCase(loadOfferSuccess, (state, action) => {
-      state.offerStatus.isLoading= false;
-      state.offerStatus.isSuccess= true;
-      state.offerStatus.isError= false;
+      state.offerStatus.isLoading = false;
+      state.offerStatus.isSuccess = true;
+      state.offerStatus.isError = false;
       state.offer = action.payload;
     })
 
     .addCase(loadOfferRequest, (state) => {
-      state.offerStatus.isLoading= true;
-      state.offerStatus.isSuccess= true;
-      state.offerStatus.isError= false;
+      state.offerStatus.isLoading = true;
+      state.offerStatus.isSuccess = true;
+      state.offerStatus.isError = false;
     })
 
     .addCase(loadOfferError, (state) => {
-      state.offerStatus.isLoading= false;
-      state.offerStatus.isSuccess= false;
-      state.offerStatus.isError= true;
-      state.offer = {};
+      state.offerStatus.isLoading = false;
+      state.offerStatus.isSuccess = false;
+      state.offerStatus.isError = true;
     })
 
     .addCase(loadOffersSuccess, (state, action) => {
       state.offers = action.payload;
-      state.offersStatus.isSuccess= true;
-      state.offersStatus.isError= false;
-      state.offersStatus.isLoading= false;
+      state.offersStatus.isSuccess = true;
+      state.offersStatus.isError = false;
+      state.offersStatus.isLoading = false;
     })
 
     .addCase(loadOffersRequest, (state) => {
-      state.offersStatus.isLoading= true;
+      state.offersStatus.isLoading = true;
     })
 
     .addCase(loadOffersError, (state, action) => {
       state.offers = action.payload;
-      state.offersStatus.isError= true;
-      state.offersStatus.isLoading= false;
-      state.offersStatus.isSuccess= false;
+      state.offersStatus.isError = true;
+      state.offersStatus.isLoading = false;
+      state.offersStatus.isSuccess = false;
     });
 });
 

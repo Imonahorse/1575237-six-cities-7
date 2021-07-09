@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import offerCardProp from '../offer-card/offer-card-prop';
 
 function FavoritesCity({cityOffers, city}) {
+
   return (
     <li className="favorites__locations-items" key={city}>
       <div className="favorites__locations locations locations--current">

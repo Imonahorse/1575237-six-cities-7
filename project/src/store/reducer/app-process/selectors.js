@@ -1,9 +1,9 @@
 import {NameSpace} from '../root-reducer.js';
 
-const getCity = (state) => state[NameSpace.APP].city;
-const getSort = (state) => state[NameSpace.APP].sort;
+const selectCity = (state) => state[NameSpace.APP].city;
+const selectActiveSort = (state) => state[NameSpace.APP].sort;
 
 export {
-  getCity,
-  getSort
+  selectCity,
+  selectActiveSort
 };

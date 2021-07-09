@@ -2,20 +2,14 @@ import React from 'react';
 import Header from '../../components/header/header.jsx';
 import Cities from '../../components/cities/cities.jsx';
 import OffersPreview from '../../components/offers-preview/offers-preview.jsx';
-import offerCardProp from '../../components/offer-card/offer-card-prop.js';
-import PropTypes from 'prop-types';
 import MainEmpty from '../../components/main-empty/main-empty.jsx';
-import {SortingTypes} from '../../sort.js';
-import {getSort} from '../../store/reducer/app-process/selectors.js';
+import {selectCity} from '../../store/reducer/app-process/selectors.js';
 import {useSelector} from 'react-redux';
+import {selectFilteredOffers} from '../../store/reducer/app-data/selectors.js';
 
-function Main({offers, currentCity}) {
-  const activeSort = useSelector(getSort);
-
-  const cityOffers = offers
-    .filter((offer) => offer.city.name === currentCity)
-    .slice()
-    .sort(SortingTypes[activeSort]);
+function Main() {
+  const currentCity = useSelector(selectCity);
+  const cityOffers = useSelector(selectFilteredOffers);
 
   return (
     <div className="page page--gray page--main">
@@ -32,11 +26,5 @@ function Main({offers, currentCity}) {
     </div>
   );
 }
-
-Main.propTypes = {
-  offers: PropTypes.arrayOf(offerCardProp).isRequired,
-  currentCity: PropTypes.string.isRequired,
-};
-
 
 export default Main;

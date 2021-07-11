@@ -19,7 +19,17 @@ import {
   setFavoriteError
 } from '../../actions/actions.js';
 import {createReducer} from '@reduxjs/toolkit';
-import {addNewId} from '../../../utils.js';
+
+const addNewId = (offer, offers) => {
+  const index = offers.findIndex((item) => item.id === offer.id);
+  if(index === -1) {
+    return offers;
+  }
+
+  offers.splice(index, 1, offer);
+  return offers;
+};
+
 
 const initialState = {
   offers: [],

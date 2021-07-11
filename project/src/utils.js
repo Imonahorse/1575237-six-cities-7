@@ -31,16 +31,5 @@ const adaptToClient = (offer) => {
 
   return adaptedOffer;
 };
-const addNewId = (offer, offers) => {
-  const index = offers.findIndex((item) => item.id === offer.id);
-  if(index === -1) {
-    return offers;
-  }
-  return [
-    ...offers.slice(0, index),
-    offer,
-    ...offers.slice(index+1),
-  ];
-};
 
-export {calcRating, adaptToClient, addNewId};
+export {calcRating, adaptToClient};

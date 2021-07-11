@@ -4,13 +4,13 @@ import FavoritesList from '../../components/favorites-list/favorites-list.jsx';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.jsx';
 import Footer from '../../components/footer/footer.jsx';
 import {useSelector, useDispatch} from 'react-redux';
-import {selectFavorite, selectFavoriteStatus} from '../../store/reducer/user-data/selectors.js';
+import {selectFilteredFavorite, selectFavoriteStatus} from '../../store/reducer/user-data/selectors.js';
 import Loading from '../../components/loading/loading.jsx';
 import {fetchFavorite} from '../../store/actions/api-actions.js';
 import {setFavoriteStatus} from '../../store/reducer/app-data/selectors.js';
 
 function Favorites() {
-  const favoritesOffers = useSelector(selectFavorite);
+  const favoritesOffers = useSelector(selectFilteredFavorite);
   const favoriteStatus = useSelector(selectFavoriteStatus);
   const sendFavoriteStatus = useSelector(setFavoriteStatus);
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function Favorites() {
     );
   }
 
-  const isContent = favoritesOffers.length ? <FavoritesList favoritesOffers={favoritesOffers}/> : <FavoritesEmpty/>;
+  const isContent = Object.keys(favoritesOffers).length ? <FavoritesList favoritesOffers={favoritesOffers}/> : <FavoritesEmpty/>;
 
   return (
     <div className="page">

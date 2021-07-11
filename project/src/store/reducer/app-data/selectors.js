@@ -4,12 +4,6 @@ import {createSelector} from 'reselect';
 import {SortingTypes} from '../../../sort.js';
 
 const selectOffers = (state) => state[NameSpace.DATA].offers;
-const selectFilteredOffers = createSelector(selectOffers, selectCity, selectActiveSort,
-  (offers, currentCity, activeSort) => (
-    offers.filter((offer) => offer.city.name === currentCity)
-      .slice()
-      .sort(SortingTypes[activeSort])
-  ));
 const selectOffersStatus = (state) => state[NameSpace.DATA].offersStatus;
 const selectComments = (state) => state[NameSpace.DATA].comments;
 const selectCommentsStatus = (state) => state[NameSpace.DATA].commentsStatus;
@@ -19,6 +13,12 @@ const selectNearPlacesOffers = (state) => state[NameSpace.DATA].nearPlacesOffers
 const selectNearPlacesOffersStatus = (state) => state[NameSpace.DATA].nearPlacesOffersStatus;
 const selectCommentStatus = (state) => state[NameSpace.DATA].commentStatus;
 const setFavoriteStatus = (state) => state[NameSpace.DATA].setFavoriteStatus;
+const selectFilteredOffers = createSelector(selectOffers, selectCity, selectActiveSort,
+  (offers, currentCity, activeSort) => (
+    offers.filter((offer) => offer.city.name === currentCity)
+      .slice()
+      .sort(SortingTypes[activeSort])
+  ));
 
 export {
   selectOffers,

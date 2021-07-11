@@ -5,13 +5,8 @@ import React from 'react';
 import offerCardProp from '../offer-card/offer-card-prop.js';
 import Comments from '../comments/comments.jsx';
 import commentProp from '../comment/comment-prop.js';
-import {selectAuthorizationStatus} from '../../store/reducer/user-data/selectors.js';
-import {useSelector, useDispatch} from 'react-redux';
-import {AuthorizationStatus} from '../../const.js';
-import browserHistory from '../../services/browser-history';
-import {setFavorite} from '../../store/actions/api-actions.js';
-import cn from 'classnames';
 import PropTypes from 'prop-types';
+import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 
 function OfferPage({offer, comments, id}) {
   const {
@@ -27,24 +22,6 @@ function OfferPage({offer, comments, id}) {
     description,
     isFavorite,
   } = offer;
-  const bookmarkClass = cn('property__bookmark-button button', {'property__bookmark-button--active': isFavorite});
-
-  const isAuth = useSelector(selectAuthorizationStatus);
-  const dispatch = useDispatch();
-
-  const onFavoriteClick = () => {
-    if (isAuth !== AuthorizationStatus.AUTH) {
-      return browserHistory.push('/login');
-    }
-
-    if(!isFavorite) {
-      return dispatch(setFavorite(id, 1));
-    }
-
-    if(isFavorite) {
-      return dispatch(setFavorite(id, 0));
-    }
-  };
 
   return (
     <div className="property__container container">
@@ -54,13 +31,7 @@ function OfferPage({offer, comments, id}) {
           <h1 className="property__name">
             {title}
           </h1>
-          <button className={bookmarkClass} type="button" onClick={onFavoriteClick}>
-            <svg className="property__bookmark-icon" width="31" height="33">
-              <use xlinkHref="#icon-bookmark">
-              </use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton id={id} isFavorite={isFavorite}/>
         </div>
         <div className="property__rating rating">
           <div className="property__stars rating__stars">

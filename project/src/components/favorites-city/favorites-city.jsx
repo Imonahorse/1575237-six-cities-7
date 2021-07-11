@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import offerCardProp from '../offer-card/offer-card-prop';
 
 function FavoritesCity({cityOffers, city}) {
-
   return (
     <li className="favorites__locations-items" key={city}>
       <div className="favorites__locations locations locations--current">
@@ -15,7 +14,7 @@ function FavoritesCity({cityOffers, city}) {
         </div>
       </div>
       <div className="favorites__places">
-        {cityOffers.map((offer) => <OfferCard offer={offer} key={offer.city}/>)}
+        {cityOffers.map((offer) => <OfferCard offer={offer} key={offer.id}/>)}
       </div>
     </li>
   );

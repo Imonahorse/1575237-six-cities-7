@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import {login} from '../../store/api-actions.js';
+import {login} from '../../store/actions/api-actions.js';
 import styles from './login.module.css';
 import Loading from '../loading/loading.jsx';
 import useError from '../../hooks/useError.js';
 import cn from 'classnames';
 import {LoadingSize} from '../../const.js';
-import {getLoginStatus} from '../../store/reducer/user-data/selectors.js';
+import {selectLoginStatus} from '../../store/reducer/user-data/selectors.js';
 import {useSelector, useDispatch} from 'react-redux';
 
 const inputs = {
@@ -32,7 +32,7 @@ const initialState = {
 
 function LoginForm() {
   const [inputsState, setInputsState] = useState(initialState);
-  const loginStatus = useSelector(getLoginStatus);
+  const loginStatus = useSelector(selectLoginStatus);
   const dispatch = useDispatch();
   const errorMessage = useError(loginStatus);
   const getLogin = (authData) => {

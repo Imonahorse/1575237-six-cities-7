@@ -9,14 +9,11 @@ import NotFound from '../../pages/not-found/not-found.jsx';
 import Loading from '../loading/loading.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
 import browserHistory from '../../services/browser-history.js';
-import {getOffersStatus, getOffers} from '../../store/reducer/app-data/selectors.js';
-import {getCity} from '../../store/reducer/app-process/selectors.js';
+import {selectOffersStatus} from '../../store/reducer/app-data/selectors.js';
 import {useSelector} from 'react-redux';
 
 function App() {
-  const offersStatus = useSelector(getOffersStatus);
-  const offers = useSelector(getOffers);
-  const currentCity = useSelector(getCity);
+  const offersStatus = useSelector(selectOffersStatus);
 
   if (offersStatus.isLoading) {
     return (
@@ -28,7 +25,7 @@ function App() {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoutes.MAIN}>
-          <Main offers={offers} currentCity={currentCity}/>
+          <Main/>
         </Route>
         <Route exact path={AppRoutes.SIGN_IN}>
           <Login/>
@@ -36,11 +33,11 @@ function App() {
         <PrivateRoute
           exact
           path={AppRoutes.FAVORITES}
-          render={() => <Favorites offers={offers}/>}
+          render={() => <Favorites/>}
         >
         </PrivateRoute>
         <Route exact path={AppRoutes.OFFER}>
-          <Offer />
+          <Offer/>
         </Route>
         <Route>
           <NotFound/>

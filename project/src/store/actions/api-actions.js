@@ -21,10 +21,16 @@ import {
   getCommentsError,
   setCommentRequest,
   setCommentSuccess,
-  setCommentError
+  setCommentError,
+  fetchFavoriteRequest,
+  fetchFavoriteSuccess,
+  fetchFavoriteError,
+  setFavoriteRequest,
+  setFavoriteSuccess,
+  setFavoriteError
 } from './actions.js';
-import {AuthorizationStatus, APIRoutes, AppRoutes} from '../const.js';
-import {adaptToClient} from '../utils.js';
+import {AuthorizationStatus, APIRoutes, AppRoutes} from '../../const.js';
+import {adaptToClient} from '../../utils.js';
 
 const NOT_FOUND_ERROR = 'Request failed with status code 404';
 
@@ -119,6 +125,28 @@ const setComment = (pageId, body) => async (dispatch, _, api) => {
   }
 };
 
+const fetchFavorite = () => async(dispatch, _, api) => {
+  dispatch(fetchFavoriteRequest());
+  try {
+    const {data} = await api.get('/favorite');
+    const adaptedData = data.map((item) => adaptToClient(item));
+    dispatch(fetchFavoriteSuccess(adaptedData));
+  } catch {
+    dispatch(fetchFavoriteError());
+  }
+};
+
+const setFavorite = (id, status) => async(dispatch, _, api) => {
+  dispatch(setFavoriteRequest());
+  try {
+    const {data} = await api.post(`/favorite/${id}/${status}`);
+    const adaptedData = adaptToClient(data);
+    dispatch(setFavoriteSuccess(adaptedData));
+  } catch {
+    dispatch(setFavoriteError());
+  }
+};
+
 export {
   fetchOffersList,
   checkAuth,
@@ -127,5 +155,7 @@ export {
   fetchOffer,
   fetchNearPlacesOffers,
   fetchComments,
-  setComment
+  setComment,
+  fetchFavorite,
+  setFavorite
 };

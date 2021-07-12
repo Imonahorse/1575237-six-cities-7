@@ -4,11 +4,11 @@ import React from 'react';
 import commentProp from '../comment/comment-prop.js';
 import PropTypes from 'prop-types';
 import {AuthorizationStatus} from '../../const.js';
-import {getAuthorizationStatus} from '../../store/reducer/user-data/selectors.js';
+import {selectAuthorizationStatus} from '../../store/reducer/user-data/selectors.js';
 import {useSelector} from 'react-redux';
 
 function Comments({comments}) {
-  const authStatus = useSelector(getAuthorizationStatus);
+  const authStatus = useSelector(selectAuthorizationStatus);
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>

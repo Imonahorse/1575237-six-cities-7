@@ -6,25 +6,22 @@ import OfferGallery from '../../components/offer-gallery/offer-gallery.jsx';
 import OfferPage from '../../components/offer-page/offer-page.jsx';
 import NearPlacesOffers from '../../components/near-places-offers/near-places-offers.jsx';
 import Loading from '../../components/loading/loading.jsx';
-import {getOfferStatus, getOffer, getNearPlacesOffers, getComments} from '../../store/reducer/app-data/selectors.js';
-import {fetchComments, fetchOffer, fetchNearPlacesOffers} from '../../store/api-actions.js';
+import {selectOfferStatus, selectOffer, selectNearPlacesOffers, selectComments} from '../../store/reducer/app-data/selectors.js';
+import {fetchComments, fetchOffer, fetchNearPlacesOffers} from '../../store/actions/api-actions.js';
 import {useSelector, useDispatch} from 'react-redux';
 
 function Offer() {
   const {id} = useParams();
-  const offer = useSelector(getOffer);
-  const offerStatus = useSelector(getOfferStatus);
-  const nearPlacesOffers = useSelector(getNearPlacesOffers);
-  const comments = useSelector(getComments);
+  const offer = useSelector(selectOffer);
+  const offerStatus = useSelector(selectOfferStatus);
+  const nearPlacesOffers = useSelector(selectNearPlacesOffers);
+  const comments = useSelector(selectComments);
   const dispatch = useDispatch();
-  const loadNearPlacesOffers = (nearPlacesId) => dispatch(fetchNearPlacesOffers(nearPlacesId));
-  const loadOffer = (offerId) => dispatch(fetchOffer(offerId));
-  const loadComments = (commentId) => dispatch(fetchComments(commentId));
 
   useEffect(() => {
-    loadOffer(id);
-    loadNearPlacesOffers(id);
-    loadComments(id);
+    dispatch(fetchOffer(id));
+    dispatch(fetchNearPlacesOffers(id));
+    dispatch(fetchComments(id));
   }, [id]);
 
   if (offerStatus.isLoading) {
@@ -39,7 +36,7 @@ function Offer() {
       <main className="page__main page__main--property">
         <section className="property">
           <OfferGallery images={images}/>
-          <OfferPage offer={offer} comments={comments}/>
+          <OfferPage offer={offer} comments={comments} id={id}/>
           <Map cityOffers={nearPlacesOffers} cityState={offer.city.name}/>
         </section>
         {nearPlacesOffers.length && <NearPlacesOffers neighboringOffers={nearPlacesOffers}/>}

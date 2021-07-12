@@ -1,13 +1,28 @@
 import {NameSpace} from '../root-reducer.js';
+import {createSelector} from '@reduxjs/toolkit';
 
-const getAuthorizationStatus = (state) => state[NameSpace.USER].authorizationStatus;
-const getLoginStatus = (state) => state[NameSpace.USER].loginStatus;
-const getUser = (state) => state[NameSpace.USER].user;
-const getLogoutStatus = (state) => state[NameSpace.USER].logoutStatus;
+const selectAuthorizationStatus = (state) => state[NameSpace.USER].authorizationStatus;
+const selectLoginStatus = (state) => state[NameSpace.USER].loginStatus;
+const selectUser = (state) => state[NameSpace.USER].user;
+const selectLogoutStatus = (state) => state[NameSpace.USER].logoutStatus;
+const selectFavorite = (state) => state[NameSpace.USER].favorite;
+const selectFavoriteStatus = (state) => state[NameSpace.USER].favoriteStatus;
+const selectFilteredFavorite = createSelector(selectFavorite, (offers) => (
+  offers.reduce((acc, current) => {
+    if (!acc[current.city.name]) {
+      acc[current.city.name] = [];
+    }
+    acc[current.city.name].push(current);
+    return acc;
+  }, {})
+));
 
 export {
-  getAuthorizationStatus,
-  getLoginStatus,
-  getUser,
-  getLogoutStatus
+  selectAuthorizationStatus,
+  selectLoginStatus,
+  selectUser,
+  selectLogoutStatus,
+  selectFavorite,
+  selectFavoriteStatus,
+  selectFilteredFavorite
 };

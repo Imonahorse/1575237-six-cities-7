@@ -5,8 +5,10 @@ import React from 'react';
 import offerCardProp from '../offer-card/offer-card-prop.js';
 import Comments from '../comments/comments.jsx';
 import commentProp from '../comment/comment-prop.js';
+import PropTypes from 'prop-types';
+import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 
-function OfferPage({offer, comments}) {
+function OfferPage({offer, comments, id}) {
   const {
     isPremium,
     price,
@@ -18,6 +20,7 @@ function OfferPage({offer, comments}) {
     features,
     host,
     description,
+    isFavorite,
   } = offer;
 
   return (
@@ -28,13 +31,7 @@ function OfferPage({offer, comments}) {
           <h1 className="property__name">
             {title}
           </h1>
-          <button className="property__bookmark-button button" type="button">
-            <svg className="property__bookmark-icon" width="31" height="33">
-              <use xlinkHref="#icon-bookmark">
-              </use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton id={id} isFavorite={isFavorite}/>
         </div>
         <div className="property__rating rating">
           <div className="property__stars rating__stars">
@@ -79,6 +76,7 @@ function OfferPage({offer, comments}) {
 OfferPage.propTypes = {
   offer: offerCardProp,
   comments: commentProp,
+  id: PropTypes.string.isRequired,
 };
 
 export default OfferPage;

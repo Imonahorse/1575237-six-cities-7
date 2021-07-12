@@ -1,6 +1,15 @@
 import {AuthorizationStatus} from '../../../const.js';
 import {createReducer} from '@reduxjs/toolkit';
-import {getLoginSuccess, getLoginError, getLoginRequest, requiredAuthorization, logoutRequest, logoutSuccess, logoutError} from '../../actions.js';
+import {
+  getLoginSuccess,
+  getLoginError,
+  getLoginRequest,
+  requiredAuthorization,
+  logoutRequest,
+  logoutSuccess,
+  logoutError,
+  fetchFavoriteRequest, fetchFavoriteSuccess, fetchFavoriteError
+} from '../../actions/actions.js';
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
@@ -15,10 +24,33 @@ const initialState = {
     isError: false,
     isLoading: false,
   },
+  favorite: [],
+  favoriteStatus: {
+    isSuccess: false,
+    isError: false,
+    isLoading: true,
+  },
 };
 
 const userData = createReducer(initialState, (builder) => {
   builder
+    .addCase(fetchFavoriteRequest, (state) => {
+      state.favoriteStatus.isLoading = true;
+      state.favoriteStatus.isError = false;
+      state.favoriteStatus.isSuccess = false;
+    })
+
+    .addCase(fetchFavoriteSuccess, (state, action) => {
+      state.favorite = action.payload;
+      state.favoriteStatus.isSuccess = true;
+      state.favoriteStatus.isLoading = false;
+      state.favoriteStatus.isError = false;
+    })
+
+    .addCase(fetchFavoriteError, (state) => {
+      state.favoriteStatus.isError = true;
+    })
+
     .addCase(requiredAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })

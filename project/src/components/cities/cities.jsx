@@ -1,12 +1,12 @@
 import React from 'react';
 import {CITIES} from '../../const.js';
 import cn from 'classnames';
-import {changeCity} from '../../store/actions.js';
-import {getCity} from '../../store/reducer/app-process/selectors.js';
+import {changeCity} from '../../store/actions/actions.js';
+import {selectCity} from '../../store/reducer/app-process/selectors.js';
 import {useSelector, useDispatch} from 'react-redux';
 
 function Cities() {
-  const currentCity = useSelector(getCity);
+  const currentCity = useSelector(selectCity);
   const dispatch = useDispatch();
   const exchangeCity = (city) => {
     dispatch(changeCity(city));

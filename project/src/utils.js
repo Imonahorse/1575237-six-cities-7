@@ -5,31 +5,35 @@ const calcRating = (rating) => {
   return `${(rating * 2) * 10}%`;
 };
 const adaptToClient = (offer) => {
-  const adaptedOffer = {
-    ...offer,
-    bedroomsCount: offer.bedrooms,
-    features: offer.goods,
-    previewImage: offer.preview_image,
-    isFavorite: offer.is_favorite,
-    isPremium: offer.is_premium,
-    maxAdults: offer.max_adults,
-    host: {
-      ...offer.host,
-      avatarUrl: offer.host.avatar_url,
-      isPro: offer.host.is_pro,
-    },
+  const toCamel = (str) => (
+    str.replace(/([-_][a-z])/ig, (x) => (
+      x.toUpperCase()
+        .replace('-', '')
+        .replace('_', '')
+    ))
+  );
+
+  const isArray = (arr) => Array.isArray(arr);
+
+  const isObject = (obj) => obj === Object(obj) && !isArray(obj) && typeof obj !== 'function';
+
+  const keysToCamel = (obj) => {
+    if (isObject(obj)) {
+      const newObj = {};
+
+      Object.keys(obj).forEach((key) => newObj[toCamel(key)] = keysToCamel(obj[key]));
+
+      return newObj;
+    }
+
+    if (isArray(obj)) {
+      return obj.map((item) => keysToCamel(item));
+    }
+
+    return obj;
   };
 
-  delete adaptedOffer.goods;
-  delete adaptedOffer.preview_image;
-  delete adaptedOffer.is_favorite;
-  delete adaptedOffer.is_premium;
-  delete adaptedOffer.max_adults;
-  delete adaptedOffer.bedrooms;
-  delete adaptedOffer.host.is_pro;
-  delete adaptedOffer.host.avatar_url;
-
-  return adaptedOffer;
+  return keysToCamel(offer);
 };
 
 export {calcRating, adaptToClient};

@@ -109,7 +109,8 @@ const fetchComments = (id) => async (dispatch, _, api) => {
   dispatch(getCommentsRequest());
   try {
     const {data} = await api.get(`/comments/${id}`);
-    dispatch(getCommentsSuccess(data));
+    const adaptedData = data.map((offer) => adaptToClient(offer));
+    dispatch(getCommentsSuccess(adaptedData));
   } catch {
     dispatch(getCommentsError());
   }

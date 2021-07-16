@@ -17,7 +17,7 @@ describe('Component: FavoritesEmpty', () => {
         <Router history={history}>
           <FavoritesEmpty />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/Favorites/i)).toBeInTheDocument();

@@ -4,15 +4,15 @@ import ErrorMessage from '../components/error-message/error-message.jsx';
 function useError(errorStatus) {
   const [isVisibleState, setIsVisibleState] = useState(false);
 
-  useEffect(()=>{
-    if(errorStatus.isError && !errorStatus.isLoading) {
+  useEffect(() => {
+    if (errorStatus.isError && !errorStatus.isLoading) {
       setIsVisibleState(true);
 
       const timer = setTimeout(() => {
         setIsVisibleState(false);
       }, 4000);
 
-      return(()=>clearTimeout(timer));
+      return (() => clearTimeout(timer));
     }
   }, [errorStatus]);
 

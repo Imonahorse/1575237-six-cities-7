@@ -9,12 +9,12 @@ describe('Component: ErrorMessage', () => {
     const history = createMemoryHistory();
     const {getByText} = render(
       <Router history={history}>
-          <ErrorMessage/>
-        </Router>
+        <ErrorMessage/>
+      </Router>,
     );
 
     const pElement = getByText('Сервер не отвечает, попробуйте позже');
 
     expect(pElement).toBeInTheDocument();
-  })
+  });
 });

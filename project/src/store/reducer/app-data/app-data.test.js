@@ -1,5 +1,5 @@
 import appData from './app-data.js';
-import {ActionsType as ActionType} from "../../actions/actions";
+import {ActionsType as ActionType} from '../../actions/actions.js';
 
 describe('Reducer: app-data', () => {
   it('should change the status of the sent offer to "isLoading"', () => {
@@ -8,7 +8,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const setFavoriteAction = {
@@ -27,7 +27,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const setFavoriteAction = {
@@ -48,7 +48,7 @@ describe('Reducer: app-data', () => {
         isSuccess: false,
       },
       offer: '',
-      offers: [{id:1, test: 'one'}, {id: 2, text: 'test'}]
+      offers: [{id:1, test: 'one'}, {id: 2, text: 'test'}],
     };
 
     const setFavoriteAction = {
@@ -70,7 +70,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const setCommentAction = {
@@ -89,7 +89,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const setCommentAction = {
@@ -130,7 +130,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const getCommentsAction = {
@@ -149,7 +149,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const getCommentsAction = {
@@ -190,7 +190,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const nearPlacesOffersAction = {
@@ -209,7 +209,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const nearPlacesOffersAction = {
@@ -234,7 +234,7 @@ describe('Reducer: app-data', () => {
 
     const nearPlacesOffersAction = {
       type: ActionType.NEAR_PLACES_OFFERS_SUCCESS,
-      payload: 'test'
+      payload: 'test',
     };
 
     expect(appData(state, nearPlacesOffersAction))
@@ -250,7 +250,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const offerAction = {
@@ -269,7 +269,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const offerAction = {
@@ -294,7 +294,7 @@ describe('Reducer: app-data', () => {
 
     const offerAction = {
       type: ActionType.LOAD_OFFER_SUCCESS,
-      payload: 'test'
+      payload: 'test',
     };
 
     expect(appData(state, offerAction))
@@ -310,7 +310,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const offerAction = {
@@ -329,7 +329,7 @@ describe('Reducer: app-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const offerAction = {
@@ -354,7 +354,7 @@ describe('Reducer: app-data', () => {
 
     const offerAction = {
       type: ActionType.LOAD_OFFERS_SUCCESS,
-      payload: 'test'
+      payload: 'test',
     };
 
     expect(appData(state, offerAction))

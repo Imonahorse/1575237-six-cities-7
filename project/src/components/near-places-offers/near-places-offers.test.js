@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import NearPlacesOffers from './near-places-offers.jsx';
-import {AuthorizationStatus} from "../../const";
+import {AuthorizationStatus} from '../../const.js';
 
 const mockStore = configureStore({});
 const fakeOffer = () => ({
@@ -45,7 +45,7 @@ const fakeState = {
   USER: {
     authorizationStatus: AuthorizationStatus.NO_AUTH,
   },
-}
+};
 
 describe('Component: Mark', () => {
   it('should render "Mark"', () => {
@@ -56,7 +56,7 @@ describe('Component: Mark', () => {
         <Router history={history}>
           <NearPlacesOffers neighboringOffers={fakeNearOffers} />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();

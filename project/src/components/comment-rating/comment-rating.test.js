@@ -4,7 +4,7 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import Cities from './cities.jsx';
+import CommentRating from './comment-rating.jsx';
 
 
 let history = null;
@@ -16,23 +16,19 @@ describe('Component: Cities', () => {
     history = createMemoryHistory();
   });
 
-  it('should render Cities with all buttons', () => {
-    const fakeStore = {
-      APP: {
-        city: 'Hamburg',
-      },
-    };
-    const buttonsCount = 6;
+  it('should render CommentRating', () => {
+    const fakeFn = ()=>{} ;
+    const fakeValue = '3';
+    const ratingCount = 5;
 
     render(
-      <Provider store={mockStore(fakeStore)}>
+      <Provider store={mockStore({})}>
         <Router history={history}>
-          <Cities />
+          <CommentRating onInputChange={fakeFn} isActive={fakeValue}/>
         </Router>
       </Provider>,
     );
 
-    expect(screen.getByText(/Hamburg/i)).toBeInTheDocument();
-    expect(screen.getAllByTestId('test')).toHaveLength(buttonsCount);
+    expect(screen.getAllByTestId('test')).toHaveLength(ratingCount);
   });
 });

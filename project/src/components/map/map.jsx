@@ -66,6 +66,7 @@ function Map({activeCardId, cityOffers, cityState}) {
 
   return (
     <section
+      data-testid="map"
       className={mapClass}
       ref={mapRef}
     >

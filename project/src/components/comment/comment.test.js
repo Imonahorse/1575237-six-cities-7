@@ -5,35 +5,28 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import Comment from './comment.jsx';
+import {createFakeComment} from './comment-mock.js';
 
-const comment = {
-  comment: 'comment text',
-  date: new Date().toISOString(),
-  id: 1,
-  rating: 5,
-  user: {
-    avatarUrl: 'url',
-    id: 1,
-    isPro: true,
-    name: 'Alex',
-  }
-}
-
-const mockStore = configureStore({});
+let mockStore = null;
+let history = null;
 
 describe('Component: Cities', () => {
-  it('should render "Cities"', () => {
-    const history = createMemoryHistory();
+  beforeAll(() => {
+    mockStore = configureStore({});
+    history = createMemoryHistory();
+  });
 
+  it('should render "Cities"', () => {
     render(
-      <Provider store={mockStore(comment)}>
+      <Provider store={mockStore({})}>
         <Router history={history}>
-          <Comment comment={comment}/>
+          <Comment comment={createFakeComment(1)}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/comment text/i)).toBeInTheDocument();
     expect(screen.getByText(/Alex/i)).toBeInTheDocument();
+    expect(screen.getByText(/Rating/i)).toBeInTheDocument();
   });
 });

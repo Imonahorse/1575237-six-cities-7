@@ -1,13 +1,13 @@
 import userData from './user-data.js';
-import {AuthorizationStatus} from "../../../const";
-import {ActionsType as ActionType} from "../../actions/actions";
+import {AuthorizationStatus} from '../../../const.js';
+import {ActionsType as ActionType} from '../../actions/actions.js';
 
 describe('Reducer: user-data', () => {
   it('without additional parameters should return initial state', () => {
     const state = {test: 'test'};
 
-    expect(userData(state, {})).toEqual(state)
-  })
+    expect(userData(state, {})).toEqual(state);
+  });
 
   it('should update authorizationStatus to "AUTH"', () => {
     const state = {authorizationStatus: AuthorizationStatus.NO_AUTH};
@@ -37,7 +37,7 @@ describe('Reducer: user-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const fetchFavoriteAction = {
@@ -57,7 +57,7 @@ describe('Reducer: user-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const fetchFavoriteAction = {
@@ -77,7 +77,7 @@ describe('Reducer: user-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const fetchFavoriteAction = {
@@ -96,7 +96,7 @@ describe('Reducer: user-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const loginAction = {
@@ -121,7 +121,7 @@ describe('Reducer: user-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: true,
-      }
+      },
     };
 
     const loginAction = {
@@ -129,7 +129,7 @@ describe('Reducer: user-data', () => {
       payload: 'user',
     };
 
-    expect(userData(state, fetchFavoriteAction))
+    expect(userData(state, loginAction))
       .toEqual(
         {
           loginStatus: {isLoading: false, isError: false, isSuccess: true},
@@ -144,7 +144,7 @@ describe('Reducer: user-data', () => {
         isLoading: false,
         isError: true,
         isSuccess: false,
-      }
+      },
     };
 
     const loginAction = {
@@ -163,7 +163,7 @@ describe('Reducer: user-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const logoutAction = {
@@ -182,7 +182,7 @@ describe('Reducer: user-data', () => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-      }
+      },
     };
 
     const logoutAction = {
@@ -223,4 +223,4 @@ describe('Reducer: user-data', () => {
         loginStatus: {isLoading: false, isError: false, isSuccess: false},
       });
   });
-})
+});

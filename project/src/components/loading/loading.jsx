@@ -14,6 +14,7 @@ function Loading({size = LoadingSize.LARGE, styleClass = false}) {
           [styles.loadingDefault]: !styleClass,
         },
       )}
+      data-testid="loading component"
     >
       <PulseLoader color="#4481c3" size={size}/>
     </div>

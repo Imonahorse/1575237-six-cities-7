@@ -17,7 +17,7 @@ describe('Component: Mark', () => {
         <Router history={history}>
           <Mark />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/Premium/i)).toBeInTheDocument();

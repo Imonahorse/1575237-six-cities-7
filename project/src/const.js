@@ -40,10 +40,11 @@ const AuthorizationStatus = {
 };
 
 const APIRoutes = {
-  OFFERS: '/hotels',
+  OFFERS: '/hotels/:id?/:parameter?',
   LOGIN: '/login',
   LOGOUT: '/logout',
   COMMENTS: '/comments/:hotel_id',
+  FAVORITE: '/favorite/:id?/:parameter?',
 };
 
 const LoadingSize ={

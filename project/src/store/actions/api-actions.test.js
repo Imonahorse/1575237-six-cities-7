@@ -11,26 +11,27 @@ import {
   setFavorite
 } from './api-actions.js';
 import MockAdapter from 'axios-mock-adapter';
-import createApi from "../../services/api";
-import {APIRoutes, AuthorizationStatus} from "../../const";
-import {ActionsType} from "./actions";
+import createApi from '../../services/api.js';
+import {APIRoutes, AuthorizationStatus} from '../../const.js';
+import {ActionsType} from './actions.js';
+import {generatePath} from 'react-router-dom';
 
 let api = null;
 const ServerResponse = {
   SUCCESS: 200,
   ERROR: 404,
-}
+};
 
 describe('Async operation', () => {
   beforeAll(() => {
     api = createApi(() => {
-    })
-  })
+    });
+  });
 
   it('should make a successful API call to GET /login', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const checkAuthLoader = checkAuth()
+    const checkAuthLoader = checkAuth();
 
     apiMock
       .onGet(APIRoutes.LOGIN)
@@ -49,11 +50,11 @@ describe('Async operation', () => {
           payload: [{fake: true}],
         });
       });
-  })
+  });
   it('should make a failed API call to GET /login', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const checkAuthLoader = checkAuth()
+    const checkAuthLoader = checkAuth();
 
     apiMock
       .onGet(APIRoutes.LOGIN)
@@ -68,7 +69,7 @@ describe('Async operation', () => {
           payload: AuthorizationStatus.NO_AUTH,
         });
       });
-  })
+  });
 
   it('should make a successful API call to GET /offers', () => {
     const apiMock = new MockAdapter(api);
@@ -76,7 +77,7 @@ describe('Async operation', () => {
     const OfferListLoader = fetchOffersList();
 
     apiMock
-      .onGet(APIRoutes.OFFERS)
+      .onGet(generatePath(APIRoutes.OFFERS))
       .reply(ServerResponse.SUCCESS, [{fake: true}]);
 
     return OfferListLoader(dispatch, () => {
@@ -91,14 +92,14 @@ describe('Async operation', () => {
           payload: [{fake: true}],
         });
       });
-  })
+  });
   it('should make a failed API call to GET /offers', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const OfferListLoader = fetchOffersList();
 
     apiMock
-      .onGet(APIRoutes.OFFERS)
+      .onGet(generatePath(APIRoutes.OFFERS))
       .reply(ServerResponse.ERROR, [{fake: true}]);
 
     return OfferListLoader(dispatch, () => {
@@ -112,15 +113,15 @@ describe('Async operation', () => {
           type: ActionsType.LOAD_OFFERS_ERROR,
         });
       });
-  })
+  });
 
   it('should make a successful API call to GET /favorite', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const favoriteLoader = fetchFavorite()
+    const favoriteLoader = fetchFavorite();
 
     apiMock
-      .onGet('/favorite')
+      .onGet(generatePath(APIRoutes.FAVORITE))
       .reply(ServerResponse.SUCCESS, [{fake: true}]);
 
     return favoriteLoader(dispatch, () => {
@@ -135,14 +136,15 @@ describe('Async operation', () => {
           payload: [{fake: true}],
         });
       });
-  })
+  });
+
   it('should make a failed API call to GET /favorite', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const favoriteLoader = fetchFavorite()
+    const favoriteLoader = fetchFavorite();
 
     apiMock
-      .onGet('/favorite')
+      .onGet(generatePath(APIRoutes.FAVORITE))
       .reply(ServerResponse.ERROR, [{fake: true}]);
 
     return favoriteLoader(dispatch, () => {
@@ -156,7 +158,7 @@ describe('Async operation', () => {
           type: ActionsType.FETCH_FAVORITE_ERROR,
         });
       });
-  })
+  });
 
   it('should make a successful API call to POST /favorite', () => {
     const apiMock = new MockAdapter(api);
@@ -166,7 +168,7 @@ describe('Async operation', () => {
     const favoriteSender = setFavorite(fakeId, fakeStatus);
 
     apiMock
-      .onPost(`/favorite/${fakeId}/${fakeStatus}`)
+      .onPost(generatePath(APIRoutes.FAVORITE, {id: fakeId, parameter: fakeStatus}))
       .reply(ServerResponse.SUCCESS, [{fake: true}]);
 
     return favoriteSender(dispatch, () => {
@@ -181,7 +183,7 @@ describe('Async operation', () => {
           payload: [{fake: true}],
         });
       });
-  })
+  });
   it('should make a failed API call to POST /favorite', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -190,7 +192,7 @@ describe('Async operation', () => {
     const favoriteSender = setFavorite(fakeId, fakeStatus);
 
     apiMock
-      .onPost(`/favorite/${fakeId}/${fakeStatus}`)
+      .onPost(generatePath(APIRoutes.FAVORITE, {id: fakeId, parameter: fakeStatus}))
       .reply(ServerResponse.ERROR, [{fake: true}]);
 
     return favoriteSender(dispatch, () => {
@@ -204,7 +206,7 @@ describe('Async operation', () => {
           type: ActionsType.SET_FAVORITE_ERROR,
         });
       });
-  })
+  });
 
   it('should make a successful API call to POST /comments', () => {
     const apiMock = new MockAdapter(api);
@@ -214,7 +216,7 @@ describe('Async operation', () => {
     const commentSender = setComment(fakeId, fakeBody);
 
     apiMock
-      .onPost(`/comments/${fakeId}`)
+      .onPost(generatePath(APIRoutes.COMMENTS, {hotel_id: fakeId}))
       .reply(ServerResponse.SUCCESS, [{fake: true}]);
 
     return commentSender(dispatch, () => {
@@ -229,7 +231,7 @@ describe('Async operation', () => {
           payload: [{fake: true}],
         });
       });
-  })
+  });
   it('should make a failed API call to POST /comments', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -238,7 +240,7 @@ describe('Async operation', () => {
     const commentSender = setComment(fakeId, fakeBody);
 
     apiMock
-      .onPost(`/comments/${fakeId}`)
+      .onPost(generatePath(APIRoutes.COMMENTS, {hotel_id: fakeId}))
       .reply(ServerResponse.ERROR, [{fake: true}]);
 
     return commentSender(dispatch, () => {
@@ -252,7 +254,7 @@ describe('Async operation', () => {
           type: ActionsType.SET_COMMENT_ERROR,
         });
       });
-  })
+  });
 
   it('should make a successful API call to GET /comments', () => {
     const apiMock = new MockAdapter(api);
@@ -261,7 +263,7 @@ describe('Async operation', () => {
     const commentsLoader = fetchComments(fakeId);
 
     apiMock
-      .onGet(`/comments/${fakeId}`)
+      .onGet(generatePath(APIRoutes.COMMENTS, {hotel_id: fakeId}))
       .reply(ServerResponse.SUCCESS, [{fake: true}]);
 
     return commentsLoader(dispatch, () => {
@@ -276,7 +278,7 @@ describe('Async operation', () => {
           payload: [{fake: true}],
         });
       });
-  })
+  });
   it('should make a failed API call to GET /comments', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -284,7 +286,7 @@ describe('Async operation', () => {
     const commentsLoader = fetchComments(fakeId);
 
     apiMock
-      .onGet(`/comments/${fakeId}`)
+      .onGet(generatePath(APIRoutes.COMMENTS, {hotel_id: fakeId}))
       .reply(ServerResponse.ERROR, [{fake: true}]);
 
     return commentsLoader(dispatch, () => {
@@ -298,7 +300,7 @@ describe('Async operation', () => {
           type: ActionsType.GET_COMMENTS_ERROR,
         });
       });
-  })
+  });
 
   it('should make a successful API call to GET /hotels near places', () => {
     const apiMock = new MockAdapter(api);
@@ -307,7 +309,7 @@ describe('Async operation', () => {
     const nearPlacesLoader = fetchNearPlacesOffers(fakeId);
 
     apiMock
-      .onGet(`/hotels/${fakeId}/nearby`)
+      .onGet(generatePath(APIRoutes.OFFERS, {id: fakeId, parameter: 'nearby'}))
       .reply(ServerResponse.SUCCESS, [{fake: true}]);
 
     return nearPlacesLoader(dispatch, () => {
@@ -322,7 +324,7 @@ describe('Async operation', () => {
           payload: [{fake: true}],
         });
       });
-  })
+  });
   it('should make a failed API call to GET /hotels near places', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -330,7 +332,7 @@ describe('Async operation', () => {
     const nearPlacesLoader = fetchNearPlacesOffers(fakeId);
 
     apiMock
-      .onGet(`/hotels/${fakeId}/nearby`)
+      .onGet(generatePath(APIRoutes.OFFERS, {id: fakeId, parameter: 'nearby'}))
       .reply(ServerResponse.ERROR, [{fake: true}]);
 
     return nearPlacesLoader(dispatch, () => {
@@ -344,5 +346,56 @@ describe('Async operation', () => {
           type: ActionsType.NEAR_PLACES_OFFERS_ERROR,
         });
       });
-  })
-})
+  });
+
+  it('should make a successful API call to GET /offer', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const fakeId = 1;
+    const offerLoader = fetchOffer(fakeId);
+
+    apiMock
+      .onGet(generatePath(APIRoutes.OFFERS, {id: fakeId}))
+      .reply(ServerResponse.SUCCESS, [{fake: true}]);
+
+    return offerLoader(dispatch, () => {
+    }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionsType.LOAD_OFFER_REQUEST,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionsType.LOAD_OFFER_SUCCESS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+  it('should make a failed API call to GET /offer', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const fakeId = 1;
+    const offerLoader = fetchOffer(fakeId);
+
+    apiMock
+      .onGet(generatePath(APIRoutes.OFFERS, {id: fakeId}))
+      .reply(ServerResponse.ERROR, [{fake: true}]);
+
+    return offerLoader(dispatch, () => {
+    }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionsType.LOAD_OFFER_REQUEST,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionsType.REDIRECT_TO_ROUTE,
+          payload: [{fake: true}],
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
+          type: ActionsType.LOAD_OFFER_ERROR,
+        });
+      });
+  });
+
+});

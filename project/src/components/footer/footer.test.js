@@ -4,23 +4,21 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
-import MainEmpty from './main-empty.jsx';
+import Footer from './footer.jsx';
 
-const fakeCity = 'Moscow';
 const mockStore = configureStore({});
+const history = createMemoryHistory();
 
-describe('Component: MainEmpty', () => {
-  it('should render "MainEmpty"', () => {
-    const history = createMemoryHistory();
-
+describe('Component: Footer', () => {
+  it('should render "Footer"', () => {
     render(
       <Provider store={mockStore({})}>
         <Router history={history}>
-          <MainEmpty cityState={fakeCity} />
+          <Footer/>
         </Router>
       </Provider>,
     );
 
-    expect(screen.getByText(/No places to stay available/i)).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
   });
 });

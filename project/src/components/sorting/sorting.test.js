@@ -10,8 +10,8 @@ const mockStore = configureStore({});
 const fakeState = {
   APP: {
     sort: 'Popular',
-  }
-}
+  },
+};
 
 describe('Component: Sorting', () => {
   it('should render "Sorting"', () => {
@@ -22,7 +22,7 @@ describe('Component: Sorting', () => {
         <Router history={history}>
           <Sorting />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/Sort by/i)).toBeInTheDocument();

@@ -23,6 +23,7 @@ function CommentRating({onInputChange, isActive}) {
             type="radio"
             required
             checked={isActive === value}
+            data-testid={'test'}
           />
           <label
             htmlFor={value <= 1 ? `${value}-star` : `${value}-stars`}

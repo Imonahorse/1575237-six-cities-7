@@ -24,7 +24,7 @@ function OfferPage({offer, comments, id}) {
   } = offer;
 
   return (
-    <div className="property__container container">
+    <div className="property__container container" data-testid="offer-page component">
       <div className="property__wrapper">
         {isPremium && <Mark/>}
         <div className="property__name-wrapper">

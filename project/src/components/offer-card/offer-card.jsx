@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useRouteMatch} from 'react-router-dom';
+import {Link, useRouteMatch, generatePath} from 'react-router-dom';
 import offerCardProp from './offer-card-prop.js';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
@@ -36,9 +36,10 @@ function OfferCard({offer, handleActiveCard = template}) {
       onMouseLeave={() => handleActiveCard(0)}
       className={articleClass}
       id={id}
+      data-testid="offer card"
     >
       <div className={imageClass}>
-        <Link to={`/offer/${id}`}>
+        <Link to={generatePath(AppRoutes.OFFER, {id: id})}>
           <img className="place-card__image" style={{width: imageWidth}} src={previewImage} width="260" height="200" alt="preview"/>
         </Link>
       </div>

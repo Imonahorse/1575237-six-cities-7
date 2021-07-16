@@ -6,17 +6,23 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import MainEmpty from './main-empty.jsx';
 
-const fakeCity = 'Moscow';
-const mockStore = configureStore({});
+let history = null;
+let store = null;
 
 describe('Component: MainEmpty', () => {
-  it('should render "MainEmpty"', () => {
-    const history = createMemoryHistory();
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({});
+  });
+
+  it('should render MainEmpty', () => {
+    const fakeCity = 'Moscow';
 
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
-          <MainEmpty cityState={fakeCity} />
+          <MainEmpty cityState={fakeCity}/>
         </Router>
       </Provider>,
     );

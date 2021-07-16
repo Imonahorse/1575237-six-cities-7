@@ -6,55 +6,29 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import NearPlacesOffers from './near-places-offers.jsx';
 import {AuthorizationStatus} from '../../const.js';
+import {fakeOffersArray} from '../favorites-list/favorite-list-mock.js';
 
-const mockStore = configureStore({});
-const fakeOffer = () => ({
-  city: {
-    name: 'Moscow',
-    location: {
-      latitude: 1,
-      longitude: 2,
-    },
-  },
-  location: {
-    latitude: 1,
-    longitude: 2,
-  },
-  description: 'i hate tests',
-  isPremium: false,
-  isFavorite: false,
-  title: 'test sucks',
-  rating: 3,
-  type: 'hotel',
-  bedrooms: 3,
-  maxAdults: 2,
-  price: 228,
-  goods: ['test', 'test'],
-  id: 1,
-  images: ['1', '2', '3', '4'],
-  previewImage: 'url',
-  host: {
-    name: 'Alex',
-    isPro: false,
-    avatarUrl: 'url',
-    id: 2,
-  },
-});
-const fakeNearOffers = new Array(5).fill('').map(() => fakeOffer());
-const fakeState = {
-  USER: {
-    authorizationStatus: AuthorizationStatus.NO_AUTH,
-  },
-};
+let history = null;
+let store = null;
 
 describe('Component: Mark', () => {
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({
+      USER: {
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+      },
+    });
+  });
+
   it('should render "Mark"', () => {
-    const history = createMemoryHistory();
+    const fakeNearOffers = fakeOffersArray(5);
 
     render(
-      <Provider store={mockStore(fakeState)}>
+      <Provider store={store}>
         <Router history={history}>
-          <NearPlacesOffers neighboringOffers={fakeNearOffers} />
+          <NearPlacesOffers neighboringOffers={fakeNearOffers}/>
         </Router>
       </Provider>,
     );

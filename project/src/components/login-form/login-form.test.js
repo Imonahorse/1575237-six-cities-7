@@ -7,40 +7,41 @@ import {Provider} from 'react-redux';
 import LoginForm from './login-form.jsx';
 import userEvent from '@testing-library/user-event';
 
-const mockStore = configureStore({});
-const history = createMemoryHistory();
-const fakeStore = {
-  USER: {
-    loginStatus: {
-      isError: false,
-      isLoading: false,
-      isSuccess: false,
-    },
-  },
-};
+let store = null;
+let history = null;
+let fakeComponent = null;
 
 describe('Component: LoginForm', () => {
-  it('should render "LoginForm"', () => {
-    render(
-      <Provider store={mockStore(fakeStore)}>
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeState = configureStore({});
+    store = fakeState({
+      USER: {
+        loginStatus: {
+          isError: false,
+          isLoading: false,
+          isSuccess: false,
+        },
+      },
+    });
+    fakeComponent = (
+      <Provider store={store}>
         <Router history={history}>
-          <LoginForm />
+          <LoginForm/>
         </Router>
-      </Provider>,
+      </Provider>
     );
+  });
+
+  it('should render "LoginForm"', () => {
+    render(fakeComponent);
 
     expect(screen.getAllByText(/Sign in/i)).toBeTruthy();
     expect(screen.getByTestId('button')).toBeDisabled();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
   });
   it('should fills in the form and unlocks the submit button', () => {
-    render(
-      <Provider store={mockStore(fakeStore)}>
-        <Router history={history}>
-          <LoginForm />
-        </Router>
-      </Provider>,
-    );
+    render(fakeComponent);
 
     userEvent.type(screen.getByLabelText(/e-mail/i), 'keks@mail.ru');
     userEvent.type(screen.getByLabelText(/password/i), '123456aaa');

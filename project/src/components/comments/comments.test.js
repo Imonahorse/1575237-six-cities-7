@@ -6,51 +6,52 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import Comments from './comments.jsx';
 import {AuthorizationStatus} from '../../const.js';
-import {createFakeComment} from '../comment/comment-mock.js';
+import {createFakeCommentArray} from '../comment/comment-mock.js';
 
-const number = 5;
-const comments = new Array(number).fill('').map((_, i) => createFakeComment(i));
-const renderComponent = (fakeStore, fakeHistory) => (
-  <Provider store={mockStore(fakeStore)}>
+const number = 2;
+const comments = createFakeCommentArray(number);
+
+const fakeComponent = (fakeStore, fakeHistory) => (
+  <Provider store={fakeStore}>
     <Router history={fakeHistory}>
       <Comments comments={comments}/>
     </Router>
   </Provider>
 );
 
-let mockStore = null;
+let store = null;
 let history = null;
 
 describe('Component: "Comments"', () => {
   beforeAll(() => {
     history = createMemoryHistory();
-    mockStore = configureStore({});
   });
 
   it('should render Comments without CommentsForm', () => {
-    const fakeStore = {
+    const fakeStore = configureStore({});
+    store = fakeStore({
       USER: {
         authorizationStatus: AuthorizationStatus.NO_AUTH,
       },
-    };
-
-    render(renderComponent(fakeStore, history));
+    });
+    render(fakeComponent(store, history));
 
     expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
-    expect(screen.getByText(`${number}`)).toBeInTheDocument();
+    expect(screen.getAllByText(new RegExp(`${number}`, 'i'))).toBeTruthy();
   });
 
   it('should render Comments with CommentsForm', () => {
-    const fakeStore = {
+    const fakeStore = configureStore({});
+    store = fakeStore({
       USER: {
         authorizationStatus: AuthorizationStatus.AUTH,
       },
       DATA: {
         commentStatus: '',
       },
-    };
+    });
 
-    render(renderComponent(fakeStore, history));
+    render(fakeComponent(store, history));
 
     expect(screen.getByText(/Your review/i)).toBeInTheDocument();
   });

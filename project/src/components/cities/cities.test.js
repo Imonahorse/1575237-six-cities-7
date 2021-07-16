@@ -3,31 +3,31 @@ import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import Cities from './cities.jsx';
 
 
 let history = null;
-let mockStore = null;
+let store = null;
 
 describe('Component: Cities', () => {
-  beforeAll(()=>{
-    mockStore = configureStore({});
+  beforeAll(() => {
     history = createMemoryHistory();
-  });
-
-  it('should render Cities with all buttons', () => {
-    const fakeStore = {
+    const fakeStore = configureStore({});
+    store = fakeStore({
       APP: {
         city: 'Hamburg',
       },
-    };
+    });
+  });
+
+  it('should render Cities with all buttons', () => {
     const buttonsCount = 6;
 
     render(
-      <Provider store={mockStore(fakeStore)}>
+      <Provider store={store}>
         <Router history={history}>
-          <Cities />
+          <Cities/>
         </Router>
       </Provider>,
     );

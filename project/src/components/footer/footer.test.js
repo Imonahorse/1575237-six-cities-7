@@ -6,13 +6,19 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import Footer from './footer.jsx';
 
-const mockStore = configureStore({});
-const history = createMemoryHistory();
+let store = null;
+let history = null;
 
 describe('Component: Footer', () => {
-  it('should render "Footer"', () => {
+  beforeAll(() => {
+    const fakeStore = configureStore({});
+    store = fakeStore({});
+    history = createMemoryHistory();
+  });
+
+  it('should render Footer', () => {
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
           <Footer/>
         </Router>

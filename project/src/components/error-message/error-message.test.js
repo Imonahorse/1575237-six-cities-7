@@ -13,8 +13,6 @@ describe('Component: ErrorMessage', () => {
       </Router>,
     );
 
-    const pElement = getByText('Сервер не отвечает, попробуйте позже');
-
-    expect(pElement).toBeInTheDocument();
+    expect(getByText('Сервер не отвечает, попробуйте позже')).toBeInTheDocument();
   });
 });

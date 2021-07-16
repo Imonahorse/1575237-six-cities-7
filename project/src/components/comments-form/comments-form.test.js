@@ -7,26 +7,30 @@ import {Provider} from 'react-redux';
 import CommentsForm from './comments-form.jsx';
 import userEvent from '@testing-library/user-event';
 
-const fakeState = {
-  DATA: {
-    commentStatus: {
-      isLoading: false,
-      isError: false,
-      isSuccess: false,
-    },
-  },
-};
-
-const mockStore = configureStore({});
+let store = null;
+let history = null;
 
 describe('Component: CommentsForm', () => {
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({
+      DATA: {
+        commentStatus: {
+          isLoading: false,
+          isError: false,
+          isSuccess: false,
+        },
+      },
+    });
+  });
+
   it('should render "CommentsForm"', () => {
-    const history = createMemoryHistory();
 
     render(
-      <Provider store={mockStore(fakeState)}>
+      <Provider store={store}>
         <Router history={history}>
-          <CommentsForm />
+          <CommentsForm/>
         </Router>
       </Provider>,
     );

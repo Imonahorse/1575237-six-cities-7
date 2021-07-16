@@ -6,21 +6,25 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import Sorting from './sorting.jsx';
 
-const mockStore = configureStore({});
-const fakeState = {
-  APP: {
-    sort: 'Popular',
-  },
-};
+let store = null;
+let history = null;
 
 describe('Component: Sorting', () => {
-  it('should render "Sorting"', () => {
-    const history = createMemoryHistory();
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({
+      APP: {
+        sort: 'Popular',
+      },
+    });
+  });
 
+  it('should render "Sorting"', () => {
     render(
-      <Provider store={mockStore(fakeState)}>
+      <Provider store={store}>
         <Router history={history}>
-          <Sorting />
+          <Sorting/>
         </Router>
       </Provider>,
     );

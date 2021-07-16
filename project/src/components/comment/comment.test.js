@@ -7,20 +7,22 @@ import {Provider} from 'react-redux';
 import Comment from './comment.jsx';
 import {createFakeComment} from './comment-mock.js';
 
-let mockStore = null;
+let store = null;
 let history = null;
 
-describe('Component: Cities', () => {
+describe('Component: Comment', () => {
   beforeAll(() => {
-    mockStore = configureStore({});
     history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({});
   });
 
-  it('should render "Cities"', () => {
+  it('should render Comment', () => {
+    const fakeComment = createFakeComment(1);
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
-          <Comment comment={createFakeComment(1)}/>
+          <Comment comment={fakeComment}/>
         </Router>
       </Provider>,
     );

@@ -5,32 +5,33 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import CommentsList from './comments-list.jsx';
-import {createFakeComment} from '../comment/comment-mock.js';
+import {createFakeCommentArray} from '../comment/comment-mock.js';
 
 const number = 5;
-const comments = new Array(number).fill('').map((_, i) => createFakeComment(i));
+const comments = createFakeCommentArray(5);
 
-jest.mock('../comment/comment.jsx', () => (
-  function fakeComponent() {
-    return (
-      <div data-testid="test">
-      </div>
-    );
-  }
-));
-
-let mockStore = null;
+let store = null;
 let history = null;
 
 describe('Component: "CommentsList"', () => {
   beforeAll(() => {
+    jest.mock('../comment/comment.jsx', () => (
+      function fakeComponent() {
+        return (
+          <div data-testid="test">
+          </div>
+        );
+      }
+    ));
+
     history = createMemoryHistory();
-    mockStore = configureStore({});
+    const fakeStore = configureStore({});
+    store = fakeStore({});
   });
 
   it('should render CommentsList with right count of comments', () => {
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
           <CommentsList comments={comments}/>
         </Router>

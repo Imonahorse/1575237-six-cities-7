@@ -6,18 +6,23 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import OfferGallery from './offer-gallery.jsx';
 
-
-const mockStore = configureStore({});
+let history = null;
+let store = null;
 
 describe('Component: OfferCard', () => {
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({});
+  });
+
   it('should render "OfferCard"', () => {
-    const history = createMemoryHistory();
     const fakeImage = ['test1', 'test2', 'test3'];
 
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
-          <OfferGallery images={fakeImage} />
+          <OfferGallery images={fakeImage}/>
         </Router>
       </Provider>,
     );

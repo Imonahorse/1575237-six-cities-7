@@ -6,16 +6,21 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import FavoritesEmpty from './favorites-empty.jsx';
 
-const mockStore = configureStore({});
+let history = null;
+let store = null;
 
 describe('Component: FavoritesEmpty', () => {
-  it('should render "FavoritesEmpty"', () => {
-    const history = createMemoryHistory();
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({});
+  });
 
+  it('should render "FavoritesEmpty"', () => {
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
-          <FavoritesEmpty />
+          <FavoritesEmpty/>
         </Router>
       </Provider>,
     );

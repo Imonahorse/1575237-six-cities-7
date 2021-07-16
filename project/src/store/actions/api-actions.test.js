@@ -1,8 +1,6 @@
 import {
   fetchOffersList,
   checkAuth,
-  login,
-  logout,
   fetchOffer,
   fetchNearPlacesOffers,
   fetchComments,
@@ -216,7 +214,7 @@ describe('Async operation', () => {
     const commentSender = setComment(fakeId, fakeBody);
 
     apiMock
-      .onPost(generatePath(APIRoutes.COMMENTS, {hotel_id: fakeId}))
+      .onPost(generatePath(APIRoutes.COMMENTS, {id: fakeId}))
       .reply(ServerResponse.SUCCESS, [{fake: true}]);
 
     return commentSender(dispatch, () => {
@@ -240,7 +238,7 @@ describe('Async operation', () => {
     const commentSender = setComment(fakeId, fakeBody);
 
     apiMock
-      .onPost(generatePath(APIRoutes.COMMENTS, {hotel_id: fakeId}))
+      .onPost(generatePath(APIRoutes.COMMENTS, {id: fakeId}))
       .reply(ServerResponse.ERROR, [{fake: true}]);
 
     return commentSender(dispatch, () => {
@@ -263,7 +261,7 @@ describe('Async operation', () => {
     const commentsLoader = fetchComments(fakeId);
 
     apiMock
-      .onGet(generatePath(APIRoutes.COMMENTS, {hotel_id: fakeId}))
+      .onGet(generatePath(APIRoutes.COMMENTS, {id: fakeId}))
       .reply(ServerResponse.SUCCESS, [{fake: true}]);
 
     return commentsLoader(dispatch, () => {
@@ -286,7 +284,7 @@ describe('Async operation', () => {
     const commentsLoader = fetchComments(fakeId);
 
     apiMock
-      .onGet(generatePath(APIRoutes.COMMENTS, {hotel_id: fakeId}))
+      .onGet(generatePath(APIRoutes.COMMENTS, {id: fakeId}))
       .reply(ServerResponse.ERROR, [{fake: true}]);
 
     return commentsLoader(dispatch, () => {

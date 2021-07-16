@@ -8,21 +8,27 @@ import OfferList from './offers-list.jsx';
 import {createFakeOffersArray} from '../favorites-city/favorites-city-mock.js';
 import {AuthorizationStatus} from '../../const.js';
 
-const mockStore = configureStore({});
+let history = null;
+let store = null;
 
-describe('Component: OfferCard', () => {
-  it('should render "OfferCard"', () => {
-    const history = createMemoryHistory();
-    const fakeStore = {
+describe('Component: OffersList', () => {
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({
       USER: {
         authorizationStatus: AuthorizationStatus.NO_AUTH,
       },
-    };
+    });
+  });
 
+  it('should render OffersList', () => {
     render(
-      <Provider store={mockStore(fakeStore)}>
+      <Provider store={store}>
         <Router history={history}>
-          <OfferList cityOffers={createFakeOffersArray(5)} handleActiveCard={()=>{}} />
+          <OfferList cityOffers={createFakeOffersArray(5)} handleActiveCard={() => {
+          }}
+          />
         </Router>
       </Provider>,
     );

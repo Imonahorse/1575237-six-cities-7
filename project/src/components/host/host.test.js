@@ -6,11 +6,17 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import Host from './host.jsx';
 
-const mockStore = configureStore({});
+let history = null;
+let store = null;
 
 describe('Component: Host', () => {
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({});
+  });
+
   it('should render "Host"', () => {
-    const history = createMemoryHistory();
     const fakeHost = {
       avatarUrl: 'url',
       id: 228,
@@ -20,7 +26,7 @@ describe('Component: Host', () => {
     const fakeDescription = 'I hate tests';
 
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
           <Host host={fakeHost} description={fakeDescription}/>
         </Router>

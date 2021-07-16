@@ -43,7 +43,7 @@ const APIRoutes = {
   OFFERS: '/hotels/:id?/:parameter?',
   LOGIN: '/login',
   LOGOUT: '/logout',
-  COMMENTS: '/comments/:hotel_id',
+  COMMENTS: '/comments/:id',
   FAVORITE: '/favorite/:id?/:parameter?',
 };
 

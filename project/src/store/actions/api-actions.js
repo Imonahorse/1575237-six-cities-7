@@ -109,7 +109,7 @@ const fetchNearPlacesOffers = (id) => async (dispatch, _, api) => {
 const fetchComments = (id) => async (dispatch, _, api) => {
   dispatch(getCommentsRequest());
   try {
-    const {data} = await api.get(generatePath(APIRoutes.COMMENTS, {hotel_id: id}));
+    const {data} = await api.get(generatePath(APIRoutes.COMMENTS, {id: id}));
     const adaptedData = data.map((offer) => adaptToClient(offer));
     dispatch(getCommentsSuccess(adaptedData));
   } catch {
@@ -120,7 +120,7 @@ const fetchComments = (id) => async (dispatch, _, api) => {
 const setComment = (id, body) => async (dispatch, _, api) => {
   dispatch(setCommentRequest());
   try {
-    const {data} = await api.post(generatePath(APIRoutes.COMMENTS, {hotel_id: id}), body);
+    const {data} = await api.post(generatePath(APIRoutes.COMMENTS, {id: id}), body);
     dispatch(setCommentSuccess(data));
   } catch {
     dispatch(setCommentError());

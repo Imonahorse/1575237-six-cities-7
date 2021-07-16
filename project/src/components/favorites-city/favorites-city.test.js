@@ -5,47 +5,46 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import FavoritesCity from './favorites-city.jsx';
-import {createFakeOffer} from './favorites-city-mock.js';
+import {createFakeOffersArray} from './favorites-city-mock.js';
 import {AuthorizationStatus} from '../../const.js';
 
-let mockStore = null;
+let store = null;
 let history = null;
-
-const number = 3;
-const fakeOffersArray = new Array(number).fill('').map((_, i) => createFakeOffer(i));
-const fakeCity = 'Moscow';
-const fakeStore = {
-  USER: {
-    authorizationStatus: AuthorizationStatus.AUTH,
-  },
-};
+let fakeComponent = null;
+let number = null;
 
 describe('Component: "CommentsList"', () => {
   beforeAll(() => {
-    history = createMemoryHistory();
-    mockStore = configureStore({});
-  });
+    number = 3;
+    const fakeOffersArray = createFakeOffersArray(number);
 
-  it('should render CommentsList', () => {
-    render(
-      <Provider store={mockStore(fakeStore)}>
+    const fakeCity = 'Moscow';
+    history = createMemoryHistory();
+
+    const fakeStore = configureStore({});
+    store = fakeStore({
+      USER: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      },
+    });
+
+    fakeComponent = (
+      <Provider store={store}>
         <Router history={history}>
           <FavoritesCity cityOffers={fakeOffersArray} city={fakeCity}/>
         </Router>
-      </Provider>,
+      </Provider>
     );
+  });
+
+  it('should render CommentsList', () => {
+    render(fakeComponent);
 
     expect(screen.getByText('Moscow')).toBeInTheDocument();
   });
 
   it('should check the number of rendered comments', () => {
-    render(
-      <Provider store={mockStore(fakeStore)}>
-        <Router history={history}>
-          <FavoritesCity cityOffers={fakeOffersArray} city={fakeCity}/>
-        </Router>
-      </Provider>,
-    );
+    render(fakeComponent);
 
     expect(screen.getAllByText(/title/i)).toHaveLength(number);
   });

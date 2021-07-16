@@ -3,28 +3,32 @@ import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import BookmarkButton from './bookmark-button.jsx';
 import {AuthorizationStatus} from '../../const.js';
 
-const initialState = {
-  USER: {
-    authorizationStatus: AuthorizationStatus.UNKNOWN,
-  },
-};
-
-const mockStore = configureStore({});
+let history = null;
+let store = null;
 
 describe('Component: BookmarkButton', () => {
-  it('should render "BookmarkButton"', () => {
-    const history = createMemoryHistory();
-    const fakeId='1';
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({
+      USER: {
+        authorizationStatus: AuthorizationStatus.UNKNOWN,
+      },
+    });
+  });
+
+  it('should render BookmarkButton', () => {
+    const fakeId = '1';
     const fakeFavorite = true;
 
     render(
-      <Provider store={mockStore(initialState)}>
+      <Provider store={store}>
         <Router history={history}>
-          <BookmarkButton id={fakeId} isFavorite={fakeFavorite} />
+          <BookmarkButton id={fakeId} isFavorite={fakeFavorite}/>
         </Router>
       </Provider>,
     );

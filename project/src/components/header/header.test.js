@@ -15,13 +15,19 @@ jest.mock('../user-nav/user-nav.jsx', () => (
   }
 ));
 
-const mockStore = configureStore({});
-const history = createMemoryHistory();
+let store = null;
+let history = null;
 
 describe('Component: Header', () => {
-  it('should render "Header"', () => {
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({});
+  });
+
+  it('should render Header', () => {
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
           <Header/>
         </Router>

@@ -6,16 +6,21 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import Mark from './mark.jsx';
 
-const mockStore = configureStore({});
+let store = null;
+let history = null;
 
 describe('Component: Mark', () => {
-  it('should render "Mark"', () => {
-    const history = createMemoryHistory();
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({});
+  });
 
+  it('should render Mark', () => {
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
-          <Mark />
+          <Mark/>
         </Router>
       </Provider>,
     );

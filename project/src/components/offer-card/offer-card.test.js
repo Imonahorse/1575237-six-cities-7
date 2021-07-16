@@ -7,22 +7,28 @@ import {Provider} from 'react-redux';
 import OfferCard from './offer-card.jsx';
 import {createFakeOffer} from '../favorites-city/favorites-city-mock.js';
 import {AuthorizationStatus} from '../../const.js';
-const mockStore = configureStore({});
+
+let store = null;
+let history = null;
 
 describe('Component: OfferCard', () => {
-  it('should render "OfferCard"', () => {
-    const history = createMemoryHistory();
-    const fakeStore = {
+  beforeAll(() => {
+    history = createMemoryHistory();
+    const fakeStore = configureStore({});
+    store = fakeStore({
       USER: {
         authorizationStatus: AuthorizationStatus.AUTH,
       },
-    };
+    });
+  });
+
+  it('should render "OfferCard"', () => {
     const fakeOffer = createFakeOffer(3);
 
     render(
-      <Provider store={mockStore(fakeStore)}>
+      <Provider store={store}>
         <Router history={history}>
-          <OfferCard offer={fakeOffer} />
+          <OfferCard offer={fakeOffer}/>
         </Router>
       </Provider>,
     );

@@ -30,7 +30,6 @@ const addNewId = (offer, offers) => {
   return offers;
 };
 
-
 const initialState = {
   offers: [],
   offersStatus: {
@@ -171,7 +170,6 @@ const appData = createReducer(initialState, (builder) => {
     })
 
     .addCase(loadOffersError, (state, action) => {
-      state.offers = action.payload;
       state.offersStatus.isError = true;
       state.offersStatus.isLoading = false;
       state.offersStatus.isSuccess = false;

@@ -55,6 +55,7 @@ function CommentsForm() {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={state.review}
         required
+        data-testid="textarea"
       >
       </textarea>
       <div className="reviews__button-wrapper">

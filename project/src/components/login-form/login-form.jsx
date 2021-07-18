@@ -71,11 +71,12 @@ function LoginForm() {
       <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
         {Object.keys(inputs).map((item) => (
           <div className={cn('login__input-wrapper form__input-wrapper', {[styles.loginInput]: true})} key={item}>
-            <label className="visually-hidden">{inputs[item]}</label>
+            <label className="visually-hidden" htmlFor={item}>{inputs[item]}</label>
             <input
               className="login__input form__input"
               type={item}
               name={item}
+              id={item}
               placeholder={inputs[item]}
               value={inputsState[item].value}
               required
@@ -85,6 +86,7 @@ function LoginForm() {
           </div>
         ))}
         <button
+          data-testid="button"
           className="login__submit form__submit button"
           type="submit"
           disabled={!(inputsState.email.isValid && inputsState.password.isValid)}

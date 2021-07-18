@@ -31,13 +31,14 @@ import {
 } from './actions.js';
 import {AuthorizationStatus, APIRoutes, AppRoutes} from '../../const.js';
 import {adaptToClient} from '../../utils.js';
+import {generatePath} from 'react-router-dom';
 
 const NOT_FOUND_ERROR = 'Request failed with status code 404';
 
 const fetchOffersList = () => async (dispatch, _, api) => {
   dispatch(loadOffersRequest());
   try {
-    const {data} = await api.get(APIRoutes.OFFERS);
+    const {data} = await api.get(generatePath(APIRoutes.OFFERS));
     const adaptedData = data.map((offer) => adaptToClient(offer));
     dispatch(loadOffersSuccess(adaptedData));
   } catch {
@@ -83,11 +84,11 @@ const logout = () => async (dispatch, _, api) => {
 const fetchOffer = (id) => async (dispatch, _, api) => {
   dispatch(loadOfferRequest());
   try {
-    const {data} = await api.get(`/hotels/${id}`);
+    const {data} = await api.get(generatePath(APIRoutes.OFFERS, {id: id}));
     const adaptedData = adaptToClient(data);
     dispatch(loadOfferSuccess(adaptedData));
-  } catch(err) {
-    if(err.message === NOT_FOUND_ERROR) {
+  } catch (err) {
+    if (err.message === NOT_FOUND_ERROR) {
       dispatch(redirectToRoute(AppRoutes.NOT_FOUND));
     }
     dispatch(loadOfferError());
@@ -97,7 +98,7 @@ const fetchOffer = (id) => async (dispatch, _, api) => {
 const fetchNearPlacesOffers = (id) => async (dispatch, _, api) => {
   dispatch(nearPlacesOffersRequest());
   try {
-    const {data} = await api.get(`/hotels/${id}/nearby`);
+    const {data} = await api.get(generatePath(APIRoutes.OFFERS, {id: id, parameter: 'nearby'}));
     const adaptedData = data.map((offer) => adaptToClient(offer));
     dispatch(nearPlacesOffersSuccess(adaptedData));
   } catch {
@@ -108,27 +109,28 @@ const fetchNearPlacesOffers = (id) => async (dispatch, _, api) => {
 const fetchComments = (id) => async (dispatch, _, api) => {
   dispatch(getCommentsRequest());
   try {
-    const {data} = await api.get(`/comments/${id}`);
-    dispatch(getCommentsSuccess(data));
+    const {data} = await api.get(generatePath(APIRoutes.COMMENTS, {id: id}));
+    const adaptedData = data.map((offer) => adaptToClient(offer));
+    dispatch(getCommentsSuccess(adaptedData));
   } catch {
     dispatch(getCommentsError());
   }
 };
 
-const setComment = (pageId, body) => async (dispatch, _, api) => {
+const setComment = (id, body) => async (dispatch, _, api) => {
   dispatch(setCommentRequest());
   try {
-    const {data} = await api.post(`/comments/${pageId}`, body);
+    const {data} = await api.post(generatePath(APIRoutes.COMMENTS, {id: id}), body);
     dispatch(setCommentSuccess(data));
   } catch {
     dispatch(setCommentError());
   }
 };
 
-const fetchFavorite = () => async(dispatch, _, api) => {
+const fetchFavorite = () => async (dispatch, _, api) => {
   dispatch(fetchFavoriteRequest());
   try {
-    const {data} = await api.get('/favorite');
+    const {data} = await api.get(generatePath(APIRoutes.FAVORITE));
     const adaptedData = data.map((item) => adaptToClient(item));
     dispatch(fetchFavoriteSuccess(adaptedData));
   } catch {
@@ -136,10 +138,10 @@ const fetchFavorite = () => async(dispatch, _, api) => {
   }
 };
 
-const setFavorite = (id, status) => async(dispatch, _, api) => {
+const setFavorite = (id, status) => async (dispatch, _, api) => {
   dispatch(setFavoriteRequest());
   try {
-    const {data} = await api.post(`/favorite/${id}/${status}`);
+    const {data} = await api.post(generatePath(APIRoutes.FAVORITE, {id: id, parameter: status}));
     const adaptedData = adaptToClient(data);
     dispatch(setFavoriteSuccess(adaptedData));
   } catch {

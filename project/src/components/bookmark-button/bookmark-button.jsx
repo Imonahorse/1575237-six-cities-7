@@ -42,13 +42,7 @@ function BookmarkButton({id, isFavorite}) {
       return browserHistory.push('/login');
     }
 
-    if (!isFavorite) {
-      return dispatch(setFavorite(id, Number(!isFavorite)));
-    }
-
-    if (isFavorite) {
-      return dispatch(setFavorite(id, Number(!isFavorite)));
-    }
+    return dispatch(setFavorite(id, Number(!isFavorite)));
   };
 
   return (

@@ -4,8 +4,8 @@ import commentProp from './comment-prop.js';
 import cn from 'classnames';
 
 function Comment({comment}) {
-  const{comment: text, date, id, rating, user} = comment;
-  const {id: userId, avatar_url: avatarUrl, is_pro: isPro, name} = user;
+  const {comment: text, date, id, rating, user} = comment;
+  const {id: userId, avatarUrl, isPro, name} = user;
   const humanizeDate = date.split('T')[0];
   const avatarClass = cn('reviews__avatar-wrapper user__avatar-wrapper', {'user__avatar-wrapper--pro': isPro});
 

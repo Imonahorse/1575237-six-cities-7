@@ -15,16 +15,16 @@ function OfferPage({offer, comments, id}) {
     title,
     type,
     rating,
-    bedroomsCount,
+    bedrooms,
     maxAdults,
-    features,
+    goods,
     host,
     description,
     isFavorite,
   } = offer;
 
   return (
-    <div className="property__container container">
+    <div className="property__container container" data-testid="offer-page component">
       <div className="property__wrapper">
         {isPremium && <Mark/>}
         <div className="property__name-wrapper">
@@ -46,7 +46,7 @@ function OfferPage({offer, comments, id}) {
             {type}
           </li>
           <li className="property__feature property__feature--bedrooms">
-            {bedroomsCount} Bedrooms
+            {bedrooms} Bedrooms
           </li>
           <li className="property__feature property__feature--adults">
             Max {maxAdults} adults
@@ -59,9 +59,9 @@ function OfferPage({offer, comments, id}) {
         <div className="property__inside">
           <h2 className="property__inside-title">What&apos;s inside</h2>
           <ul className="property__inside-list">
-            {features.map((feature) => (
-              <li className="property__inside-item" key={feature + price}>
-                {feature}
+            {goods.map((good) => (
+              <li className="property__inside-item" key={good + price}>
+                {good}
               </li>),
             )}
           </ul>
@@ -75,7 +75,7 @@ function OfferPage({offer, comments, id}) {
 
 OfferPage.propTypes = {
   offer: offerCardProp,
-  comments: commentProp,
+  comments: PropTypes.arrayOf(commentProp),
   id: PropTypes.string.isRequired,
 };
 

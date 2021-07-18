@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 function OffersList({cityOffers, handleActiveCard}) {
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className="cities__places-list places__list tabs__content" data-testid="OffersList component">
       {cityOffers.map((offer) => <OfferCard key={offer.id} offer={offer} handleActiveCard={handleActiveCard}/>)}
     </div>
   );

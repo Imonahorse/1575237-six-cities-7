@@ -30,7 +30,7 @@ function UserNav() {
             <div className="header__avatar-wrapper user__avatar-wrapper">
               {
                 isAuth &&
-                <img src={user.avatar_url} alt="avatar">
+                <img src={user.avatarUrl} alt="avatar">
                 </img>
               }
             </div>

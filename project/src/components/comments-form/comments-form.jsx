@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import CommentRating from '../comment-rating/comment-rating.jsx';
+import CommentRatingList from '../comment-rating-list/comment-rating-list.jsx';
 import {setComment} from '../../store/actions/api-actions.js';
 import {useParams} from 'react-router-dom';
 import Loading from '../loading/loading.jsx';
@@ -46,7 +46,7 @@ function CommentsForm() {
     <form className="reviews__form form" action="#" method="post" onSubmit={onSubmit}>
       {errorMessage}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <CommentRating onInputChange={onInputChange} isActive={state.rating}/>
+      <CommentRatingList onInputChange={onInputChange} isActive={state.rating}/>
       <textarea
         onChange={onInputChange}
         className="reviews__textarea form__textarea"
@@ -55,7 +55,6 @@ function CommentsForm() {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={state.review}
         required
-        data-testid="textarea"
       >
       </textarea>
       <div className="reviews__button-wrapper">

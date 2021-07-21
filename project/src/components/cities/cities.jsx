@@ -24,7 +24,6 @@ function Cities() {
                 className="locations__item"
                 key={city}
                 onClick={() => exchangeCity(city)}
-                data-testid='test'
               >
                 <a className={cityClass} href="/#">
                   <span>{city}</span>

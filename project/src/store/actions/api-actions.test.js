@@ -6,11 +6,13 @@ import {
   fetchComments,
   setComment,
   fetchFavorite,
-  setFavorite
+  setFavorite,
+  login,
+  logout
 } from './api-actions.js';
 import MockAdapter from 'axios-mock-adapter';
 import createApi from '../../services/api.js';
-import {APIRoutes, AuthorizationStatus} from '../../const.js';
+import {APIRoutes, AppRoutes, AuthorizationStatus} from '../../const.js';
 import {ActionsType} from './actions.js';
 import {generatePath} from 'react-router-dom';
 
@@ -26,7 +28,120 @@ describe('Async operation', () => {
     });
   });
 
-  it('should make a successful API call to GET /login', () => {
+  it('should make a successful API call to delete /logout', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const logoutLoader = logout();
+
+    Storage.prototype.removeItem = jest.fn();
+
+    apiMock
+      .onDelete(APIRoutes.LOGOUT)
+      .reply(ServerResponse.SUCCESS, [{fake: true}]);
+
+    return logoutLoader(dispatch, () => {
+    }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionsType.LOGOUT_REQUEST,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionsType.LOGOUT_SUCCESS,
+          payload: AuthorizationStatus.NO_AUTH,
+        });
+        expect(Storage.prototype.removeItem).nthCalledWith(1, 'token');
+      });
+  });
+
+  it('should make a failed API call to delete /logout', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const logoutLoader = logout();
+
+    apiMock
+      .onDelete(APIRoutes.LOGOUT)
+      .reply(ServerResponse.ERROR, [{fake: true}]);
+
+    return logoutLoader(dispatch, () => {
+    }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionsType.LOGOUT_REQUEST,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionsType.LOGOUT_ERROR,
+        });
+      });
+  });
+
+  it('should make a successful API call to post /login', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const data = {
+      email: 'adfsg@mail.ru',
+      password: 'adsf324324',
+    };
+    const loginLoader = login(data);
+
+    apiMock
+      .onPost(APIRoutes.LOGIN)
+      .reply(ServerResponse.SUCCESS, [{fake: true}]);
+
+    return loginLoader(dispatch, () => {
+    }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionsType.GET_LOGIN_REQUEST,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionsType.REQUIRED_AUTHORIZATION,
+          payload: AuthorizationStatus.AUTH,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
+          type: ActionsType.GET_LOGIN_SUCCESS,
+          payload: [{fake: true}],
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(4, {
+          type: ActionsType.REDIRECT_TO_ROUTE,
+          payload: AppRoutes.MAIN,
+        });
+      });
+  });
+
+  it('should make a failed API call to post /login', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const data = {
+      email: 'adfsg@mail.ru',
+      password: 'adsf324324',
+    };
+    const loginLoader = login(data);
+
+    apiMock
+      .onPost(APIRoutes.LOGIN)
+      .reply(ServerResponse.ERROR, [{fake: true}]);
+
+    return loginLoader(dispatch, () => {
+    }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionsType.GET_LOGIN_REQUEST,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionsType.REQUIRED_AUTHORIZATION,
+          payload: AuthorizationStatus.NO_AUTH,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
+          type: ActionsType.GET_LOGIN_ERROR,
+        });
+      });
+  });
+
+  it('should make a successful API call to GET /login from checkAuth', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const checkAuthLoader = checkAuth();
@@ -49,7 +164,8 @@ describe('Async operation', () => {
         });
       });
   });
-  it('should make a failed API call to GET /login', () => {
+
+  it('should make a failed API call to GET /login from checkAuth', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const checkAuthLoader = checkAuth();

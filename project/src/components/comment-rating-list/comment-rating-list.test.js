@@ -4,32 +4,31 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
-import CommentRating from './comment-rating.jsx';
+import CommentRatingList from './comment-rating-list.jsx';
 
 let history = null;
 let store = null;
 
-describe('Component: CommentRating', () => {
+describe('Component: CommentRatingList', () => {
   beforeAll(() => {
     history = createMemoryHistory();
     const fakeStore = configureStore({});
     store = fakeStore({});
   });
 
-  it('should render CommentRating', () => {
-    const fakeFn = () => {
-    };
-    const fakeValue = '3';
+  it('should render CommentRatingList', () => {
     const ratingCount = 5;
+    const fakeFn = jest.fn();
+    const fakeValue = '3';
 
-    render(
+    const {container} = render(
       <Provider store={store}>
         <Router history={history}>
-          <CommentRating onInputChange={fakeFn} isActive={fakeValue}/>
+          <CommentRatingList onInputChange={fakeFn} isActive={fakeValue}/>
         </Router>
       </Provider>,
     );
 
-    expect(screen.getAllByTestId('test')).toHaveLength(ratingCount);
+    expect(container.querySelectorAll('.form__rating-input')).toHaveLength(ratingCount);
   });
 });

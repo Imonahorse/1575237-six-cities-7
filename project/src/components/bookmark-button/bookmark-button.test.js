@@ -34,5 +34,6 @@ describe('Component: BookmarkButton', () => {
     );
 
     expect(screen.getByText(/To bookmarks/i)).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 });

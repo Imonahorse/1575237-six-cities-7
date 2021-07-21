@@ -1,18 +1,16 @@
 import React from 'react';
 import ErrorMessage from './error-message.jsx';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
+import {MemoryRouter} from 'react-router-dom';
 import {render} from '@testing-library/react';
 
 describe('Component: ErrorMessage', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
     const {getByText} = render(
-      <Router history={history}>
+      <MemoryRouter>
         <ErrorMessage/>
-      </Router>,
+      </MemoryRouter>,
     );
 
     expect(getByText('Сервер не отвечает, попробуйте позже')).toBeInTheDocument();
-  });
+  })
 });

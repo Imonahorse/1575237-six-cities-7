@@ -36,7 +36,23 @@ describe('Component: CommentsForm', () => {
     );
 
     expect(screen.getByText(/To submit review please make sure to set/i)).toBeInTheDocument();
-    userEvent.type(screen.getByTestId('textarea'), 'test');
+    userEvent.type(screen.getByLabelText('Your review'), 'test');
     expect(screen.getByDisplayValue(/test/i)).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeDisabled();
+  });
+
+  it('should test form with right comment length', () => {
+    const fakeComment = 'hateTestshateTestshateTestshateTestshateTestshateTestshateTestshateTestshateTestshateTests';
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <CommentsForm/>
+        </Router>
+      </Provider>,
+    );
+
+    userEvent.type(screen.getByLabelText('Your review'), fakeComment);
+    expect(screen.getByRole('button')).toBeEnabled();
   });
 });

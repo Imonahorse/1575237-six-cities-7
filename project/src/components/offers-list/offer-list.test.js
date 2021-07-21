@@ -23,10 +23,12 @@ describe('Component: OffersList', () => {
   });
 
   it('should render OffersList', () => {
+    const fakeOffers = createFakeOffersArray(5);
+
     render(
       <Provider store={store}>
         <Router history={history}>
-          <OfferList cityOffers={createFakeOffersArray(5)} handleActiveCard={() => {
+          <OfferList cityOffers={fakeOffers} handleActiveCard={() => {
           }}
           />
         </Router>

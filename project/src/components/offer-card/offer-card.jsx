@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Link, useRouteMatch, generatePath} from 'react-router-dom';
 import offerCardProp from './offer-card-prop.js';
 import cn from 'classnames';
@@ -72,4 +72,4 @@ OfferCard.propTypes = {
   handleActiveCard: PropTypes.func,
 };
 
-export default OfferCard;
+export default memo(OfferCard);

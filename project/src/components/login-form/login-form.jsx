@@ -86,7 +86,6 @@ function LoginForm() {
           </div>
         ))}
         <button
-          data-testid="button"
           className="login__submit form__submit button"
           type="submit"
           disabled={!(inputsState.email.isValid && inputsState.password.isValid)}

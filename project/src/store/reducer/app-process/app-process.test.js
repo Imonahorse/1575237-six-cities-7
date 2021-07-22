@@ -8,6 +8,7 @@ describe('Reducer: app-process', () => {
 
     expect(appProcess(undefined, {})).toEqual(state);
   });
+
   it('should return state with update city', () => {
     const changeCityAction = {
       type: ActionsType.CHANGE_CITY,
@@ -16,6 +17,7 @@ describe('Reducer: app-process', () => {
 
     expect(appProcess(state, changeCityAction)).toEqual({...state, city: 'Moscow'});
   });
+
   it('should return state with update sort', () => {
     const changeCityAction = {
       type: ActionsType.CHANGE_SORT,

@@ -6,16 +6,14 @@ import {useSelector, useDispatch} from 'react-redux';
 import {selectFavoriteStatus} from '../../store/reducer/user-data/selectors.js';
 import Loading from '../../components/loading/loading.jsx';
 import {fetchFavorite} from '../../store/actions/api-actions.js';
-import {setFavoriteStatus} from '../../store/reducer/app-data/selectors.js';
 
 function Favorites() {
   const favoriteStatus = useSelector(selectFavoriteStatus);
-  const sendFavoriteStatus = useSelector(setFavoriteStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchFavorite());
-  }, [sendFavoriteStatus]);
+  }, []);
 
   if (favoriteStatus.isLoading) {
     return (

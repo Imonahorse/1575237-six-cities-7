@@ -14,7 +14,9 @@ let fakeComponent = null;
 describe('Component: LoginForm', () => {
   beforeAll(() => {
     history = createMemoryHistory();
+
     const fakeState = configureStore({});
+
     store = fakeState({
       USER: {
         loginStatus: {
@@ -24,6 +26,7 @@ describe('Component: LoginForm', () => {
         },
       },
     });
+
     fakeComponent = (
       <Provider store={store}>
         <Router history={history}>

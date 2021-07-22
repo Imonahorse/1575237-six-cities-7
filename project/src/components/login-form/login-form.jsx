@@ -68,7 +68,7 @@ function LoginForm() {
     <section className="login">
       {errorMessage}
       <h1 className="login__title">Sign in</h1>
-      <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
+      <form className="login__form form" name="form" action="#" method="post" onSubmit={handleSubmit}>
         {Object.keys(inputs).map((item) => (
           <div className={cn('login__input-wrapper form__input-wrapper', {[styles.loginInput]: true})} key={item}>
             <label className="visually-hidden" htmlFor={item}>{inputs[item]}</label>

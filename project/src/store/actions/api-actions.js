@@ -50,7 +50,8 @@ const checkAuth = () => async (dispatch, _, api) => {
   try {
     const {data} = await api.get(APIRoutes.LOGIN);
     dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
-    dispatch(getLoginSuccess(data));
+    const adaptedData = adaptToClient(data);
+    dispatch(getLoginSuccess(adaptedData));
   } catch {
     dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH));
   }
@@ -62,7 +63,8 @@ const login = ({login: email, password}) => async (dispatch, _, api) => {
     const {data} = await api.post(APIRoutes.LOGIN, {email, password});
     localStorage.setItem('token', data.token);
     dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
-    dispatch(getLoginSuccess(data));
+    const adaptedData = adaptToClient(data);
+    dispatch(getLoginSuccess(adaptedData));
     dispatch(redirectToRoute(AppRoutes.MAIN));
   } catch {
     dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH));

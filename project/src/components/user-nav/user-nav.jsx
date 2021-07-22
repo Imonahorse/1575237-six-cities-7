@@ -27,12 +27,10 @@ function UserNav() {
             className="header__nav-link header__nav-link--profile"
             to={isAuth ? AppRoutes.FAVORITES : AppRoutes.SIGN_IN}
           >
-            <div className="header__avatar-wrapper user__avatar-wrapper">
-              {
-                isAuth &&
-                <img src={user.avatarUrl} alt="avatar">
-                </img>
-              }
+            <div
+              className="header__avatar-wrapper user__avatar-wrapper"
+              style={{backgroundImage: isAuth && `url(${user.avatarUrl})`}}
+            >
             </div>
             {
               isAuth

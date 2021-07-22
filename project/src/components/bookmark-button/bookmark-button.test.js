@@ -9,31 +9,47 @@ import {AuthorizationStatus} from '../../const.js';
 
 let history = null;
 let store = null;
+let fakeComponent = null;
 
 describe('Component: BookmarkButton', () => {
   beforeAll(() => {
     history = createMemoryHistory();
+
     const fakeStore = configureStore({});
+
     store = fakeStore({
       USER: {
         authorizationStatus: AuthorizationStatus.UNKNOWN,
       },
     });
+
+    fakeComponent = (id, favorite) => (
+      render(
+        <Provider store={store}>
+          <Router history={history}>
+            <BookmarkButton id={id} isFavorite={favorite}/>
+          </Router>
+        </Provider>,
+      )
+    );
   });
 
-  it('should render BookmarkButton', () => {
+  it('should render active BookmarkButton', () => {
     const fakeId = '1';
     const fakeFavorite = true;
 
-    render(
-      <Provider store={store}>
-        <Router history={history}>
-          <BookmarkButton id={fakeId} isFavorite={fakeFavorite}/>
-        </Router>
-      </Provider>,
-    );
+    fakeComponent(fakeId, fakeFavorite);
 
     expect(screen.getByText(/To bookmarks/i)).toBeInTheDocument();
-    expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(screen.getByRole('button')).toHaveClass('property__bookmark-button--active');
+  });
+
+  it('should render inactive BookmarkButton', () => {
+    const fakeId = '1';
+    const fakeFavorite = false;
+
+    fakeComponent(fakeId, fakeFavorite);
+
+    expect(screen.queryByRole('button')).not.toHaveClass('property__bookmark-button--active');
   });
 });

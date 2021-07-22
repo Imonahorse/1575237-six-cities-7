@@ -12,5 +12,5 @@ describe('Component: ErrorMessage', () => {
     );
 
     expect(getByText('Сервер не отвечает, попробуйте позже')).toBeInTheDocument();
-  })
+  });
 });

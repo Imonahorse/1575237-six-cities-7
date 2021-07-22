@@ -15,8 +15,7 @@ function CommentRatingList({onInputChange, isActive}) {
     <div className="reviews__rating-form form__rating">
       {Object.entries(RatingCount).reverse().map(([value, title]) => (
         <CommentRatingItem onInputChange={onInputChange} isActive={isActive} title={title} value={value} key={value}/>
-        )
-      )}
+      ))}
     </div>
   );
 }

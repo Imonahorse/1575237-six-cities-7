@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import CommentRatingList from '../comment-rating-list/comment-rating-list.jsx';
-import userEvent from "@testing-library/user-event";
+import userEvent from '@testing-library/user-event';
 
 describe('Component: CommentRatingList', () => {
   it('should render CommentRatingList', () => {

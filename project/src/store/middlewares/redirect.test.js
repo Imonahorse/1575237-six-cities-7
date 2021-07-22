@@ -7,7 +7,7 @@ const mockRedux = () => {
     getState: jest.fn(() => {
     }),
     dispatch: jest.fn(),
-  }
+  };
 
   const next = jest.fn();
   const invoke = (action) => redirect(store)(next)(action);
@@ -47,4 +47,4 @@ describe(('middleware: redirect'), () => {
     invoke({type: 'TEST_ACTION', payload: url});
     expect(fakeHistory.location.pathname).not.toBe(url);
   });
-})
+});

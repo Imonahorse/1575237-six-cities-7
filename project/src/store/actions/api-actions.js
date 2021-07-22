@@ -121,7 +121,8 @@ const setComment = (id, body) => async (dispatch, _, api) => {
   dispatch(setCommentRequest());
   try {
     const {data} = await api.post(generatePath(APIRoutes.COMMENTS, {id: id}), body);
-    dispatch(setCommentSuccess(data));
+    const adaptedData = data.map((comment) => adaptToClient(comment));
+    dispatch(setCommentSuccess(adaptedData));
   } catch {
     dispatch(setCommentError());
   }

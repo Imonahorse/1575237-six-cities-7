@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
 function CommentRatingItem({onInputChange, isActive, title, value}) {
@@ -25,7 +25,7 @@ function CommentRatingItem({onInputChange, isActive, title, value}) {
         </svg>
       </label>
     </>
-  )
+  );
 }
 
 CommentRatingItem.propTypes = {

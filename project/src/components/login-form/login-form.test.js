@@ -69,7 +69,7 @@ describe('Component: LoginForm', () => {
 
     expect(screen.getByRole('form')).toHaveFormValues({
       email: 'keks@mail.ru',
-      password: '123456aaa'
-    })
+      password: '123456aaa',
+    });
   });
 });

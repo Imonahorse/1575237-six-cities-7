@@ -1,6 +1,5 @@
-import React from 'react';
-import useError from "./useError";
-import {renderHook} from "@testing-library/react-hooks";
+import useError from './useError.js';
+import {renderHook} from '@testing-library/react-hooks';
 
 describe('Hook: useError', () => {
   it('should return Error component', () => {
@@ -17,5 +16,5 @@ describe('Hook: useError', () => {
     const error = result.current;
 
     expect(error).toBe(null);
-  })
+  });
 });

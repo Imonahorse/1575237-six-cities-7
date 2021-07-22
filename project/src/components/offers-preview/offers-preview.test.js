@@ -1,11 +1,12 @@
-import {Provider} from "react-redux";
-import {Router} from "react-router-dom";
-import {createMemoryHistory} from "history";
-import configureStore from "redux-mock-store";
-import OffersPreview from "./offers-preview";
-import {render, screen} from "@testing-library/react";
-import {createFakeOffersArray} from "../favorites-city/favorites-city-mock";
-import {AuthorizationStatus} from "../../const";
+import React from 'react';
+import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
+import {createMemoryHistory} from 'history';
+import configureStore from 'redux-mock-store';
+import OffersPreview from './offers-preview.jsx';
+import {render, screen} from '@testing-library/react';
+import {createFakeOffersArray} from '../favorites-city/favorites-city-mock.js';
+import {AuthorizationStatus} from '../../const.js';
 
 let history = null;
 let store = null;
@@ -21,12 +22,12 @@ describe('Component: offers-preview', () => {
       },
       USER: {
         authorizationStatus: AuthorizationStatus.NO_AUTH,
-      }
+      },
     });
-  })
+  });
 
   it('should render offers-preview component', () => {
-    const fakeOffersLength = 5
+    const fakeOffersLength = 5;
     const fakeOffers = createFakeOffersArray(fakeOffersLength);
     const fakeCity = 'Paris';
 
@@ -36,9 +37,9 @@ describe('Component: offers-preview', () => {
           <OffersPreview cityState={fakeCity} cityOffers={fakeOffers}/>
         </Router>
       </Provider>,
-    )
+    );
 
     expect(screen.getAllByText(/Places/i)).toBeTruthy();
     expect(screen.getByText(/5 places to stay in Paris/i)).toBeInTheDocument();
-  })
-})
+  });
+});

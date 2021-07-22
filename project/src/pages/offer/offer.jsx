@@ -9,7 +9,6 @@ import Loading from '../../components/loading/loading.jsx';
 import {selectOfferStatus, selectOffer, selectNearPlacesOffers, selectComments} from '../../store/reducer/app-data/selectors.js';
 import {fetchComments, fetchOffer, fetchNearPlacesOffers} from '../../store/actions/api-actions.js';
 import {useSelector, useDispatch} from 'react-redux';
-import Mark from './../../components/mark/mark.jsx';
 
 function Offer() {
   const {id} = useParams();
@@ -18,7 +17,6 @@ function Offer() {
   const nearPlacesOffers = useSelector(selectNearPlacesOffers);
   const comments = useSelector(selectComments);
   const dispatch = useDispatch();
-  console.log(typeof(Mark))
 
   useEffect(() => {
     dispatch(fetchOffer(id));

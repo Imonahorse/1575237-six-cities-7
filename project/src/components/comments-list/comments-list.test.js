@@ -5,10 +5,9 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import CommentsList from './comments-list.jsx';
-import {createFakeCommentArray} from '../../mocks/comment-mock.js';
+import {fakeComments} from '../../mocks/mocks.js';
 
-const number = 5;
-const comments = createFakeCommentArray(5);
+const comments = fakeComments;
 
 let store = null;
 let history = null;
@@ -41,6 +40,6 @@ describe('Component: "CommentsList"', () => {
       </Provider>,
     );
 
-    expect(screen.getAllByTestId('test')).toHaveLength(number);
+    expect(screen.getAllByTestId('test')).toHaveLength(fakeComments.length);
   });
 });

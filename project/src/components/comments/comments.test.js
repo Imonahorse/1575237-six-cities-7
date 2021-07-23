@@ -6,10 +6,10 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import Comments from './comments.jsx';
 import {AuthorizationStatus} from '../../const.js';
-import {createFakeCommentArray} from '../../mocks/comment-mock.js';
+import {fakeComments} from '../../mocks/mocks.js';
 
 const number = 2;
-const comments = createFakeCommentArray(number);
+const comments = fakeComments;
 
 const fakeComponent = (fakeStore, fakeHistory) => (
   <Provider store={fakeStore}>

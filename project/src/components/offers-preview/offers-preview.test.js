@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import OffersPreview from './offers-preview.jsx';
 import {render, screen} from '@testing-library/react';
-import {createFakeOffersArray} from '../../mocks/favorites-city-mock.js';
+import {fakeOffers} from '../../mocks/mocks.js';
 import {AuthorizationStatus} from '../../const.js';
 
 let history = null;
@@ -28,8 +28,6 @@ describe('Component: offers-preview', () => {
   });
 
   it('should render offers-preview component', () => {
-    const fakeOffersLength = 5;
-    const fakeOffers = createFakeOffersArray(fakeOffersLength);
     const fakeCity = 'Paris';
 
     render(
@@ -41,6 +39,6 @@ describe('Component: offers-preview', () => {
     );
 
     expect(screen.getAllByText(/Places/i)).toBeTruthy();
-    expect(screen.getByText(/5 places to stay in Paris/i)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${fakeOffers.length} places to stay in Paris`, 'i'))).toBeInTheDocument();
   });
 });

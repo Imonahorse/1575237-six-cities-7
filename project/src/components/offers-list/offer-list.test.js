@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import OfferList from './offers-list.jsx';
-import {createFakeOffersArray} from '../../mocks/favorites-city-mock.js';
+import {fakeOffers} from '../../mocks/mocks.js';
 import {AuthorizationStatus} from '../../const.js';
 
 let history = null;
@@ -23,7 +23,6 @@ describe('Component: OffersList', () => {
   });
 
   it('should render OffersList', () => {
-    const fakeOffers = createFakeOffersArray(5);
 
     render(
       <Provider store={store}>

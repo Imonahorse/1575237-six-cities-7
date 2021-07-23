@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import NearPlacesOffers from './near-places-offers.jsx';
 import {AuthorizationStatus} from '../../const.js';
-import {fakeOffersArray} from '../../mocks/favorite-list-mock.js';
+import {fakeOffers} from '../../mocks/mocks.js';
 
 let history = null;
 let store = null;
@@ -25,12 +25,10 @@ describe('Component: NearPlacesOffers', () => {
   });
 
   it('should render "NearPlacesOffers"', () => {
-    const fakeNearOffers = fakeOffersArray(5);
-
     render(
       <Provider store={store}>
         <Router history={history}>
-          <NearPlacesOffers neighboringOffers={fakeNearOffers}/>
+          <NearPlacesOffers neighboringOffers={fakeOffers}/>
         </Router>
       </Provider>,
     );

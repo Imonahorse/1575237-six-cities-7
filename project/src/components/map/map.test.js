@@ -2,9 +2,9 @@ import React from 'react';
 import {MemoryRouter} from 'react-router-dom';
 import Map from './map.jsx';
 import {render} from '@testing-library/react';
-import {createFakeOffersArray} from '../../mocks/favorites-city-mock.js';
+import {fakeOffers} from '../../mocks/mocks.js';
 
-const offers = createFakeOffersArray(5);
+const offers = fakeOffers;
 const {id} = offers[0];
 
 describe('Component: Map', () => {

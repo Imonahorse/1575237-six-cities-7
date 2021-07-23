@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {generatePath, Router} from 'react-router-dom';
 import {AppRoutes} from '../../const.js';
-import {fakeStore as mockStore} from './app-mock.js';
+import {fakeStore as mockStore} from '../../mocks/mocks.js';
 
 let fakeApp = null;
 let history = null;

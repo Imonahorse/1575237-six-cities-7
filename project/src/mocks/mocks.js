@@ -1,3 +1,5 @@
+import {AuthorizationStatus} from "../const";
+
 const fakeOffers = [
   {
     city: {
@@ -577,5 +579,27 @@ const fakeComments = [
     date: '2021-07-23T18:45:59.095Z'
   }
 ];
+const fakeStore = {
+  USER: {
+    authorizationStatus: AuthorizationStatus.NO_AUTH,
+    logoutStatus: { isSuccess: false, isLoading: false, isError: false},
+    loginStatus: { isSuccess: false, isLoading: false, isError: false},
+    favoriteStatus: { isSuccess: false, isLoading: false, isError: false},
+    setFavoriteStatus: { isSuccess: false, isLoading: false, isError: false},
+  },
+  APP: {
+    city: 'Paris',
+  },
+  DATA: {
+    offers: fakeOffers,
+    offer: fakeOffers[0],
+    offerStatus: { isSuccess: false, isLoading: false, isError: false},
+    comments: fakeComments,
+    nearPlacesOffersStatus: { isSuccess: false, isLoading: false, isError: false},
+    nearPlacesOffers: fakeOffers,
+    commentsStatus: { isSuccess: false, isLoading: false, isError: false},
+    offersStatus: { isSuccess: false, isLoading: false, isError: false},
+  },
+};
 
-export {fakeOffers, fakeComments};
+export {fakeOffers, fakeComments, fakeStore};

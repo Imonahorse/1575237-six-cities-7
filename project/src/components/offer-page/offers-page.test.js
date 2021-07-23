@@ -6,8 +6,7 @@ import configureStore from 'redux-mock-store';
 import OfferPage from './offer-page.jsx';
 import {render, screen} from '@testing-library/react';
 import {AuthorizationStatus} from '../../const.js';
-import {createFakeCommentArray} from '../../mocks/comment-mock.js';
-import {createFakeOffer} from '../../mocks/favorites-city-mock.js';
+import {fakeOffers, fakeComments} from '../../mocks/mocks.js';
 
 let history = null;
 let store = null;
@@ -25,14 +24,12 @@ describe('Component: offer-page', () => {
 
   it('should render offer-page component', () => {
     const fakeCommentsLength = 5;
-    const fakeComments = createFakeCommentArray(fakeCommentsLength);
     const fakeId = '1';
-    const fakeOffer = createFakeOffer(fakeCommentsLength);
 
     render(
       <Provider store={store}>
         <Router history={history}>
-          <OfferPage offer={fakeOffer} comments={fakeComments} id={fakeId}/>
+          <OfferPage offer={fakeOffers[0]} comments={fakeComments} id={fakeId}/>
         </Router>
       </Provider>,
     );

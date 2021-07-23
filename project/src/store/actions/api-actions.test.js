@@ -485,6 +485,7 @@ describe('Async operation', () => {
         });
       });
   });
+
   it('should make a failed API call to GET /offer', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -504,7 +505,7 @@ describe('Async operation', () => {
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionsType.REDIRECT_TO_ROUTE,
-          payload: [{fake: true}],
+          payload: AppRoutes.NOT_FOUND,
         });
         expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: ActionsType.LOAD_OFFER_ERROR,

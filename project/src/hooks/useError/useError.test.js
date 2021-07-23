@@ -7,7 +7,7 @@ describe('Hook: useError', () => {
     const {result} = renderHook(() => useError(fakeState));
     const fakeErrorComponent = result.current;
 
-    expect(fakeErrorComponent).toBeInstanceOf(Function);
+    expect(fakeErrorComponent).toBeInstanceOf(Object);
   });
 
   it('should return null', () => {
@@ -15,6 +15,6 @@ describe('Hook: useError', () => {
     const {result} = renderHook(() => useError(fakeState));
     const error = result.current;
 
-    expect(error).toBe(null);
+    expect(error).toBeNull();
   });
 });

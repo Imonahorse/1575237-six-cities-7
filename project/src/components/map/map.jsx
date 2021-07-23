@@ -4,7 +4,7 @@ import cn from 'classnames';
 import {AppRoutes} from '../../const.js';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import useMap from '../../hooks/useMap.js';
+import useMap from '../../hooks/useMap/useMap.js';
 import PropTypes from 'prop-types';
 import offerCardProp from '../offer-card/offer-card-prop.js';
 

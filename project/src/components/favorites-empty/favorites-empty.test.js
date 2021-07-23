@@ -12,7 +12,9 @@ let store = null;
 describe('Component: FavoritesEmpty', () => {
   beforeAll(() => {
     history = createMemoryHistory();
+
     const fakeStore = configureStore({});
+
     store = fakeStore({});
   });
 

@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import CommentsList from './comments-list.jsx';
-import {createFakeCommentArray} from '../comment/comment-mock.js';
+import {createFakeCommentArray} from '../../mocks/comment-mock.js';
 
 const number = 5;
 const comments = createFakeCommentArray(5);
@@ -13,19 +13,22 @@ const comments = createFakeCommentArray(5);
 let store = null;
 let history = null;
 
+jest.mock('../comment/comment.jsx', () => (
+  function fakeComponent() {
+    return (
+      <div data-testid="test">
+      </div>
+    );
+  }
+));
+
+
 describe('Component: "CommentsList"', () => {
   beforeAll(() => {
-    jest.mock('../comment/comment.jsx', () => (
-      function fakeComponent() {
-        return (
-          <div data-testid="test">
-          </div>
-        );
-      }
-    ));
-
     history = createMemoryHistory();
+
     const fakeStore = configureStore({});
+
     store = fakeStore({});
   });
 

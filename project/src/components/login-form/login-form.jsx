@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {login} from '../../store/actions/api-actions.js';
 import styles from './login.module.css';
 import Loading from '../loading/loading.jsx';
-import useError from '../../hooks/useError.js';
+import useError from '../../hooks/useError/useError.js';
 import cn from 'classnames';
 import {LoadingSize} from '../../const.js';
 import {selectLoginStatus} from '../../store/reducer/user-data/selectors.js';

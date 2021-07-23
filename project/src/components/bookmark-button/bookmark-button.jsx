@@ -22,20 +22,27 @@ function BookmarkButton({id, isFavorite}) {
   const dispatch = useDispatch();
   const {path} = useRouteMatch();
   const bookmarkButtonClass = cn(
-    {'property__bookmark-button button': path === AppRoutes.OFFER, 'property__bookmark-button--active': isFavorite},
+    {
+      'property__bookmark-button button': path === AppRoutes.OFFER,
+      'property__bookmark-button--active': path === AppRoutes.OFFER && isFavorite
+    },
     {
       'place-card__bookmark-button button': path === AppRoutes.MAIN || path === AppRoutes.FAVORITES,
-      'place-card__bookmark-button--active': isFavorite,
+      'place-card__bookmark-button--active': isFavorite && (path === AppRoutes.MAIN || path === AppRoutes.FAVORITES),
     },
   );
+
   const bookmarkSvgClass = cn(
     {'property__bookmark-icon': path === AppRoutes.OFFER},
     {'place-card__bookmark-icon': path === AppRoutes.MAIN || path === AppRoutes.FAVORITES},
   );
+
   const svgStyle = {
     width: path === AppRoutes.OFFER ? SvgOfferSize.WIDTH : SvgMainSize.WIDTH,
-    height: path === AppRoutes.OFFER ? SvgOfferSize.HEIGHT : SvgOfferSize.HEIGHT,
+    height: path === AppRoutes.OFFER ? SvgOfferSize.HEIGHT : SvgMainSize.HEIGHT,
   };
+
+  const spanStyle = path === AppRoutes.OFFER ? 'To bookmarks' : 'In Bookmarks';
 
   const onFavoriteClick = () => {
     if (isAuth !== AuthorizationStatus.AUTH) {
@@ -51,7 +58,7 @@ function BookmarkButton({id, isFavorite}) {
         <use xlinkHref="#icon-bookmark">
         </use>
       </svg>
-      <span className="visually-hidden">To bookmarks</span>
+      <span className="visually-hidden">{spanStyle}</span>
     </button>
   );
 }

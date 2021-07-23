@@ -1,7 +1,7 @@
 import React from 'react';
 import FavoritesCity from '../favorites-city/favorites-city.jsx';
 import {useSelector} from 'react-redux';
-import {selectFilteredFavorite} from '../../store/reducer/user-data/selectors.js';
+import {selectFilteredFavorite} from '../../store/reducer/app-data/selectors.js';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.jsx';
 
 function FavoritesList() {

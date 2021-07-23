@@ -1,6 +1,6 @@
 import {AuthorizationStatus} from '../../const.js';
-import {createFakeOffer, createFakeOffersArray} from '../favorites-city/favorites-city-mock.js';
-import {createFakeCommentArray} from '../comment/comment-mock.js';
+import {createFakeOffer, createFakeOffersArray} from '../../mocks/favorites-city-mock.js';
+import {createFakeCommentArray} from '../../mocks/comment-mock.js';
 
 const fakeStore = {
   USER: {

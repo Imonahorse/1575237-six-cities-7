@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import FavoritesCity from './favorites-city.jsx';
-import {createFakeOffersArray} from './favorites-city-mock.js';
+import {fakeOffers} from '../../mocks/mocks.js';
 import {AuthorizationStatus} from '../../const.js';
 
 let store = null;
@@ -16,8 +16,7 @@ let number = null;
 describe('Component: "CommentsList"', () => {
   beforeAll(() => {
     number = 3;
-    const fakeOffersArray = createFakeOffersArray(number);
-
+    const fakeOffersArray = fakeOffers;
     const fakeCity = 'Moscow';
     history = createMemoryHistory();
 
@@ -46,6 +45,6 @@ describe('Component: "CommentsList"', () => {
   it('should check the number of rendered comments', () => {
     render(fakeComponent);
 
-    expect(screen.getAllByText(/title/i)).toHaveLength(number);
+    expect(screen.getAllByTestId(/offer card/i)).toHaveLength(fakeOffers.length);
   });
 });

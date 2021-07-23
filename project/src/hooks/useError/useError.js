@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import ErrorMessage from '../components/error-message/error-message.jsx';
+import ErrorMessage from '../../components/error-message/error-message.jsx';
 
 function useError(errorStatus) {
   const [isVisibleState, setIsVisibleState] = useState(false);

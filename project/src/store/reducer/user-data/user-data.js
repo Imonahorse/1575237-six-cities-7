@@ -8,7 +8,6 @@ import {
   logoutRequest,
   logoutSuccess,
   logoutError,
-  fetchFavoriteRequest, fetchFavoriteSuccess, fetchFavoriteError
 } from '../../actions/actions.js';
 
 const initialState = {
@@ -24,33 +23,10 @@ const initialState = {
     isError: false,
     isLoading: false,
   },
-  favorite: [],
-  favoriteStatus: {
-    isSuccess: false,
-    isError: false,
-    isLoading: true,
-  },
 };
 
 const userData = createReducer(initialState, (builder) => {
   builder
-    .addCase(fetchFavoriteRequest, (state) => {
-      state.favoriteStatus.isLoading = true;
-      state.favoriteStatus.isError = false;
-      state.favoriteStatus.isSuccess = false;
-    })
-
-    .addCase(fetchFavoriteSuccess, (state, action) => {
-      state.favorite = action.payload;
-      state.favoriteStatus.isSuccess = true;
-      state.favoriteStatus.isLoading = false;
-      state.favoriteStatus.isError = false;
-    })
-
-    .addCase(fetchFavoriteError, (state) => {
-      state.favoriteStatus.isError = true;
-    })
-
     .addCase(requiredAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })

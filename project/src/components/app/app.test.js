@@ -4,7 +4,7 @@ import {createMemoryHistory} from 'history';
 import App from './app.jsx';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
-import {Router} from 'react-router-dom';
+import {generatePath, Router} from 'react-router-dom';
 import {AppRoutes} from '../../const.js';
 import {fakeStore as mockStore} from './app-mock.js';
 
@@ -15,8 +15,11 @@ let store = null;
 describe('Component: App', () => {
   beforeAll(() => {
     history = createMemoryHistory();
+
     const fakeStore = configureStore({});
+
     store = fakeStore(mockStore);
+
     fakeApp = (
       <Provider store={store}>
         <Router history={history}>
@@ -32,7 +35,7 @@ describe('Component: App', () => {
 
     expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByText(/Cities/i)).toBeInTheDocument();
-    expect(screen.getByText(/Places/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Places/i)).toBeTruthy();
   });
 
   it('should render Login screen when user navigate to "/login"', () => {
@@ -61,7 +64,7 @@ describe('Component: App', () => {
   });
 
   it('should render favorite screen when user navigate to "/offer"', () => {
-    history.push(AppRoutes.OFFER);
+    history.push(generatePath(AppRoutes.OFFER, {id: 1}));
     render(fakeApp);
 
     expect(screen.getByTestId('header')).toBeInTheDocument();

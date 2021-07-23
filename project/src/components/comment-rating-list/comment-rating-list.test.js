@@ -12,7 +12,9 @@ let store = null;
 describe('Component: CommentRatingList', () => {
   beforeAll(() => {
     history = createMemoryHistory();
+
     const fakeStore = configureStore({});
+
     store = fakeStore({});
   });
 

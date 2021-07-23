@@ -16,7 +16,7 @@ import {
   loadOffersError,
   setFavoriteSuccess,
   setFavoriteRequest,
-  setFavoriteError
+  setFavoriteError, fetchFavoriteRequest, fetchFavoriteSuccess, fetchFavoriteError
 } from '../../actions/actions.js';
 import {createReducer} from '@reduxjs/toolkit';
 
@@ -28,6 +28,16 @@ const addNewId = (offer, offers) => {
 
   offers.splice(index, 1, offer);
   return offers;
+};
+
+const removeId = (offer, favorite) => {
+  const index = favorite.findIndex((item) => item.id === offer.id);
+  if(index === -1) {
+    return favorite;
+  }
+
+  favorite.splice(index, 1);
+  return favorite;
 };
 
 const initialState = {
@@ -65,13 +75,37 @@ const initialState = {
     isError: false,
     isLoading: true,
   },
+  favorite: [],
+  favoriteStatus: {
+    isSuccess: false,
+    isError: false,
+    isLoading: true,
+  },
 };
 
 const appData = createReducer(initialState, (builder) => {
   builder
+    .addCase(fetchFavoriteRequest, (state) => {
+      state.favoriteStatus.isLoading = true;
+      state.favoriteStatus.isError = false;
+      state.favoriteStatus.isSuccess = false;
+    })
+
+    .addCase(fetchFavoriteSuccess, (state, action) => {
+      state.favorite = action.payload;
+      state.favoriteStatus.isSuccess = true;
+      state.favoriteStatus.isLoading = false;
+      state.favoriteStatus.isError = false;
+    })
+
+    .addCase(fetchFavoriteError, (state) => {
+      state.favoriteStatus.isError = true;
+    })
+
     .addCase(setFavoriteSuccess, (state, action) => {
       state.offer = action.payload;
       state.offers = addNewId(state.offer, state.offers);
+      state.favorite = removeId(state.offer, state.favorite);
       state.setFavoriteStatus.isSuccess = true;
       state.setFavoriteStatus.isLoading = false;
       state.setFavoriteStatus.isError = false;

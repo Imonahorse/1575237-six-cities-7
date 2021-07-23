@@ -3,7 +3,7 @@ import Header from '../../components/header/header.jsx';
 import FavoritesList from '../../components/favorites-list/favorites-list.jsx';
 import Footer from '../../components/footer/footer.jsx';
 import {useSelector, useDispatch} from 'react-redux';
-import {selectFavoriteStatus} from '../../store/reducer/user-data/selectors.js';
+import {selectFavoriteStatus} from '../../store/reducer/app-data/selectors.js';
 import Loading from '../../components/loading/loading.jsx';
 import {fetchFavorite} from '../../store/actions/api-actions.js';
 

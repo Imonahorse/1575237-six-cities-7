@@ -9,11 +9,14 @@ import userEvent from '@testing-library/user-event';
 
 let store = null;
 let history = null;
+let component = null;
 
 describe('Component: CommentsForm', () => {
   beforeAll(() => {
     history = createMemoryHistory();
+
     const fakeStore = configureStore({});
+
     store = fakeStore({
       DATA: {
         commentStatus: {
@@ -23,17 +26,19 @@ describe('Component: CommentsForm', () => {
         },
       },
     });
-  });
 
-  it('should render "CommentsForm"', () => {
-
-    render(
+    component = (
       <Provider store={store}>
         <Router history={history}>
           <CommentsForm/>
         </Router>
-      </Provider>,
-    );
+      </Provider>
+    )
+  });
+
+  it('should render "CommentsForm"', () => {
+
+    render(component);
 
     expect(screen.getByText(/To submit review please make sure to set/i)).toBeInTheDocument();
     userEvent.type(screen.getByLabelText('Your review'), 'test');
@@ -44,15 +49,14 @@ describe('Component: CommentsForm', () => {
   it('should test form with right comment length', () => {
     const fakeComment = 'hateTestshateTestshateTestshateTestshateTestshateTestshateTestshateTestshateTestshateTests';
 
-    render(
-      <Provider store={store}>
-        <Router history={history}>
-          <CommentsForm/>
-        </Router>
-      </Provider>,
-    );
+    const {rerender} = render(component);
 
+    const ratingButtons = screen.getAllByRole('radio');
+    userEvent.click(ratingButtons[2]);
     userEvent.type(screen.getByLabelText('Your review'), fakeComment);
+
+    rerender(component)
+
     expect(screen.getByRole('button')).toBeEnabled();
   });
 });

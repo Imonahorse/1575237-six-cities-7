@@ -31,65 +31,6 @@ describe('Reducer: user-data', () => {
       .toEqual({authorizationStatus: AuthorizationStatus.NO_AUTH});
   });
 
-  it('should change download status favorite to "isLoading"', () => {
-    const state = {
-      favoriteStatus: {
-        isLoading: false,
-        isError: false,
-        isSuccess: false,
-      },
-    };
-
-    const fetchFavoriteAction = {
-      type: ActionType.FETCH_FAVORITE_REQUEST,
-    };
-
-    expect(userData(state, fetchFavoriteAction))
-      .toEqual({
-        favoriteStatus: {isLoading: true, isError: false, isSuccess: false},
-      });
-  });
-
-  it('should change download status favorite to "isSuccess" and change favorite', () => {
-    const state = {
-      favorite: [],
-      favoriteStatus: {
-        isLoading: false,
-        isError: false,
-        isSuccess: false,
-      },
-    };
-
-    const fetchFavoriteAction = {
-      type: ActionType.FETCH_FAVORITE_SUCCESS,
-      payload: ['test'],
-    };
-
-    expect(userData(state, fetchFavoriteAction))
-      .toEqual({
-        favorite: ['test'], favoriteStatus: {isLoading: false, isError: false, isSuccess: true},
-      });
-  });
-
-  it('should change download status favorite to "isError"', () => {
-    const state = {
-      favoriteStatus: {
-        isLoading: false,
-        isError: false,
-        isSuccess: false,
-      },
-    };
-
-    const fetchFavoriteAction = {
-      type: ActionType.FETCH_FAVORITE_ERROR,
-    };
-
-    expect(userData(state, fetchFavoriteAction))
-      .toEqual({
-        favoriteStatus: {isLoading: false, isError: true, isSuccess: false},
-      });
-  });
-
   it('should change login status to "isLoading"', () => {
     const state = {
       loginStatus: {

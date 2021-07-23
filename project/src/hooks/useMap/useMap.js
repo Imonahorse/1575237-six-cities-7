@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {CITIES} from '../const.js';
+import {CITIES} from '../../const.js';
 
 const ZOOM = 12;
 const Layer = {

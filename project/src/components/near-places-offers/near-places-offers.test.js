@@ -6,15 +6,17 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import NearPlacesOffers from './near-places-offers.jsx';
 import {AuthorizationStatus} from '../../const.js';
-import {fakeOffersArray} from '../favorites-list/favorite-list-mock.js';
+import {fakeOffersArray} from '../../mocks/favorite-list-mock.js';
 
 let history = null;
 let store = null;
 
-describe('Component: Mark', () => {
+describe('Component: NearPlacesOffers', () => {
   beforeAll(() => {
     history = createMemoryHistory();
+
     const fakeStore = configureStore({});
+
     store = fakeStore({
       USER: {
         authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -22,7 +24,7 @@ describe('Component: Mark', () => {
     });
   });
 
-  it('should render "Mark"', () => {
+  it('should render "NearPlacesOffers"', () => {
     const fakeNearOffers = fakeOffersArray(5);
 
     render(

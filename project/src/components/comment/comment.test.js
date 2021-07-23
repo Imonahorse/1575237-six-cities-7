@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import Comment from './comment.jsx';
-import {createFakeComment} from './comment-mock.js';
+import {fakeComments} from '../../mocks/mocks.js';
 
 let store = null;
 let history = null;
@@ -18,7 +18,7 @@ describe('Component: Comment', () => {
   });
 
   it('should render Comment', () => {
-    const fakeComment = createFakeComment(1);
+    const fakeComment = fakeComments[1];
     render(
       <Provider store={store}>
         <Router history={history}>
@@ -27,7 +27,7 @@ describe('Component: Comment', () => {
       </Provider>,
     );
 
-    expect(screen.getByText(/comment text/i)).toBeInTheDocument();
+    expect(screen.getByText(/Comment text/i)).toBeInTheDocument();
     expect(screen.getByText(/Alex/i)).toBeInTheDocument();
     expect(screen.getByText(/Rating/i)).toBeInTheDocument();
   });

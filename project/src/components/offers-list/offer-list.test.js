@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import OfferList from './offers-list.jsx';
-import {createFakeOffersArray} from '../favorites-city/favorites-city-mock.js';
+import {createFakeOffersArray} from '../../mocks/favorites-city-mock.js';
 import {AuthorizationStatus} from '../../const.js';
 
 let history = null;

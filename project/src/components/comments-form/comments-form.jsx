@@ -4,7 +4,7 @@ import {setComment} from '../../store/actions/api-actions.js';
 import {useParams} from 'react-router-dom';
 import Loading from '../loading/loading.jsx';
 import styles from './comments-form.module.css';
-import useError from '../../hooks/useError.js';
+import useError from '../../hooks/useError/useError.js';
 import {selectCommentStatus} from '../../store/reducer/app-data/selectors.js';
 import {useSelector, useDispatch} from 'react-redux';
 

@@ -15,6 +15,6 @@ describe('Component: CommentRatingList', () => {
     expect(radios[2]).toBeChecked();
 
     userEvent.click(radios[0]);
-    expect(inputChangeHandle).toHaveBeenCalledWith();
+    expect(inputChangeHandle).toHaveBeenCalledWith('5');
   });
 });

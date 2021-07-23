@@ -3,7 +3,7 @@ import {logout} from '../../store/actions/api-actions.js';
 import {AppRoutes, AuthorizationStatus, LoadingSize} from '../../const.js';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import useError from '../../hooks/useError.js';
+import useError from '../../hooks/useError/useError.js';
 import Loading from '../loading/loading.jsx';
 import styles from './user-nav.module.css';
 import {selectUser, selectLogoutStatus, selectAuthorizationStatus} from '../../store/reducer/user-data/selectors.js';

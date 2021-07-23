@@ -13,6 +13,10 @@ const ImageWidth = {
   mainWidth: '260px',
   favoritesWidth: '150px',
 };
+const ImageHeight = {
+  mainHeight: '200px',
+  favoritesHeight: '110px',
+};
 
 function OfferCard({offer, handleActiveCard = template}) {
   const {price, title, type, id, isFavorite, previewImage, rating} = offer;
@@ -29,6 +33,7 @@ function OfferCard({offer, handleActiveCard = template}) {
   });
   const infoClass = cn('place-card__info', {'favorites__card-info': path === AppRoutes.FAVORITES});
   const imageWidth = path === AppRoutes.FAVORITES ? ImageWidth.favoritesWidth : ImageWidth.mainWidth;
+  const imageHeight = path === AppRoutes.FAVORITES ? ImageHeight.favoritesHeight : ImageHeight.mainHeight;
 
   return (
     <article
@@ -38,9 +43,16 @@ function OfferCard({offer, handleActiveCard = template}) {
       id={id}
       data-testid="offer card"
     >
+      {
+        isFavorite &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      }
       <div className={imageClass}>
         <Link to={generatePath(AppRoutes.OFFER, {id: id})}>
-          <img className="place-card__image" style={{width: imageWidth}} src={previewImage} width="260" height="200" alt="preview"/>
+          <img className="place-card__image" style={{width: imageWidth, height: imageHeight}} src={previewImage} width="260" height="200"
+               alt="preview"/>
         </Link>
       </div>
       <div className={infoClass}>
@@ -59,7 +71,7 @@ function OfferCard({offer, handleActiveCard = template}) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${price}`}>{title}</Link>
+          <Link to={generatePath(AppRoutes.OFFER, {id: id})}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

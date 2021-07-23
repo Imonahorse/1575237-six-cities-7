@@ -6,8 +6,8 @@ import configureStore from 'redux-mock-store';
 import OfferPage from './offer-page.jsx';
 import {render, screen} from '@testing-library/react';
 import {AuthorizationStatus} from '../../const.js';
-import {createFakeCommentArray} from '../comment/comment-mock.js';
-import {createFakeOffer} from '../favorites-city/favorites-city-mock.js';
+import {createFakeCommentArray} from '../../mocks/comment-mock.js';
+import {createFakeOffer} from '../../mocks/favorites-city-mock.js';
 
 let history = null;
 let store = null;

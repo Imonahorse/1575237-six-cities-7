@@ -6,7 +6,7 @@ import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {fakeOffers} from '../../mocks/mocks.js';
-import {AuthorizationStatus} from "../../const";
+import {AuthorizationStatus} from '../../const.js';
 
 let store = null;
 let history = null;

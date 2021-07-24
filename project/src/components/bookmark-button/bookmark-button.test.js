@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import BookmarkButton from './bookmark-button.jsx';
 import {AuthorizationStatus} from '../../const.js';
-import userEvent from "@testing-library/user-event";
+import userEvent from '@testing-library/user-event';
 
 let history = null;
 let store = null;
@@ -58,7 +58,8 @@ describe('Component: BookmarkButton', () => {
           <BookmarkButton id={fakeId} isFavorite={fakeFavorite}/>
         </Router>
       </Provider>,
-    )
+    );
+
     expect(screen.getByRole('button')).toHaveClass('place-card__bookmark-button button place-card__bookmark-button--active');
   });
 });

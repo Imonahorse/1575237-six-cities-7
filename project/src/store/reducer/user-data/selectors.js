@@ -10,5 +10,5 @@ export {
   selectAuthorizationStatus,
   selectLoginStatus,
   selectUser,
-  selectLogoutStatus,
+  selectLogoutStatus
 };

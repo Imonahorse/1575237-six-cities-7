@@ -33,7 +33,7 @@ describe('Component: CommentsForm', () => {
           <CommentsForm/>
         </Router>
       </Provider>
-    )
+    );
   });
 
   it('should render "CommentsForm"', () => {
@@ -55,7 +55,7 @@ describe('Component: CommentsForm', () => {
     userEvent.click(ratingButtons[2]);
     userEvent.type(screen.getByLabelText('Your review'), fakeComment);
 
-    rerender(component)
+    rerender(component);
 
     expect(screen.getByRole('button')).toBeEnabled();
   });

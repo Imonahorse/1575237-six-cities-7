@@ -7,7 +7,7 @@ import {
   requiredAuthorization,
   logoutRequest,
   logoutSuccess,
-  logoutError,
+  logoutError
 } from '../../actions/actions.js';
 
 const initialState = {

@@ -23,7 +23,6 @@ describe('Component: offer-page', () => {
   });
 
   it('should render offer-page component', () => {
-    const fakeCommentsLength = 5;
     const fakeId = '1';
 
     render(

@@ -92,8 +92,9 @@ const fetchOffer = (id) => async (dispatch, _, api) => {
   } catch (err) {
     if (err.message === NOT_FOUND_ERROR) {
       dispatch(redirectToRoute(AppRoutes.NOT_FOUND));
+    } else {
+      dispatch(loadOfferError());
     }
-    dispatch(loadOfferError());
   }
 };
 

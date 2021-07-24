@@ -22,7 +22,7 @@ import {createReducer} from '@reduxjs/toolkit';
 
 const addNewId = (offer, offers) => {
   const index = offers.findIndex((item) => item.id === offer.id);
-  if(index === -1) {
+  if (index === -1) {
     return offers;
   }
 
@@ -32,7 +32,7 @@ const addNewId = (offer, offers) => {
 
 const removeId = (offer, favorite) => {
   const index = favorite.findIndex((item) => item.id === offer.id);
-  if(index === -1) {
+  if (index === -1) {
     return favorite;
   }
 

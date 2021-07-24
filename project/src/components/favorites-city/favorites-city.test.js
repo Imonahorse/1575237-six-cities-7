@@ -11,11 +11,9 @@ import {AuthorizationStatus} from '../../const.js';
 let store = null;
 let history = null;
 let fakeComponent = null;
-let number = null;
 
 describe('Component: "CommentsList"', () => {
   beforeAll(() => {
-    number = 3;
     const fakeOffersArray = fakeOffers;
     const fakeCity = 'Moscow';
     history = createMemoryHistory();

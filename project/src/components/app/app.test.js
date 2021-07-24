@@ -7,6 +7,7 @@ import configureStore from 'redux-mock-store';
 import {generatePath, Router} from 'react-router-dom';
 import {AppRoutes} from '../../const.js';
 import {fakeStore as mockStore} from '../../mocks/mocks.js';
+import thunk  from 'redux-thunk';
 
 let fakeApp = null;
 let history = null;
@@ -16,7 +17,9 @@ describe('Component: App', () => {
   beforeAll(() => {
     history = createMemoryHistory();
 
-    const fakeStore = configureStore({});
+    const middleware = [thunk];
+
+    const fakeStore = configureStore(middleware);
 
     store = fakeStore(mockStore);
 

@@ -24,7 +24,7 @@ function BookmarkButton({id, isFavorite}) {
   const bookmarkButtonClass = cn(
     {
       'property__bookmark-button button': path === AppRoutes.OFFER,
-      'property__bookmark-button--active': path === AppRoutes.OFFER && isFavorite
+      'property__bookmark-button--active': path === AppRoutes.OFFER && isFavorite,
     },
     {
       'place-card__bookmark-button button': path === AppRoutes.MAIN || path === AppRoutes.FAVORITES,

@@ -16,9 +16,9 @@ describe('Component: Map', () => {
           cityOffers={offers}
           activeCardId={id}
         />
-      </MemoryRouter>
-    )
+      </MemoryRouter>,
+    );
 
     expect(asFragment()).toMatchSnapshot();
-  })
-})
+  });
+});

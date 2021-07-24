@@ -19,7 +19,7 @@ const ImageHeight = {
 };
 
 function OfferCard({offer, handleActiveCard = template}) {
-  const {price, title, type, id, isFavorite, previewImage, rating} = offer;
+  const {price, title, type, id, isFavorite, previewImage, rating, isPremium} = offer;
   const {path} = useRouteMatch();
 
   const imageClass = cn('place-card__image-wrapper', {
@@ -44,15 +44,21 @@ function OfferCard({offer, handleActiveCard = template}) {
       data-testid="offer card"
     >
       {
-        isFavorite &&
+        isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
       <div className={imageClass}>
         <Link to={generatePath(AppRoutes.OFFER, {id: id})}>
-          <img className="place-card__image" style={{width: imageWidth, height: imageHeight}} src={previewImage} width="260" height="200"
-               alt="preview"/>
+          <img
+            className="place-card__image"
+            style={{width: imageWidth, height: imageHeight}}
+            src={previewImage}
+            width="260"
+            height="200"
+            alt="preview"
+          />
         </Link>
       </div>
       <div className={infoClass}>

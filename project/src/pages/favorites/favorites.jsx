@@ -13,7 +13,7 @@ function Favorites() {
 
   useEffect(() => {
     dispatch(fetchFavorite());
-  }, []);
+  }, [dispatch]);
 
   if (favoriteStatus.isLoading) {
     return (

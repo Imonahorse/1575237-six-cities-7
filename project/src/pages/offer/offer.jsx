@@ -22,7 +22,7 @@ function Offer() {
     dispatch(fetchOffer(id));
     dispatch(fetchNearPlacesOffers(id));
     dispatch(fetchComments(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   if (offerStatus.isLoading) {
     return <Loading/>;

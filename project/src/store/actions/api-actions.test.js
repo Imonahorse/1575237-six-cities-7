@@ -499,16 +499,13 @@ describe('Async operation', () => {
     return offerLoader(dispatch, () => {
     }, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionsType.LOAD_OFFER_REQUEST,
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionsType.REDIRECT_TO_ROUTE,
           payload: AppRoutes.NOT_FOUND,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(3, {
-          type: ActionsType.LOAD_OFFER_ERROR,
         });
       });
   });

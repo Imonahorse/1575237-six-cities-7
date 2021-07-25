@@ -18,7 +18,11 @@ function CommentsForm() {
 
   const commentStatus = useSelector(selectCommentStatus);
   const dispatch = useDispatch();
-  const isValid = !(state.rating.length && state.review.length && state.review.length >= MIN_LENGTH);
+  const isValid = !(
+    state.rating.length
+    && state.review.replace(/ +/g, ' ').trim().length
+    && state.review.replace(/ +/g, ' ').trim().length >= MIN_LENGTH
+  );
 
   const sendComment = (commentId, data) => {
     dispatch(setComment(commentId, data));
@@ -62,7 +66,7 @@ function CommentsForm() {
           To submit review please make sure to set
           <span className="reviews__star">rating</span>
           and describe your stay with at least
-          <b className="reviews__text-amount">50 characters</b>.
+          <b className="reviews__text-amount"> 50 characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

@@ -19,7 +19,7 @@ function Sorting() {
       setOpenState((prevState) => (!prevState));
     }}
     >
-      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex="0">
         {activeSort}
         <svg className="places__sorting-arrow" width="7" height="4">

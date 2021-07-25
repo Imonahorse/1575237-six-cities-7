@@ -31,7 +31,7 @@ const activeCustomIcon = leaflet.icon({
   iconAnchor: [AnchorSize.X, AnchorSize.Y],
 });
 
-function Map({activeCardId, cityOffers, cityState}) {
+function Map({activeCardId, cityOffers, cityState, offerPageId}) {
   const mapRef = useRef(null);
   const {path} = useRouteMatch();
   const map = useMap(mapRef, cityState);
@@ -39,6 +39,7 @@ function Map({activeCardId, cityOffers, cityState}) {
     'cities__map': path === AppRoutes.MAIN,
     'property__map': path === AppRoutes.OFFER,
   });
+  const activeCard = path === AppRoutes.OFFER ? offerPageId : activeCardId;
 
   useEffect(() => {
     const markers = leaflet.layerGroup();
@@ -51,7 +52,7 @@ function Map({activeCardId, cityOffers, cityState}) {
             lng: offer.location.longitude,
           },
           {
-            icon: (offer.id === activeCardId) ? activeCustomIcon : defaultCustomIcon,
+            icon: (offer.id === activeCard) ? activeCustomIcon : defaultCustomIcon,
           });
         marker.addTo(markers);
       });

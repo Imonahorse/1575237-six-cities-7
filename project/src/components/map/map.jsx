@@ -63,7 +63,7 @@ function Map({activeCardId, cityOffers, cityState, offerPageId}) {
     return (() => {
       markers.clearLayers();
     });
-  }, [map, cityOffers, activeCardId]);
+  }, [map, cityOffers, activeCardId, activeCard]);
 
   return (
     <section
@@ -79,6 +79,7 @@ Map.propTypes = {
   activeCardId: PropTypes.number,
   cityOffers: PropTypes.arrayOf(offerCardProp).isRequired,
   cityState: PropTypes.string.isRequired,
+  offerPageId: PropTypes.number,
 };
 
 export default Map;

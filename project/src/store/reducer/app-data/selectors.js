@@ -26,14 +26,14 @@ const selectFilteredOffers = createSelector(selectOffers, selectCity, selectActi
     offers.filter((offer) => offer.city.name === currentCity)
       .slice()
       .sort(SortingTypes[activeSort])
-  )
+  ),
 );
 const selectNearOffersForMap = createSelector(selectNearPlacesOffers, selectOffer,
   (nearOffers, offer) => {
     const offers = nearOffers.slice();
     offers.push(offer);
     return offers;
-  }
+  },
 );
 
 export {

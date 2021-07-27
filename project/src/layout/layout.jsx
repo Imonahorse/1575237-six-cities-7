@@ -4,6 +4,7 @@ import Header from '../components/header/header.jsx';
 import cn from 'classnames';
 import {AppRoutes} from '../const';
 import Footer from '../components/footer/footer';
+import PropTypes from 'prop-types';
 
 function Layout({children}) {
   const {path, isExact} = useRouteMatch();
@@ -33,5 +34,9 @@ function Layout({children}) {
     </div>
   );
 }
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Layout;
